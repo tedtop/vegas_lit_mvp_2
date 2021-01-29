@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vegas_lit/features/sportsbook/bloc/sportsbook_bloc.dart';
+import 'package:vegas_lit/features/sportsbook/widgets/game_card.dart';
 
 class Sportsbook extends StatelessWidget {
   @override
@@ -8,8 +9,13 @@ class Sportsbook extends StatelessWidget {
     return BlocBuilder<SportsbookBloc, SportsbookState>(
       builder: (context, state) {
         if (state is SportsbookOpened) {
-          return const Center(
-            child: Text('Sportsbook'),
+          return ListView.builder(
+            itemCount: state.games.length,
+            itemBuilder: (context, index) {
+              return GameCard(
+                game: state.games[index],
+              );
+            },
           );
         } else {
           return const Center(

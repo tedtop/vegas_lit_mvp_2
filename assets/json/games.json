@@ -1,0 +1,256 @@
+{
+    "status": 200,
+    "time": "2020-11-03T08:41:40.822Z",
+    "games": 3,
+    "skip": 0,
+    "results": [
+        {
+            "schedule": {
+                "date": "2020-11-07T00:30:00.000Z",
+                "tbaTime": false
+            },
+            "summary": "Miami (FL) @ NC State",
+            "details": {
+                "league": "NCAAF",
+                "seasonType": "regular",
+                "season": 2020,
+                "conferenceGame": true,
+                "divisionGame": false
+            },
+            "status": "scheduled",
+            "teams": {
+                "away": {
+                    "team": "Miami (FL)",
+                    "location": "Miami (FL)",
+                    "mascot": "Hurricanes",
+                    "abbreviation": "MIA",
+                    "conference": "ACC",
+                    "division": "Coastal"
+                },
+                "home": {
+                    "team": "NC State",
+                    "location": "NC State",
+                    "mascot": "Wolfpack",
+                    "abbreviation": "NCST",
+                    "conference": "ACC",
+                    "division": "Atlantic"
+                }
+            },
+            "lastUpdated": "2020-11-03T07:11:10.246Z",
+            "gameId": 247083,
+            "venue": {
+                "name": "Carter-Finley Stadium",
+                "city": "Raleigh",
+                "state": "NC",
+                "neutralSite": false
+            },
+            "odds": [
+                {
+                    "spread": {
+                        "open": {
+                            "away": -8.5,
+                            "home": 8.5,
+                            "awayOdds": -110,
+                            "homeOdds": -110
+                        },
+                        "current": {
+                            "away": -10,
+                            "home": 10,
+                            "awayOdds": -110,
+                            "homeOdds": -110
+                        }
+                    },
+                    "moneyline": {
+                        "open": {
+                            "awayOdds": -335,
+                            "homeOdds": 275
+                        },
+                        "current": {
+                            "awayOdds": -364,
+                            "homeOdds": 296
+                        }
+                    },
+                    "total": {
+                        "open": {
+                            "total": 58.5,
+                            "overOdds": -110,
+                            "underOdds": -110
+                        },
+                        "current": {
+                            "total": 58.5,
+                            "overOdds": -110,
+                            "underOdds": -110
+                        }
+                    },
+                    "openDate": "2020-11-01T19:32:43.173Z",
+                    "lastUpdated": "2020-11-03T08:35:43.894Z"
+                }
+            ]
+        },
+        {
+            "schedule": {
+                "date": "2020-11-07T02:00:00.000Z",
+                "tbaTime": false
+            },
+            "summary": "San Jose State @ San Diego State",
+            "details": {
+                "league": "NCAAF",
+                "seasonType": "regular",
+                "season": 2020,
+                "conferenceGame": true,
+                "divisionGame": true
+            },
+            "status": "scheduled",
+            "teams": {
+                "away": {
+                    "team": "San Jose State",
+                    "location": "San Jose State",
+                    "mascot": "Spartans",
+                    "abbreviation": "SJSU",
+                    "conference": "Mountain West",
+                    "division": "West"
+                },
+                "home": {
+                    "team": "San Diego State",
+                    "location": "San Diego State",
+                    "mascot": "Aztecs",
+                    "abbreviation": "SDSU",
+                    "conference": "Mountain West",
+                    "division": "West"
+                }
+            },
+            "lastUpdated": "2020-11-03T07:11:10.429Z",
+            "gameId": 249610,
+            "venue": {
+                "name": "SDCCU Stadium",
+                "city": "San Diego",
+                "state": "CA",
+                "neutralSite": false
+            },
+            "odds": [
+                {
+                    "spread": {
+                        "open": {
+                            "away": 9.5,
+                            "home": -9.5,
+                            "awayOdds": -110,
+                            "homeOdds": -110
+                        },
+                        "current": {
+                            "away": 9,
+                            "home": -9,
+                            "awayOdds": -110,
+                            "homeOdds": -110
+                        }
+                    },
+                    "moneyline": {
+                        "open": {
+                            "awayOdds": 288,
+                            "homeOdds": -352
+                        },
+                        "current": {
+                            "awayOdds": 275,
+                            "homeOdds": -335
+                        }
+                    },
+                    "total": {
+                        "open": {
+                            "total": 50,
+                            "overOdds": -110,
+                            "underOdds": -110
+                        },
+                        "current": {
+                            "total": 48,
+                            "overOdds": -110,
+                            "underOdds": -110
+                        }
+                    },
+                    "openDate": "2020-11-02T16:32:49.516Z",
+                    "lastUpdated": "2020-11-03T08:35:44.238Z"
+                }
+            ]
+        },
+        {
+            "schedule": {
+                "date": "2020-11-07T02:45:00.000Z",
+                "tbaTime": false
+            },
+            "summary": "BYU @ Boise State",
+            "details": {
+                "league": "NCAAF",
+                "seasonType": "regular",
+                "season": 2020,
+                "conferenceGame": false,
+                "divisionGame": false
+            },
+            "status": "scheduled",
+            "teams": {
+                "away": {
+                    "team": "BYU",
+                    "location": "BYU",
+                    "mascot": "Cougars",
+                    "abbreviation": "BYU",
+                    "conference": "Independent"
+                },
+                "home": {
+                    "team": "Boise State",
+                    "location": "Boise State",
+                    "mascot": "Broncos",
+                    "abbreviation": "BSU",
+                    "conference": "Mountain West",
+                    "division": "Mountain"
+                }
+            },
+            "lastUpdated": "2020-11-03T07:11:10.610Z",
+            "gameId": 249611,
+            "venue": {
+                "name": "Albertsons Stadium",
+                "city": "Boise",
+                "state": "ID",
+                "neutralSite": false
+            },
+            "odds": [
+                {
+                    "spread": {
+                        "open": {
+                            "away": -3,
+                            "home": 3,
+                            "awayOdds": -105,
+                            "homeOdds": -115
+                        },
+                        "current": {
+                            "away": -3,
+                            "home": 3,
+                            "awayOdds": -110,
+                            "homeOdds": -110
+                        }
+                    },
+                    "moneyline": {
+                        "open": {
+                            "awayOdds": -150,
+                            "homeOdds": 130
+                        },
+                        "current": {
+                            "awayOdds": -149,
+                            "homeOdds": 129
+                        }
+                    },
+                    "total": {
+                        "open": {
+                            "total": 59,
+                            "overOdds": -110,
+                            "underOdds": -110
+                        },
+                        "current": {
+                            "total": 59.5,
+                            "overOdds": -110,
+                            "underOdds": -110
+                        }
+                    },
+                    "openDate": "2020-11-02T16:32:49.759Z",
+                    "lastUpdated": "2020-11-03T08:35:44.506Z"
+                }
+            ]
+        }
+    ]
+}

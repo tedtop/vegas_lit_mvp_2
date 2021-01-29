@@ -6,6 +6,7 @@ import 'package:vegas_lit/constants/assets.dart';
 import 'package:vegas_lit/constants/palette.dart';
 import 'package:vegas_lit/features/bet_history/bet_history.dart';
 import 'package:vegas_lit/features/bet_slip/bet_slip.dart';
+import 'package:vegas_lit/features/bet_slip/bloc/bet_slip_bloc.dart';
 import 'package:vegas_lit/features/leaderboard/leaderboard.dart';
 import 'package:vegas_lit/features/open_bets/open_bets.dart';
 import 'package:vegas_lit/features/sportsbook/bloc/sportsbook_bloc.dart';
@@ -22,6 +23,9 @@ class HomePage extends StatefulWidget {
             ..add(
               SportsbookOpen(),
             ),
+        ),
+        BlocProvider<BetSlipBloc>(
+          create: (context) => BetSlipBloc(),
         ),
       ],
       child: const HomePage._(),

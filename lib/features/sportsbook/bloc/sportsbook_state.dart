@@ -9,4 +9,8 @@ abstract class SportsbookState extends Equatable {
 
 class SportsbookInitial extends SportsbookState {}
 
-class SportsbookOpened extends SportsbookState {}
+class SportsbookOpened extends SportsbookState {
+  final List<Game> games;
+
+  SportsbookOpened({@required this.games});
+}
