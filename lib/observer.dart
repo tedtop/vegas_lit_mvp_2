@@ -16,6 +16,13 @@ class SimpleBlocObserver extends BlocObserver {
   }
 
   @override
+  void onClose(Cubit cubit) {
+    // ignore: avoid_print
+    print('Closed: $cubit');
+    super.onClose(cubit);
+  }
+
+  @override
   void onChange(Cubit cubit, Change change) {
     if (cubit is! Bloc) {
       // ignore: avoid_print

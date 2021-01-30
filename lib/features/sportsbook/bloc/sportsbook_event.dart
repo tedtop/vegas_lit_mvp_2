@@ -1,10 +1,13 @@
 part of 'sportsbook_bloc.dart';
 
-abstract class SportsbookEvent extends Equatable {
+abstract class SportsbookEvent {
   const SportsbookEvent();
-
-  @override
-  List<Object> get props => [];
 }
 
-class SportsbookOpen extends SportsbookEvent {}
+class SportsbookOpen extends SportsbookEvent {
+  SportsbookOpen({
+    @required this.betSlipGames,
+  });
+
+  final List<Game> betSlipGames;
+}

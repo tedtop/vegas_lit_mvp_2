@@ -3,10 +3,12 @@ import 'dart:convert';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/services.dart';
 
-const String jsonAssetPath = 'assets/json/games.json';
-const String apiEndpoint = 'https://rapidapi.p.rapidapi.com/games';
-const String rapidApiHost = 'sportspage-feeds.p.rapidapi.com';
-const String rapidApiKey = 'API_KEY';
+import 'package:vegas_lit/constants/assets.dart';
+
+const String jsonAssetPath = Json.mockData;
+// const String apiEndpoint = 'https://rapidapi.p.rapidapi.com/games';
+// const String rapidApiHost = 'sportspage-feeds.p.rapidapi.com';
+// const String rapidApiKey = 'API_KEY';
 
 class Game extends Equatable {
   final GameSchedule schedule;
@@ -30,9 +32,6 @@ class Game extends Equatable {
     this.venue,
     this.odds,
   });
-
-  @override
-  List<Object> get props => [];
 
   factory Game.fromJson(Map<String, dynamic> json) {
     final List<GameOdds> odds = json['odds'].map<GameOdds>(
@@ -68,7 +67,11 @@ class Game extends Equatable {
       await rootBundle.loadString(jsonAssetPath),
     );
     final List<dynamic> parsed = gamesJson['results'];
-    return parsed.map<Game>((json) => Game.fromJson(json)).toList();
+    return parsed
+        .map<Game>(
+          (json) => Game.fromJson(json),
+        )
+        .toList();
   }
 
   // static Future<List<Game>> fetchAllFromApi() async {
@@ -86,9 +89,24 @@ class Game extends Equatable {
   //     throw response.body;
   //   }
   // }
+
+  @override
+  List<Object> get props {
+    return [
+      schedule,
+      summary,
+      details,
+      status,
+      teams,
+      lastUpdated,
+      gameId,
+      venue,
+      odds,
+    ];
+  }
 }
 
-class GameSchedule {
+class GameSchedule extends Equatable {
   final DateTime date;
   final dynamic tbaTime;
 
@@ -103,9 +121,12 @@ class GameSchedule {
       tbaTime: json['tbaTime'],
     );
   }
+
+  @override
+  List<Object> get props => [date, tbaTime];
 }
 
-class GameDetails {
+class GameDetails extends Equatable {
   final String league;
   final String seasonType;
   final int season;
@@ -129,9 +150,20 @@ class GameDetails {
       divisionGame: json['divisionGame'],
     );
   }
+
+  @override
+  List<Object> get props {
+    return [
+      league,
+      seasonType,
+      season,
+      conferenceGame,
+      divisionGame,
+    ];
+  }
 }
 
-class GameTeams {
+class GameTeams extends Equatable {
   final GameTeam away;
   final GameTeam home;
 
@@ -146,9 +178,12 @@ class GameTeams {
       home: GameTeam.fromJson(json['home']),
     );
   }
+
+  @override
+  List<Object> get props => [away, home];
 }
 
-class GameTeam {
+class GameTeam extends Equatable {
   final String team;
   final String location;
   final String mascot;
@@ -175,9 +210,21 @@ class GameTeam {
       division: json['division'],
     );
   }
+
+  @override
+  List<Object> get props {
+    return [
+      team,
+      location,
+      mascot,
+      abbreviation,
+      conference,
+      division,
+    ];
+  }
 }
 
-class GameVenue {
+class GameVenue extends Equatable {
   final String name;
   final String city;
   final String state;
@@ -198,9 +245,12 @@ class GameVenue {
       neutralSite: json['neutralSite'],
     );
   }
+
+  @override
+  List<Object> get props => [name, city, state, neutralSite];
 }
 
-class GameOdds {
+class GameOdds extends Equatable {
   final GameSpreadOdds spread;
   final GameMoneylineOdds moneyline;
   final GameTotalOdds total;
@@ -224,9 +274,20 @@ class GameOdds {
       lastUpdated: DateTime.parse(json['lastUpdated']),
     );
   }
+
+  @override
+  List<Object> get props {
+    return [
+      spread,
+      moneyline,
+      total,
+      openDate,
+      lastUpdated,
+    ];
+  }
 }
 
-class GameSpreadOdds {
+class GameSpreadOdds extends Equatable {
   final GameSpreadOddsDetail open;
   final GameSpreadOddsDetail current;
 
@@ -241,9 +302,12 @@ class GameSpreadOdds {
       current: GameSpreadOddsDetail.fromJson(json['current']),
     );
   }
+
+  @override
+  List<Object> get props => [open, current];
 }
 
-class GameSpreadOddsDetail {
+class GameSpreadOddsDetail extends Equatable {
   final double away;
   final double home;
   final int awayOdds;
@@ -264,9 +328,12 @@ class GameSpreadOddsDetail {
       homeOdds: json['homeOdds'],
     );
   }
+
+  @override
+  List<Object> get props => [away, home, awayOdds, homeOdds];
 }
 
-class GameMoneylineOdds {
+class GameMoneylineOdds extends Equatable {
   final GameMoneylineOddsDetail open;
   final GameMoneylineOddsDetail current;
 
@@ -288,9 +355,12 @@ class GameMoneylineOdds {
       );
     }
   }
+
+  @override
+  List<Object> get props => [open, current];
 }
 
-class GameMoneylineOddsDetail {
+class GameMoneylineOddsDetail extends Equatable {
   final int awayOdds;
   final int homeOdds;
 
@@ -305,9 +375,12 @@ class GameMoneylineOddsDetail {
       homeOdds: json['homeOdds'],
     );
   }
+
+  @override
+  List<Object> get props => [awayOdds, homeOdds];
 }
 
-class GameTotalOdds {
+class GameTotalOdds extends Equatable {
   final GameTotalOddsDetail open;
   final GameTotalOddsDetail current;
 
@@ -322,9 +395,12 @@ class GameTotalOdds {
       current: GameTotalOddsDetail.fromJson(json['current']),
     );
   }
+
+  @override
+  List<Object> get props => [open, current];
 }
 
-class GameTotalOddsDetail {
+class GameTotalOddsDetail extends Equatable {
   final double total;
   final int overOdds;
   final int underOdds;
@@ -342,4 +418,7 @@ class GameTotalOddsDetail {
       underOdds: json['underOdds'],
     );
   }
+
+  @override
+  List<Object> get props => [total, overOdds, underOdds];
 }

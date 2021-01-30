@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 import 'package:vegas_lit/data/models/game.dart';
 
@@ -19,12 +18,17 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
     SportsbookEvent event,
   ) async* {
     if (event is SportsbookOpen) {
-      yield* _mapSportsBookOpenToState();
+      yield* _mapSportsBookOpenToState(event);
     }
   }
 
-  Stream<SportsbookState> _mapSportsBookOpenToState() async* {
+  Stream<SportsbookState> _mapSportsBookOpenToState(
+      SportsbookOpen event) async* {
     final games = await Game.fetchAllFromMock();
-    yield SportsbookOpened(games: games);
+    final betSlipGames = <Game>[...event.betSlipGames];
+    yield SportsbookOpened(
+      games: games,
+      betSlipGames: betSlipGames,
+    );
   }
 }
