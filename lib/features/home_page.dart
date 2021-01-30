@@ -11,6 +11,8 @@ import 'package:vegas_lit/features/open_bets/open_bets.dart';
 import 'package:vegas_lit/features/sportsbook/bloc/sportsbook_bloc.dart';
 import 'package:vegas_lit/features/sportsbook/sportsbook.dart';
 
+import 'sportsbook/bloc/sportsbook_bloc.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage._({Key key}) : super(key: key);
 
@@ -67,36 +69,48 @@ class _HomePageState extends State<HomePage> {
         onPageChanged: onPageChanged,
         physics: const NeverScrollableScrollPhysics(),
       ),
-      bottomNavigationBar: CustomNavigationBar(
-        elevation: 0,
-        strokeColor: Palette.white,
-        unSelectedColor: Palette.white,
-        selectedColor: Palette.green,
-        backgroundColor: Palette.darkGrey,
-        currentIndex: pageIndex,
-        onTap: onTap,
-        items: [
-          CustomNavigationBarItem(
-            icon: const Icon(Feather.home),
-            // title: const Text('Sportsbook'),
-          ),
-          CustomNavigationBarItem(
-            icon: const Icon(Feather.file_plus),
-            // title: const Text('Bet Slip'),
-          ),
-          CustomNavigationBarItem(
-            icon: const Icon(Feather.globe),
-            // title: const Text('Leaderboard'),
-          ),
-          CustomNavigationBarItem(
-            icon: const Icon(Feather.file_text),
-            // title: const Text('Open Bets'),
-          ),
-          CustomNavigationBarItem(
-            icon: const Icon(Feather.calendar),
-            // title: const Text('Bet History'),
-          ),
-        ],
+      bottomNavigationBar: BlocBuilder<SportsbookBloc, SportsbookState>(
+        builder: (context, state) {
+          if (state is SportsbookOpened) {
+            final betSlipCounterShow = state.betSlipGames.isNotEmpty;
+            final betSlipCounterValue = state.betSlipGames.length;
+            return CustomNavigationBar(
+              elevation: 0,
+              strokeColor: Palette.white,
+              unSelectedColor: Palette.white,
+              selectedColor: Palette.green,
+              backgroundColor: Palette.darkGrey,
+              currentIndex: pageIndex,
+              onTap: onTap,
+              items: [
+                CustomNavigationBarItem(
+                  icon: const Icon(Feather.home),
+                  // title: const Text('Sportsbook'),
+                ),
+                CustomNavigationBarItem(
+                  icon: const Icon(Feather.file_plus),
+                  showBadge: betSlipCounterShow,
+                  badgeCount: betSlipCounterValue,
+                  // title: const Text('Bet Slip'),
+                ),
+                CustomNavigationBarItem(
+                  icon: const Icon(Feather.globe),
+                  // title: const Text('Leaderboard'),
+                ),
+                CustomNavigationBarItem(
+                  icon: const Icon(Feather.file_text),
+                  // title: const Text('Open Bets'),
+                ),
+                CustomNavigationBarItem(
+                  icon: const Icon(Feather.calendar),
+                  // title: const Text('Bet History'),
+                ),
+              ],
+            );
+          } else {
+            return Container();
+          }
+        },
       ),
     );
   }
