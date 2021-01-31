@@ -6,11 +6,15 @@ import 'package:vegas_lit/data/models/game.dart';
 import 'package:vegas_lit/features/sportsbook/bloc/sportsbook_bloc.dart';
 
 class BetButton extends StatefulWidget {
+  const BetButton({
+    Key key,
+    @required this.text,
+    @required this.game,
+  }) : super(key: key);
+
   final String text;
   final Game game;
 
-  const BetButton({Key key, @required this.text, @required this.game})
-      : super(key: key);
   @override
   _BetButtonState createState() => _BetButtonState();
 }
@@ -24,11 +28,8 @@ class _BetButtonState extends State<BetButton> {
         if (state is SportsbookOpened) {
           return Expanded(
             child: Container(
-              // Padding around BetButton(s)
               padding: const EdgeInsets.all(5.0),
-              // decoration: BoxDecoration(border: Border.all(color: Colors.red)),
               child: RaisedButton(
-                // Padding inside BetButton(s)
                 padding: const EdgeInsets.all(10.0),
                 elevation: Styles.elevation,
                 color: isSelected ? Palette.green : Palette.lightGrey,
