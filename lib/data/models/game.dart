@@ -2,13 +2,9 @@ import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter/services.dart';
-
 import 'package:vegas_lit/constants/assets.dart';
 
 const String jsonAssetPath = Json.mockData;
-// const String apiEndpoint = 'https://rapidapi.p.rapidapi.com/games';
-// const String rapidApiHost = 'sportspage-feeds.p.rapidapi.com';
-// const String rapidApiKey = 'API_KEY';
 
 class Game extends Equatable {
   final GameSchedule schedule;
@@ -73,22 +69,6 @@ class Game extends Equatable {
         )
         .toList();
   }
-
-  // static Future<List<Game>> fetchAllFromApi() async {
-  //   Map<String, String> headers = {
-  //     'x-rapidapi-host': rapidApiHost,
-  //     'x-rapidapi-key': rapidApiKey,
-  //   };
-
-  //   Response response = await get(apiEndpoint, headers: headers);
-
-  //   if (response.statusCode == 200) {
-  //     List<dynamic> parsed = json.decode(response.body)['results'];
-  //     return parsed.map<Game>((json) => Game.fromJson(json)).toList();
-  //   } else {
-  //     throw response.body;
-  //   }
-  // }
 
   @override
   List<Object> get props {

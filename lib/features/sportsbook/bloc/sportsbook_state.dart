@@ -11,6 +11,7 @@ class SportsbookOpened extends SportsbookState {
     @required this.games,
     @required this.betSlipGames,
   });
+
   final List<Game> games;
   final List<Game> betSlipGames;
 }
