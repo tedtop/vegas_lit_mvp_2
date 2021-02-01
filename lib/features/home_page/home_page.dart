@@ -7,6 +7,7 @@ import 'package:vegas_lit/constants/palette.dart';
 import 'package:vegas_lit/constants/styles.dart';
 import 'package:vegas_lit/features/bet_history/bet_history.dart';
 import 'package:vegas_lit/features/bet_slip/bet_slip.dart';
+import 'package:vegas_lit/features/bet_slip/cubit/bet_slip_cubit.dart';
 import 'package:vegas_lit/features/leaderboard/leaderboard.dart';
 import 'package:vegas_lit/features/open_bets/open_bets.dart';
 import 'package:vegas_lit/features/sportsbook/bloc/sportsbook_bloc.dart';
@@ -23,9 +24,13 @@ class HomePage extends StatefulWidget {
         BlocProvider<SportsbookBloc>(
           create: (context) => SportsbookBloc()
             ..add(
-              SportsbookOpen(
-                betSlipGames: [],
-              ),
+              SportsbookOpen(),
+            ),
+        ),
+        BlocProvider<BetSlipCubit>(
+          create: (context) => BetSlipCubit()
+            ..openBetSlip(
+              betSlipGames: [],
             ),
         ),
       ],
@@ -93,11 +98,11 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget bottomNavigation() {
-    return BlocBuilder<SportsbookBloc, SportsbookState>(
+    return BlocBuilder<BetSlipCubit, BetSlipState>(
       builder: (context, state) {
-        if (state is SportsbookOpened) {
-          final showBadge = state.betSlipGames.isNotEmpty;
-          final badgeCount = state.betSlipGames.length;
+        if (state is BetSlipOpened) {
+          final showBadge = state.games.isNotEmpty;
+          final badgeCount = state.games.length;
           return CustomNavigationBar(
             elevation: 0,
             strokeColor: Palette.white,

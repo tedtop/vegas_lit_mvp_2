@@ -25,10 +25,9 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
   Stream<SportsbookState> _mapSportsbookOpenToState(
       SportsbookOpen event) async* {
     final games = await Game.fetchAllFromMock();
-    final betSlipGames = <Game>[...event.betSlipGames];
+
     yield SportsbookOpened(
       games: games,
-      betSlipGames: betSlipGames,
     );
   }
 }

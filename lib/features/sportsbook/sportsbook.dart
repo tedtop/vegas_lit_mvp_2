@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vegas_lit/constants/palette.dart';
 import 'package:vegas_lit/constants/styles.dart';
+import 'package:vegas_lit/features/game_card/cubit/game_card_cubit.dart';
 import 'package:vegas_lit/features/game_card/game_card.dart';
 import 'package:vegas_lit/features/sportsbook/bloc/sportsbook_bloc.dart';
 
@@ -54,8 +55,20 @@ class _SportsbookState extends State<Sportsbook>
                   shrinkWrap: true,
                   itemCount: state.games.length,
                   itemBuilder: (context, index) {
-                    return GameCard(
-                      game: state.games[index],
+                    return BlocProvider(
+                      create: (context) => GameCardCubit()
+                        ..openGameCard(
+                          betListNumber: [
+                            false,
+                            false,
+                            false,
+                            false,
+                            false,
+                            false
+                          ],
+                          game: state.games[index],
+                        ),
+                      child: const GameCard(),
                     );
                   },
                 ),

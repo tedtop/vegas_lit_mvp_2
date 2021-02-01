@@ -4,10 +4,4 @@ abstract class SportsbookEvent {
   const SportsbookEvent();
 }
 
-class SportsbookOpen extends SportsbookEvent {
-  SportsbookOpen({
-    @required this.betSlipGames,
-  });
-
-  final List<Game> betSlipGames;
-}
+class SportsbookOpen extends SportsbookEvent {}

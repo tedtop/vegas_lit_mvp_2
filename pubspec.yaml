@@ -19,6 +19,7 @@ dependencies:
   flutter_icons: ^1.1.0
   google_fonts: ^1.1.2
   meta: ^1.2.4
+  uuid: ^2.2.2
   very_good_analysis: ^1.0.4
 
 dev_dependencies:
