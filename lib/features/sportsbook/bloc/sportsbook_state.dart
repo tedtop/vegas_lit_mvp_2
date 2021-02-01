@@ -9,9 +9,7 @@ class SportsbookInitial extends SportsbookState {}
 class SportsbookOpened extends SportsbookState {
   SportsbookOpened({
     @required this.games,
-    @required this.betSlipGames,
   });
 
   final List<Game> games;
-  final List<Game> betSlipGames;
 }
