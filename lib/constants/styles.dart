@@ -59,7 +59,7 @@ class Styles {
     fontWeight: FontWeight.w300,
   );
 
-  static const TextStyle emptySlipText = const TextStyle(
+  static const TextStyle emptySlipText = TextStyle(
     color: Colors.grey,
     fontSize: 15,
   );

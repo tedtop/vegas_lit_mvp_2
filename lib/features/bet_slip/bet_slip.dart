@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vegas_lit/constants/palette.dart';
 import 'package:vegas_lit/constants/styles.dart';
 import 'package:vegas_lit/features/bet_slip/cubit/bet_slip_cubit.dart';
-import 'package:vegas_lit/features/slip_card/slip_card.dart';
 
 class BetSlip extends StatelessWidget {
   @override

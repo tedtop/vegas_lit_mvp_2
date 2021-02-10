@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vegas_lit/constants/palette.dart';
 import 'package:intl/intl.dart';
 import 'package:vegas_lit/constants/styles.dart';
-import 'package:vegas_lit/data/models/game.dart';
 
 import 'cubit/game_card_cubit.dart';
 import 'widgets/bet_button.dart';

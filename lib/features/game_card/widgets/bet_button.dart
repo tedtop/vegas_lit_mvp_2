@@ -7,7 +7,6 @@ import 'package:vegas_lit/data/models/game.dart';
 import 'package:vegas_lit/features/bet_slip/cubit/bet_slip_cubit.dart';
 import 'package:vegas_lit/features/game_card/cubit/game_card_cubit.dart';
 import 'package:vegas_lit/features/slip_card/slip_card.dart';
-import 'package:vegas_lit/features/sportsbook/bloc/sportsbook_bloc.dart';
 
 class BetButton extends StatefulWidget {
   const BetButton({
@@ -56,6 +55,7 @@ class _BetButtonState extends State<BetButton> {
                             betSlipGames: state.games
                               ..add(
                                 BetSlipCard(
+                                  text: widget.text,
                                   key: Key('$uniqueId'),
                                   game: widget.game,
                                   cubit: context.read<GameCardCubit>(),
