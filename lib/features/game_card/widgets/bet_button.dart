@@ -54,7 +54,7 @@ class _BetButtonState extends State<BetButton> {
                       context.read<BetSlipCubit>().openBetSlip(
                             betSlipGames: state.games
                               ..add(
-                                BetSlipCard(
+                                BetSlipCard.route(
                                   text: widget.text,
                                   key: Key('$uniqueId'),
                                   game: widget.game,
