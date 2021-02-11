@@ -8,7 +8,7 @@ import 'package:vegas_lit/data/models/game.dart';
 import 'package:vegas_lit/features/bet_slip/cubit/bet_slip_cubit.dart';
 import 'package:vegas_lit/features/game_card/cubit/game_card_cubit.dart';
 import 'package:vegas_lit/features/slip_card/cubit/bet_slip_card_cubit.dart';
-import 'package:vegas_lit/features/slip_card/widgets/interstitial.dart';
+import 'package:vegas_lit/features/interstitial/interstitial.dart';
 
 class BetSlipCard extends StatefulWidget {
   BetSlipCard._({Key key}) : super(key: key);
