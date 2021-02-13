@@ -7,12 +7,35 @@ part 'bet_slip_state.dart';
 class BetSlipCubit extends Cubit<BetSlipState> {
   BetSlipCubit()
       : super(
-          BetSlipInitial(),
+          const BetSlipState.loading(),
         );
 
-  void openBetSlip({@required List<Widget> betSlipGames}) async {
+  void openBetSlip({
+    @required List<Widget> betSlipGames,
+  }) async {
     emit(
-      BetSlipOpened(games: betSlipGames),
+      BetSlipState.opened(
+        games: betSlipGames,
+      ),
+    );
+  }
+
+  void addBetSlip({@required Widget game}) async {
+    emit(
+      BetSlipState.opened(
+        games: state.games..add(game),
+      ),
+    );
+  }
+
+  void removeBetSlip({@required String uniqueId}) async {
+    emit(
+      BetSlipState.opened(
+        games: state.games
+          ..removeWhere(
+            (element) => element.key == Key('$uniqueId'),
+          ),
+      ),
     );
   }
 }
