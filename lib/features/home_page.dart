@@ -13,28 +13,32 @@ import 'package:vegas_lit/features/open_bets/open_bets.dart';
 import 'package:vegas_lit/features/sportsbook/bloc/sportsbook_bloc.dart';
 import 'package:vegas_lit/features/sportsbook/sportsbook.dart';
 
-import '../sportsbook/bloc/sportsbook_bloc.dart';
+import 'sportsbook/bloc/sportsbook_bloc.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage._({Key key}) : super(key: key);
 
-  static MultiBlocProvider route() {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider<SportsbookBloc>(
-          create: (context) => SportsbookBloc()
-            ..add(
-              SportsbookOpen(),
+  static Builder route() {
+    return Builder(
+      builder: (context) {
+        return MultiBlocProvider(
+          providers: [
+            BlocProvider<SportsbookBloc>(
+              create: (_) => SportsbookBloc()
+                ..add(
+                  SportsbookOpen(),
+                ),
             ),
-        ),
-        BlocProvider<BetSlipCubit>(
-          create: (context) => BetSlipCubit()
-            ..openBetSlip(
-              betSlipGames: [],
+            BlocProvider<BetSlipCubit>(
+              create: (_) => BetSlipCubit()
+                ..openBetSlip(
+                  betSlipGames: [],
+                ),
             ),
-        ),
-      ],
-      child: const HomePage._(),
+          ],
+          child: const HomePage._(),
+        );
+      },
     );
   }
 
@@ -43,14 +47,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  PageController pageController;
+  PageController pageController = PageController();
   int pageIndex = 0;
-
-  @override
-  void initState() {
-    pageController = PageController();
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -81,7 +79,8 @@ class _HomePageState extends State<HomePage> {
           )
         ],
       ),
-      body: PageView(
+      body: IndexedStack(
+        index: pageIndex,
         children: [
           Sportsbook(),
           BetSlip(),
@@ -89,9 +88,9 @@ class _HomePageState extends State<HomePage> {
           OpenBets(),
           BetHistory(),
         ],
-        controller: pageController,
-        onPageChanged: onPageChanged,
-        physics: const NeverScrollableScrollPhysics(),
+        // controller: pageController,
+        // onPageChanged: onPageChanged,
+        // physics: const NeverScrollableScrollPhysics(),
       ),
       bottomNavigationBar: bottomNavigation(),
     );
@@ -100,7 +99,7 @@ class _HomePageState extends State<HomePage> {
   Widget bottomNavigation() {
     return BlocBuilder<BetSlipCubit, BetSlipState>(
       builder: (context, state) {
-        if (state is BetSlipOpened) {
+        if (state.status == BetSlipStatus.opened) {
           final showBadge = state.games.isNotEmpty;
           final badgeCount = state.games.length;
           return CustomNavigationBar(
@@ -110,7 +109,7 @@ class _HomePageState extends State<HomePage> {
             selectedColor: Palette.green,
             backgroundColor: Palette.darkGrey,
             currentIndex: pageIndex,
-            onTap: onTap,
+            onTap: onPageChanged,
             items: [
               CustomNavigationBarItem(
                 icon: const Icon(Feather.home),
@@ -151,13 +150,13 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  void onTap(int pageIndex) {
-    pageController.jumpToPage(
-      pageIndex,
-      // duration: const Duration(
-      //   milliseconds: 100,
-      // ),
-      // curve: Curves.easeInOut,
-    );
-  }
+  // void onTap(int pageIndex) {
+  //   pageController.animateToPage(
+  //     pageIndex,
+  //     duration: const Duration(
+  //       milliseconds: 100,
+  //     ),
+  //     curve: Curves.easeInOut,
+  //   );
+  // }
 }

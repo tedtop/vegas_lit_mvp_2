@@ -3,12 +3,27 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vegas_lit/constants/palette.dart';
 import 'package:intl/intl.dart';
 import 'package:vegas_lit/constants/styles.dart';
-import 'package:vegas_lit/features/bet_button/bet_button.dart';
+import 'package:vegas_lit/data/models/game.dart';
+import 'package:vegas_lit/features/sportsbook/features/bet_button/bet_button.dart';
 
 import 'cubit/game_card_cubit.dart';
 
 class GameCard extends StatelessWidget {
-  const GameCard({Key key}) : super(key: key);
+  const GameCard._({Key key}) : super(key: key);
+
+  static Builder route({@required Game game}) {
+    return Builder(
+      builder: (_) {
+        return BlocProvider(
+          create: (context) => GameCardCubit()
+            ..openGameCard(
+              game: game,
+            ),
+          child: const GameCard._(),
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -89,17 +104,13 @@ class GameCard extends StatelessWidget {
                           ),
                           Row(
                             children: [
-                              BetButton(
-                                currentButtonPosition: 0,
+                              BetButton.route(
                                 text:
                                     '${state.game.odds[0].moneyline.current.awayOdds}',
                                 game: state.game,
-                                currentButton: state.betListNumber.elementAt(0),
                               ),
                               _betButtonSeparator(text: 'ML'),
-                              BetButton(
-                                currentButtonPosition: 1,
-                                currentButton: state.betListNumber.elementAt(1),
+                              BetButton.route(
                                 game: state.game,
                                 text:
                                     '${state.game.odds[0].moneyline.current.homeOdds}',
@@ -108,17 +119,13 @@ class GameCard extends StatelessWidget {
                           ),
                           Row(
                             children: [
-                              BetButton(
-                                currentButtonPosition: 2,
-                                currentButton: state.betListNumber.elementAt(2),
+                              BetButton.route(
                                 game: state.game,
                                 text:
                                     '${state.game.odds[0].spread.current.away}     ${state.game.odds[0].spread.current.awayOdds}',
                               ),
                               _betButtonSeparator(text: 'PTS'),
-                              BetButton(
-                                currentButtonPosition: 3,
-                                currentButton: state.betListNumber.elementAt(3),
+                              BetButton.route(
                                 game: state.game,
                                 text:
                                     '${state.game.odds[0].spread.current.home}     ${state.game.odds[0].spread.current.homeOdds}',
@@ -127,17 +134,13 @@ class GameCard extends StatelessWidget {
                           ),
                           Row(
                             children: [
-                              BetButton(
-                                currentButtonPosition: 4,
-                                currentButton: state.betListNumber.elementAt(4),
+                              BetButton.route(
                                 game: state.game,
                                 text:
                                     'o${state.game.odds[0].total.current.total}     ${state.game.odds[0].total.current.overOdds}',
                               ),
                               _betButtonSeparator(text: 'TOT'),
-                              BetButton(
-                                currentButtonPosition: 5,
-                                currentButton: state.betListNumber.elementAt(5),
+                              BetButton.route(
                                 game: state.game,
                                 text:
                                     'u${state.game.odds[0].total.current.total}     ${state.game.odds[0].total.current.underOdds}',

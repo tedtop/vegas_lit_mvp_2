@@ -8,11 +8,10 @@ class GameCardCubit extends Cubit<GameCardState> {
   GameCardCubit() : super(GameCardInitial());
 
   void openGameCard({
-    @required List<bool> betListNumber,
     @required Game game,
   }) async {
     emit(
-      GameCardOpened(game: game, betListNumber: betListNumber),
+      GameCardOpened(game: game),
     );
   }
 }

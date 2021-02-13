@@ -1,14 +1,28 @@
 part of 'bet_slip_cubit.dart';
 
-abstract class BetSlipState {
-  const BetSlipState();
-}
+enum BetSlipStatus { loading, empty, opened, added, removed }
 
-class BetSlipInitial extends BetSlipState {}
-
-class BetSlipOpened extends BetSlipState {
-  BetSlipOpened({
-    @required this.games,
+class BetSlipState {
+  const BetSlipState._({
+    this.games,
+    this.status = BetSlipStatus.loading,
   });
+
+  const BetSlipState.loading() : this._();
+
+  const BetSlipState.opened({
+    @required List<Widget> games,
+  }) : this._(
+          status: BetSlipStatus.opened,
+          games: games,
+        );
+
+  // const BetSlipState.empty() : this._(status: BetSlipStatus.empty);
+
+  // const BetSlipState.added() : this._(status: BetSlipStatus.added);
+
+  // const BetSlipState.removed() : this._(status: BetSlipStatus.removed);
+
   final List<Widget> games;
+  final BetSlipStatus status;
 }
