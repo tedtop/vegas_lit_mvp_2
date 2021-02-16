@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "629095888262",
+    "firebase_url": "https://vegaslit.firebaseio.com",
+    "project_id": "vegaslit",
+    "storage_bucket": "vegaslit.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:629095888262:android:4e0b774c2747d243752807",
+        "android_client_info": {
+          "package_name": "com.example.vegas_lit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "629095888262-7lev1bsfhlq4536ak4lu1p7mecfldttt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.vegas_lit",
+            "certificate_hash": "36f4cb4374a029fb42e08f9bdbbc5e8d6d50efa7"
+          }
+        },
+        {
+          "client_id": "629095888262-qiq47tj3hjeu48thbldbll9v1e6l2vu5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBOXj7WGSBTNe7otBUruWp5o9LUkWPQrhY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "629095888262-qiq47tj3hjeu48thbldbll9v1e6l2vu5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

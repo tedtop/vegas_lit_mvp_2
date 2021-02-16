@@ -4,7 +4,7 @@ import 'package:vegas_lit/constants/palette.dart';
 import 'package:intl/intl.dart';
 import 'package:vegas_lit/constants/styles.dart';
 import 'package:vegas_lit/data/models/game.dart';
-import 'package:vegas_lit/features/sportsbook/features/bet_button/bet_button.dart';
+import 'package:vegas_lit/features/home_page/screens/sportsbook/widgets/bet_button/bet_button.dart';
 
 import 'cubit/game_card_cubit.dart';
 
