@@ -2,17 +2,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:meta/meta.dart';
 
-abstract class BaseAuthentication {
-  Future<void> signInWithGoogle();
-  Future<void> signUp({String email, String password});
-  Future<void> logInWithEmailAndPassword({String email, String password});
-  Future<void> signOutUser();
-  Future<User> getCurrentUser();
-  Stream<User> getUser;
-}
+import '../base_provider.dart';
 
-class FirebaseAuthentication extends BaseAuthentication {
-  FirebaseAuthentication({
+class AuthenticationProvider extends BaseAuthenticationProvider {
+  AuthenticationProvider({
     FirebaseAuth firebaseAuth,
     GoogleSignIn googleSignIn,
   })  : _firebaseAuth = firebaseAuth ?? FirebaseAuth.instance,

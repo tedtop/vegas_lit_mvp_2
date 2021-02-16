@@ -2,15 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:vegas_lit/data/models/user.dart';
 
-abstract class BaseDatabase {
-  Future<void> saveDetailsFromAuthentication(User currentAuthenticatedUser);
-  Future<void> saveUserDetails(
-      {String currentUserId, String profileImageURL, String username, int age});
-  Future<UserData> isProfileComplete(String currentUserId);
-}
+import '../base_provider.dart';
 
-class CloudFirestore extends BaseDatabase {
-  CloudFirestore({FirebaseFirestore firebaseFirestore})
+class DatabaseProvider extends BaseDatabaseProvider {
+  DatabaseProvider({FirebaseFirestore firebaseFirestore})
       : _firestoreData = firebaseFirestore ?? FirebaseFirestore.instance;
 
   final FirebaseFirestore _firestoreData;
