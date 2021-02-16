@@ -3,10 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vegas_lit/constants/palette.dart';
 import 'package:vegas_lit/constants/styles.dart';
 import 'package:vegas_lit/data/models/game.dart';
-import 'package:vegas_lit/features/interstitial/interstitial.dart';
-import 'package:vegas_lit/features/sportsbook/bloc/sportsbook_bloc.dart';
 
-import 'features/game_card/game_card.dart';
+import 'bloc/sportsbook_bloc.dart';
+import 'widgets/game_card/game_card.dart';
+import 'widgets/home_interstitial.dart';
 
 class Sportsbook extends StatelessWidget {
   @override

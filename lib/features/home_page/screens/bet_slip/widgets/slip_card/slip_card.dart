@@ -5,11 +5,12 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:vegas_lit/constants/palette.dart';
 import 'package:vegas_lit/constants/styles.dart';
 import 'package:intl/intl.dart';
-import 'package:vegas_lit/features/bet_slip/cubit/bet_slip_cubit.dart';
-import 'package:vegas_lit/features/interstitial/interstitial.dart';
-import 'package:vegas_lit/features/sportsbook/features/bet_button/cubit/bet_button_cubit.dart';
+
+import 'package:vegas_lit/features/home_page/screens/bet_slip/cubit/bet_slip_cubit.dart';
+import 'package:vegas_lit/features/home_page/screens/sportsbook/widgets/bet_button/cubit/bet_button_cubit.dart';
 
 import 'cubit/bet_slip_card_cubit.dart';
+import 'widgets/slip_card_interstitial.dart';
 
 class BetSlipCard extends StatefulWidget {
   BetSlipCard._({Key key}) : super(key: key);
@@ -229,9 +230,7 @@ class BetSlipCardView extends StatelessWidget {
                                                   keyboardType:
                                                       TextInputType.number,
                                                   textAlign: TextAlign.center,
-                                                  maxLengthEnforcement:
-                                                      MaxLengthEnforcement
-                                                          .enforced,
+                                                  maxLengthEnforced: true,
                                                   maxLength: 3,
                                                   initialValue: betAmount,
                                                   decoration:

@@ -3,8 +3,8 @@ import 'package:vegas_lit/constants/palette.dart';
 import 'package:vegas_lit/constants/styles.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vegas_lit/data/models/game.dart';
-import 'package:vegas_lit/features/bet_slip/cubit/bet_slip_cubit.dart';
-import 'package:vegas_lit/features/bet_slip/features/slip_card/slip_card.dart';
+import 'package:vegas_lit/features/home_page/screens/bet_slip/cubit/bet_slip_cubit.dart';
+import 'package:vegas_lit/features/home_page/screens/bet_slip/widgets/slip_card/slip_card.dart';
 
 import 'cubit/bet_button_cubit.dart';
 
