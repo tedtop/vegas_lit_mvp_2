@@ -3,12 +3,10 @@ import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:path/path.dart';
 
-abstract class BaseStorage {
-  Future<String> uploadFile(File file, String path);
-}
+import '../base_provider.dart';
 
-class FireStorage extends BaseStorage {
-  FireStorage({FirebaseStorage firebaseStorage})
+class StorageProvider extends BaseStorageProvider {
+  StorageProvider({FirebaseStorage firebaseStorage})
       : _firebaseStorage = firebaseStorage ?? FirebaseStorage.instance;
 
   final FirebaseStorage _firebaseStorage;
