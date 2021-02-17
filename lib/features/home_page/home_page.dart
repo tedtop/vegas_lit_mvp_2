@@ -17,27 +17,25 @@ import 'screens/sportsbook/sportsbook.dart';
 class HomePage extends StatefulWidget {
   const HomePage._({Key key}) : super(key: key);
 
-  static Builder route() {
-    return Builder(
-      builder: (context) {
-        return MultiBlocProvider(
-          providers: [
-            BlocProvider<SportsbookBloc>(
-              create: (_) => SportsbookBloc()
-                ..add(
-                  SportsbookOpen(),
-                ),
-            ),
-            BlocProvider<BetSlipCubit>(
-              create: (_) => BetSlipCubit()
-                ..openBetSlip(
-                  betSlipGames: [],
-                ),
-            ),
-          ],
-          child: const HomePage._(),
-        );
-      },
+  static Route route() {
+    return MaterialPageRoute<void>(
+      builder: (_) => MultiBlocProvider(
+        providers: [
+          BlocProvider<SportsbookBloc>(
+            create: (_) => SportsbookBloc()
+              ..add(
+                SportsbookOpen(),
+              ),
+          ),
+          BlocProvider<BetSlipCubit>(
+            create: (_) => BetSlipCubit()
+              ..openBetSlip(
+                betSlipGames: [],
+              ),
+          ),
+        ],
+        child: const HomePage._(),
+      ),
     );
   }
 
