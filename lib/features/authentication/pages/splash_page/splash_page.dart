@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vegas_lit/constants/assets.dart';
 
 class SplashPage extends StatelessWidget {
   static Route route() {
@@ -9,11 +10,9 @@ class SplashPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: Center(
-        child: FlutterLogo(
-          size: 150,
-        ),
+        child: Image.asset(Images.topLogo),
       ),
     );
   }

@@ -160,6 +160,7 @@ class _LoginInfoPageState extends State<LoginInfoPage>
   }
 
   Future pickImage() async {
+    // ignore: deprecated_member_use
     profileImageFile = await ImagePicker.pickImage(source: ImageSource.gallery);
     if (profileImageFile != null) {
       setState(() {
