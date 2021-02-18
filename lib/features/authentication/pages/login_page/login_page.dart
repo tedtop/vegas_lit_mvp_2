@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:vegas_lit/constants/assets.dart';
 import 'package:vegas_lit/data/repositories/auth_repository.dart';
 import 'package:formz/formz.dart';
 import 'cubit/login_cubit.dart';
@@ -37,9 +38,7 @@ class LoginPage extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                const FlutterLogo(
-                  size: 100,
-                ),
+                Image.asset(Images.topLogo),
                 const GoogleLoginButton(),
               ],
             ),
