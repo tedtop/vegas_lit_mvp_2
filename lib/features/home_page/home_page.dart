@@ -6,6 +6,7 @@ import 'package:vegas_lit/constants/assets.dart';
 import 'package:vegas_lit/constants/palette.dart';
 import 'package:vegas_lit/constants/styles.dart';
 
+import '../authentication/bloc/authentication_bloc.dart';
 import 'screens/bet_history/bet_history.dart';
 import 'screens/bet_slip/bet_slip.dart';
 import 'screens/bet_slip/cubit/bet_slip_cubit.dart';
@@ -72,6 +73,24 @@ class _HomePageState extends State<HomePage> {
                   style: Styles.h3,
                 ),
               ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: FlatButton(
+              onPressed: () {
+                Navigator.pop(context);
+                context.read<AuthenticationBloc>().add(
+                      AuthenticationLogoutRequested(),
+                    );
+              },
+              child: const Text(
+                'Logout',
+                style: TextStyle(
+                  color: Colors.red,
+                  fontSize: 20.0,
+                ),
+              ),
             ),
           )
         ],
