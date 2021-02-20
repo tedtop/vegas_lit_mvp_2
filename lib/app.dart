@@ -5,7 +5,6 @@ import 'package:vegas_lit/data/repositories/auth_repository.dart';
 import 'constants/themes.dart';
 import 'features/authentication/bloc/authentication_bloc.dart';
 import 'features/authentication/pages/fill_login_page/fill_login_page.dart';
-import 'features/authentication/pages/login_page/login_page.dart';
 import 'features/authentication/pages/splash_page/splash_page.dart';
 import 'features/home_page/home_page.dart';
 
@@ -74,7 +73,7 @@ class _AppViewState extends State<AppView> {
                 break;
               case AuthenticationStatus.unauthenticated:
                 _navigator.pushAndRemoveUntil<void>(
-                  LoginPage.route(),
+                  HomePage.route(),
                   (route) => false,
                 );
                 break;

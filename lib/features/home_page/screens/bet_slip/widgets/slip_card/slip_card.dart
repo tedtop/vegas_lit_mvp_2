@@ -66,10 +66,16 @@ class _BetSlipCardState extends State<BetSlipCard> {
 }
 
 // ignore: must_be_immutable
-class BetSlipCardView extends StatelessWidget {
+class BetSlipCardView extends StatefulWidget {
+  @override
+  _BetSlipCardViewState createState() => _BetSlipCardViewState();
+}
+
+class _BetSlipCardViewState extends State<BetSlipCardView> {
   final _formKey = GlobalKey<FormState>();
 
   String betAmount = '10';
+  int toWinAmount = 100;
 
   @override
   Widget build(BuildContext context) {
@@ -226,6 +232,14 @@ class BetSlipCardView extends StatelessWidget {
                                                 child: TextFormField(
                                                   onChanged: (text) {
                                                     betAmount = text;
+                                                    setState(() {
+                                                      toWinAmount = (100 /
+                                                              int.parse(
+                                                                  betButtonState
+                                                                      .text) *
+                                                              int.parse(text))
+                                                          .toInt();
+                                                    });
                                                   },
                                                   keyboardType:
                                                       TextInputType.number,
@@ -321,9 +335,9 @@ class BetSlipCardView extends StatelessWidget {
                                                   color: Palette.white,
                                                   fontSize: 15),
                                             ),
-                                            const Text(
-                                              '\$100.0',
-                                              style: TextStyle(
+                                            Text(
+                                              '\$$toWinAmount',
+                                              style: const TextStyle(
                                                 color: Palette.white,
                                                 fontSize: 15,
                                                 fontWeight: FontWeight.w800,
