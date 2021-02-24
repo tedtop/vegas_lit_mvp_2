@@ -20,7 +20,7 @@ class StorageProvider extends BaseStorageProvider {
     final uploadPath = await reference.getData();
     print('uploading to $uploadPath');
     final uploadTask = await reference.putFile(file);
-    // final result = await uploadTask.onComplete;
+
     final url = await uploadTask.ref.getDownloadURL();
     return url;
   }

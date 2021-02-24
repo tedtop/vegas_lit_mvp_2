@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vegas_lit/data/repositories/auth_repository.dart';
+import 'package:vegas_lit/features/authentication/pages/login_page/login_page.dart';
 
 import 'constants/themes.dart';
 import 'features/authentication/bloc/authentication_bloc.dart';
@@ -55,7 +56,6 @@ class _AppViewState extends State<AppView> {
       navigatorKey: _navigatorKey,
       title: 'Vegas Lit',
       theme: Themes.light,
-      // home: HomePage.route(),
       builder: (context, child) {
         return BlocListener<AuthenticationBloc, AuthenticationState>(
           listener: (context, state) {
@@ -73,7 +73,7 @@ class _AppViewState extends State<AppView> {
                 break;
               case AuthenticationStatus.unauthenticated:
                 _navigator.pushAndRemoveUntil<void>(
-                  HomePage.route(),
+                  LoginPage.route(),
                   (route) => false,
                 );
                 break;

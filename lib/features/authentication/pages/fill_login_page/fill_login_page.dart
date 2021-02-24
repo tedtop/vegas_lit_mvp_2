@@ -1,10 +1,14 @@
 import 'dart:io';
-
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:image_picker_for_web/image_picker_for_web.dart';
+
+import 'package:path_provider/path_provider.dart';
 import 'package:vegas_lit/constants/assets.dart';
 import 'package:vegas_lit/data/repositories/auth_repository.dart';
 import 'package:vegas_lit/features/authentication/bloc/authentication_bloc.dart';
@@ -43,6 +47,9 @@ class _LoginInfoPageState extends State<LoginInfoPage>
 
   ImageProvider uploadProfileImage;
 
+  ImagePicker _picker;
+  ImagePickerPlugin _pickerWeb;
+
   int age = 18;
 
   final TextEditingController usernameController = TextEditingController();
@@ -51,6 +58,10 @@ class _LoginInfoPageState extends State<LoginInfoPage>
 
   @override
   void initState() {
+    _picker = ImagePicker();
+    _pickerWeb = ImagePickerPlugin();
+    uploadProfileImage = Image.network(widget._currentUser.photoURL).image;
+
     WidgetsBinding.instance.addObserver(this);
     super.initState();
   }
@@ -160,13 +171,43 @@ class _LoginInfoPageState extends State<LoginInfoPage>
   }
 
   Future pickImage() async {
-    // ignore: deprecated_member_use
-    profileImageFile = await ImagePicker.pickImage(source: ImageSource.gallery);
-    if (profileImageFile != null) {
-      setState(() {
-        uploadProfileImage = Image.file(profileImageFile).image;
-      });
+    if (kIsWeb) {
+      // ignore: invalid_use_of_visible_for_testing_member
+      final pickedFile = await _pickerWeb.pickFile();
+      profileImageFile = File(pickedFile.path);
+      setState(
+        () {
+          if (pickedFile != null) {
+            uploadProfileImage = Image.network(pickedFile.path).image;
+          }
+        },
+      );
+    } else {
+      final pickedFile = await _picker.getImage(source: ImageSource.gallery);
+      profileImageFile = File(pickedFile.path);
+      setState(
+        () {
+          if (pickedFile != null) {
+            uploadProfileImage = Image.file(
+              File(pickedFile.path),
+            ).image;
+          }
+        },
+      );
     }
+  }
+
+  Future<File> imageToFile({String path}) async {
+    final bytes = await rootBundle.load(path);
+    final tempPath = (await getTemporaryDirectory()).path;
+    final file = File('$tempPath/profile.png');
+    await file.writeAsBytes(
+      bytes.buffer.asUint8List(
+        bytes.offsetInBytes,
+        bytes.lengthInBytes,
+      ),
+    );
+    return file;
   }
 
   Widget _buildAgePicker() {
@@ -241,9 +282,9 @@ class _LoginInfoPageState extends State<LoginInfoPage>
         } else {
           return FloatingActionButton(
             onPressed: () => {
-              if (profileImageFile != null &&
-                  age != null &&
-                  usernameController.text.isNotEmpty)
+              if (
+              // profileImageFile != null &&
+              age != null && usernameController.text.isNotEmpty)
                 {
                   FocusScope.of(context).requestFocus(
                     FocusNode(),
@@ -251,7 +292,7 @@ class _LoginInfoPageState extends State<LoginInfoPage>
                   context.read<FillLoginCubit>().saveProfile(
                       age: age,
                       currentUser: widget._currentUser,
-                      profileImage: profileImageFile,
+                      // profileImage: profileImageFile,
                       username: usernameController.text),
                 }
               else
