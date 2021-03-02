@@ -23,7 +23,7 @@ class Interstitial extends StatelessWidget {
               height: 20,
             ),
             OutlinedButton(
-              child: const Text('Go Back'),
+              child: const Text('Continue'),
               onPressed: () {
                 Navigator.pop(context);
               },

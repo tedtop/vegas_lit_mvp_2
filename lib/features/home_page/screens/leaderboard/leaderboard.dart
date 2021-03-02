@@ -10,15 +10,15 @@ class Leaderboard extends StatefulWidget {
 }
 
 class _LeaderboardState extends State<Leaderboard> {
-  List<Player> employees = <Player>[];
+  List<Player> players = <Player>[];
 
   EmployeeDataSource _employeeDataSource;
 
   @override
   void initState() {
     super.initState();
-    employees = getEmployeeData();
-    _employeeDataSource = EmployeeDataSource(employeeData: employees);
+    players = getEmployeeData();
+    _employeeDataSource = EmployeeDataSource(playerData: players);
   }
 
   List<Player> getEmployeeData() {
@@ -64,32 +64,30 @@ class _LeaderboardState extends State<Leaderboard> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Card(
-              child: Expanded(
-                child: SfDataGrid(
-                  gridLinesVisibility: GridLinesVisibility.none,
-                  source: _employeeDataSource,
-                  columns: [
-                    GridNumericColumn(
-                      columnWidthMode: ColumnWidthMode.lastColumnFill,
-                      mappingName: 'id',
-                      headerText: '#',
-                      textAlignment: Alignment.center,
-                      headerTextAlignment: Alignment.center,
-                    ),
-                    GridTextColumn(
-                      mappingName: 'name',
-                      headerText: 'Player',
-                    ),
-                    GridTextColumn(
-                      mappingName: 'designation',
-                      headerText: 'Profit',
-                    ),
-                    GridTextColumn(
-                      mappingName: 'salary',
-                      headerText: 'Balance',
-                    ),
-                  ],
-                ),
+              child: SfDataGrid(
+                columnWidthMode: ColumnWidthMode.lastColumnFill,
+                gridLinesVisibility: GridLinesVisibility.none,
+                source: _employeeDataSource,
+                columns: [
+                  GridNumericColumn(
+                    mappingName: 'id',
+                    headerText: '#',
+                    textAlignment: Alignment.center,
+                    headerTextAlignment: Alignment.center,
+                  ),
+                  GridTextColumn(
+                    mappingName: 'name',
+                    headerText: 'Player',
+                  ),
+                  GridTextColumn(
+                    mappingName: 'designation',
+                    headerText: 'Profit',
+                  ),
+                  GridTextColumn(
+                    mappingName: 'salary',
+                    headerText: 'Balance',
+                  ),
+                ],
               ),
             ),
           )
@@ -140,14 +138,14 @@ class TextBar extends StatelessWidget {
 }
 
 class EmployeeDataSource extends DataGridSource<Player> {
-  EmployeeDataSource({List<Player> employeeData}) {
-    _employeeData = employeeData;
+  EmployeeDataSource({List<Player> playerData}) {
+    _playerData = playerData;
   }
 
-  List<Player> _employeeData;
+  List<Player> _playerData;
 
   @override
-  List<Player> get dataSource => _employeeData;
+  List<Player> get dataSource => _playerData;
 
   @override
   Object getValue(Player player, String columnName) {

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vegas_lit/constants/palette.dart';
@@ -87,6 +88,7 @@ class EmptyBetSlip extends StatelessWidget {
             '2. Click on the link you\'d like to bet on',
           ),
           textPoints(
+            // ignore: lines_longer_than_80_chars
             '3. Your bet will show up in this area where you can \nplace your bet',
           ),
         ],
@@ -112,9 +114,13 @@ class EmptyBetSlip extends StatelessWidget {
 class BetSlipList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width / 10;
     final betSlipState = context.watch<BetSlipCubit>().state;
     return Expanded(
       child: ListView(
+        padding: EdgeInsets.symmetric(
+          horizontal: kIsWeb ? width / 2 : 0,
+        ),
         key: Key('${betSlipState.games.length}'),
         shrinkWrap: true,
         children: betSlipState.games,

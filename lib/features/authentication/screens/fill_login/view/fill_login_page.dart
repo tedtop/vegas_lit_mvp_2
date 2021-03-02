@@ -6,7 +6,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:image_picker_for_web/image_picker_for_web.dart';
 
 import 'package:path_provider/path_provider.dart';
 import 'package:vegas_lit/constants/assets.dart';
@@ -14,8 +13,7 @@ import 'package:vegas_lit/data/repositories/auth_repository.dart';
 import 'package:vegas_lit/features/authentication/bloc/authentication_bloc.dart';
 import 'package:numberpicker/numberpicker.dart';
 
-import 'cubit/fill_login_cubit.dart';
-import 'widgets/log_out_button.dart';
+import '../cubit/fill_login_cubit.dart';
 
 class LoginInfoPage extends StatefulWidget {
   const LoginInfoPage._({
@@ -27,8 +25,13 @@ class LoginInfoPage extends StatefulWidget {
 
   static Route route({@required User currentUser}) {
     return MaterialPageRoute<void>(
-      builder: (_) => LoginInfoPage._(
-        currentUser: currentUser,
+      builder: (context) => BlocProvider(
+        create: (_) => FillLoginCubit(
+          context.read<AuthenticationRepository>(),
+        ),
+        child: LoginInfoPage._(
+          currentUser: currentUser,
+        ),
       ),
     );
   }
@@ -48,19 +51,16 @@ class _LoginInfoPageState extends State<LoginInfoPage>
   ImageProvider uploadProfileImage;
 
   ImagePicker _picker;
-  ImagePickerPlugin _pickerWeb;
 
   int age = 18;
 
-  final TextEditingController usernameController = TextEditingController();
+  final TextEditingController _usernameController = TextEditingController();
 
   var isOpenKeyboard = false;
 
   @override
   void initState() {
     _picker = ImagePicker();
-    _pickerWeb = ImagePickerPlugin();
-    uploadProfileImage = Image.network(widget._currentUser.photoURL).image;
 
     WidgetsBinding.instance.addObserver(this);
     super.initState();
@@ -74,69 +74,60 @@ class _LoginInfoPageState extends State<LoginInfoPage>
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<FillLoginCubit>(
-      create: (_) => FillLoginCubit(
-        context.read<AuthenticationRepository>(),
-      ),
-      child: Scaffold(
-        resizeToAvoidBottomInset: true,
-        body: BlocListener<FillLoginCubit, FillLoginState>(
-          listener: (context, state) {
-            if (state is FillLoginFailure) {
-              Scaffold.of(context)
-                ..hideCurrentSnackBar()
-                ..showSnackBar(
-                  const SnackBar(
-                    content: Text('Login Failure'),
+    return Scaffold(
+      resizeToAvoidBottomInset: true,
+      body: BlocListener<FillLoginCubit, FillLoginState>(
+        listener: (context, state) {
+          if (state is FillLoginFailure) {
+            ScaffoldMessenger.of(context)
+              ..hideCurrentSnackBar()
+              ..showSnackBar(
+                const SnackBar(
+                  content: Text('Login Failure'),
+                ),
+              );
+          }
+          if (state is FillLoginSuccess) {
+            context.read<AuthenticationBloc>().add(
+                  CheckProfileComplete(
+                    widget._currentUser,
                   ),
                 );
-            }
-            if (state is FillLoginSuccess) {
-              context.read<AuthenticationBloc>().add(
-                    CheckProfileComplete(
-                      widget._currentUser,
+          }
+        },
+        child: InkWell(
+          splashColor: Colors.transparent,
+          highlightColor: Colors.transparent,
+          onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                _buildProfilePictureWidget(),
+                Column(
+                  children: [
+                    const Text(
+                      'How old are you?',
+                      style: TextStyle(color: Colors.black, fontSize: 14),
                     ),
-                  );
-            }
-          },
-          child: InkWell(
-            splashColor: Colors.transparent,
-            highlightColor: Colors.transparent,
-            onTap: () {
-              FocusScope.of(context).requestFocus(
-                FocusNode(),
-              );
-            },
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  _buildProfilePictureWidget(),
-                  Column(
-                    children: [
-                      const Text(
-                        'How old are you?',
-                        style: TextStyle(color: Colors.black, fontSize: 14),
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      _buildAgePicker(),
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      const Text(
-                        'Choose a username',
-                        style: TextStyle(color: Colors.black, fontSize: 14),
-                      ),
-                      _buildUsernameWidget()
-                    ],
-                  ),
-                  _buildSaveButtonWidget(),
-                  const LogOutButton(),
-                ],
-              ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    _buildAgePicker(),
+                  ],
+                ),
+                Column(
+                  children: [
+                    const Text(
+                      'Choose a username',
+                      style: TextStyle(color: Colors.black, fontSize: 14),
+                    ),
+                    _buildUsernameWidget()
+                  ],
+                ),
+                _buildSaveButtonWidget(),
+                const LogOutButton(),
+              ],
             ),
           ),
         ),
@@ -171,30 +162,17 @@ class _LoginInfoPageState extends State<LoginInfoPage>
   }
 
   Future pickImage() async {
-    if (kIsWeb) {
-      // ignore: invalid_use_of_visible_for_testing_member
-      final pickedFile = await _pickerWeb.pickFile();
-      profileImageFile = File(pickedFile.path);
-      setState(
-        () {
-          if (pickedFile != null) {
-            uploadProfileImage = Image.network(pickedFile.path).image;
-          }
-        },
-      );
-    } else {
-      final pickedFile = await _picker.getImage(source: ImageSource.gallery);
-      profileImageFile = File(pickedFile.path);
-      setState(
-        () {
-          if (pickedFile != null) {
-            uploadProfileImage = Image.file(
-              File(pickedFile.path),
-            ).image;
-          }
-        },
-      );
-    }
+    final pickedFile = await _picker.getImage(source: ImageSource.gallery);
+    profileImageFile = File(pickedFile.path);
+    setState(
+      () {
+        if (pickedFile != null) {
+          uploadProfileImage = Image.file(
+            File(pickedFile.path),
+          ).image;
+        }
+      },
+    );
   }
 
   Future<File> imageToFile({String path}) async {
@@ -248,7 +226,7 @@ class _LoginInfoPageState extends State<LoginInfoPage>
           color: Colors.black,
           fontSize: 14,
         ),
-        controller: usernameController,
+        controller: _usernameController,
         decoration: InputDecoration(
           hintText: '@username',
           hintStyle: TextStyle(color: Theme.of(context).hintColor),
@@ -284,7 +262,7 @@ class _LoginInfoPageState extends State<LoginInfoPage>
             onPressed: () => {
               if (
               // profileImageFile != null &&
-              age != null && usernameController.text.isNotEmpty)
+              age != null && _usernameController.text.isNotEmpty)
                 {
                   FocusScope.of(context).requestFocus(
                     FocusNode(),
@@ -292,12 +270,12 @@ class _LoginInfoPageState extends State<LoginInfoPage>
                   context.read<FillLoginCubit>().saveProfile(
                       age: age,
                       currentUser: widget._currentUser,
-                      // profileImage: profileImageFile,
-                      username: usernameController.text),
+                      profileImage: profileImageFile,
+                      username: _usernameController.text),
                 }
               else
                 {
-                  Scaffold.of(context)
+                  ScaffoldMessenger.of(context)
                     ..hideCurrentSnackBar()
                     ..showSnackBar(
                       const SnackBar(
@@ -336,5 +314,22 @@ class _LoginInfoPageState extends State<LoginInfoPage>
     if (!isVisible) {
       FocusScope.of(context).requestFocus(FocusNode());
     }
+  }
+}
+
+class LogOutButton extends StatelessWidget {
+  const LogOutButton({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () => context.read<AuthenticationBloc>().add(
+            AuthenticationLogoutRequested(),
+          ),
+      child: const Text(
+        'Login with another account?',
+        style: TextStyle(color: Colors.blueAccent),
+      ),
+    );
   }
 }

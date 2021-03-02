@@ -17,8 +17,7 @@ class StorageProvider extends BaseStorageProvider {
     final miliSecs = DateTime.now().millisecondsSinceEpoch;
     final reference =
         _firebaseStorage.ref().child('$path/$miliSecs\_$fileName');
-    final uploadPath = await reference.getData();
-    print('uploading to $uploadPath');
+
     final uploadTask = await reference.putFile(file);
 
     final url = await uploadTask.ref.getDownloadURL();

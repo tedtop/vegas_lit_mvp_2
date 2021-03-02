@@ -18,38 +18,29 @@ class FillLoginCubit extends Cubit<FillLoginState> {
   final AuthenticationRepository _authenticationRepository;
 
   Future<void> saveProfile({
-    // @required File profileImage,
+    @required File profileImage,
     @required int age,
     @required String username,
     @required User currentUser,
   }) async {
-    emit(
-      FillLoginInProgress(),
-    );
+    emit(FillLoginInProgress());
     try {
-      // final profilePictureUrl = await _authenticationRepository.uploadFile(
-      //   profileImage,
-      //   'profile_pictures/${'$username'}',
-      // );
+      final profilePictureURL = await _authenticationRepository.uploadFile(
+        profileImage,
+        'profile_pictures/${'$username'}',
+      );
       await _authenticationRepository.saveDetailsFromAuthentication(
         currentUser,
       );
       await _authenticationRepository.saveUserDetails(
         currentUserId: currentUser.uid,
-        profileImageURL: currentUser.photoURL,
+        profileImageURL: profilePictureURL,
         age: age,
         username: username,
       );
-      emit(
-        FillLoginSuccess(),
-      );
-    } catch (e, stacktrace) {
-      // ignore: avoid_print
-      print(e);
-      print(stacktrace);
-      emit(
-        FillLoginFailure(),
-      );
+      emit(FillLoginSuccess());
+    } on Exception {
+      emit(FillLoginFailure());
     }
   }
 }

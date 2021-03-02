@@ -102,51 +102,57 @@ class GameCard extends StatelessWidget {
                               ),
                             ],
                           ),
-                          Row(
-                            children: [
-                              BetButton.route(
-                                text:
-                                    '${state.game.odds[0].moneyline.current.awayOdds}',
-                                game: state.game,
-                              ),
-                              _betButtonSeparator(text: 'ML'),
-                              BetButton.route(
-                                game: state.game,
-                                text:
-                                    '${state.game.odds[0].moneyline.current.homeOdds}',
-                              ),
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              BetButton.route(
-                                game: state.game,
-                                text:
-                                    '${state.game.odds[0].spread.current.away}     ${state.game.odds[0].spread.current.awayOdds}',
-                              ),
-                              _betButtonSeparator(text: 'PTS'),
-                              BetButton.route(
-                                game: state.game,
-                                text:
-                                    '${state.game.odds[0].spread.current.home}     ${state.game.odds[0].spread.current.homeOdds}',
-                              ),
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              BetButton.route(
-                                game: state.game,
-                                text:
-                                    'o${state.game.odds[0].total.current.total}     ${state.game.odds[0].total.current.overOdds}',
-                              ),
-                              _betButtonSeparator(text: 'TOT'),
-                              BetButton.route(
-                                game: state.game,
-                                text:
-                                    'u${state.game.odds[0].total.current.total}     ${state.game.odds[0].total.current.underOdds}',
-                              ),
-                            ],
-                          ),
+                          state.game.odds == null
+                              ? Container()
+                              : Row(
+                                  children: [
+                                    BetButton.route(
+                                      text:
+                                          '${state.game.odds[0].moneyline.current.awayOdds}',
+                                      game: state.game,
+                                    ),
+                                    _betButtonSeparator(text: 'ML'),
+                                    BetButton.route(
+                                      game: state.game,
+                                      text:
+                                          '${state.game.odds[0].moneyline.current.homeOdds}',
+                                    ),
+                                  ],
+                                ),
+                          state.game.odds == null
+                              ? Container()
+                              : Row(
+                                  children: [
+                                    BetButton.route(
+                                      game: state.game,
+                                      text:
+                                          '${state.game.odds[0].spread.current.away}     ${state.game.odds[0].spread.current.awayOdds}',
+                                    ),
+                                    _betButtonSeparator(text: 'PTS'),
+                                    BetButton.route(
+                                      game: state.game,
+                                      text:
+                                          '${state.game.odds[0].spread.current.home}     ${state.game.odds[0].spread.current.homeOdds}',
+                                    ),
+                                  ],
+                                ),
+                          state.game.odds == null
+                              ? Container()
+                              : Row(
+                                  children: [
+                                    BetButton.route(
+                                      game: state.game,
+                                      text:
+                                          'o${state.game.odds[0].total.current.total}     ${state.game.odds[0].total.current.overOdds}',
+                                    ),
+                                    _betButtonSeparator(text: 'TOT'),
+                                    BetButton.route(
+                                      game: state.game,
+                                      text:
+                                          'u${state.game.odds[0].total.current.total}     ${state.game.odds[0].total.current.underOdds}',
+                                    ),
+                                  ],
+                                ),
                         ],
                       ),
                     ],

@@ -5,6 +5,7 @@ import 'package:flutter_icons/flutter_icons.dart';
 import 'package:vegas_lit/constants/assets.dart';
 import 'package:vegas_lit/constants/palette.dart';
 import 'package:vegas_lit/constants/styles.dart';
+import 'package:vegas_lit/data/repositories/sportsfeed_repository.dart';
 
 import '../authentication/bloc/authentication_bloc.dart';
 import 'screens/bet_history/bet_history.dart';
@@ -20,11 +21,12 @@ class HomePage extends StatefulWidget {
 
   static Route route() {
     return MaterialPageRoute<void>(
-      builder: (_) => MultiBlocProvider(
+      builder: (context) => MultiBlocProvider(
         providers: [
           BlocProvider<SportsbookBloc>(
-            create: (_) => SportsbookBloc()
-              ..add(
+            create: (_) => SportsbookBloc(
+              sportsfeedRepository: context.read<SportsfeedRepository>(),
+            )..add(
                 SportsbookOpen(),
               ),
           ),
@@ -79,7 +81,6 @@ class _HomePageState extends State<HomePage> {
             padding: const EdgeInsets.all(16.0),
             child: FlatButton(
               onPressed: () {
-                Navigator.pop(context);
                 context.read<AuthenticationBloc>().add(
                       AuthenticationLogoutRequested(),
                     );
@@ -104,9 +105,6 @@ class _HomePageState extends State<HomePage> {
           OpenBets(),
           BetHistory(),
         ],
-        // controller: pageController,
-        // onPageChanged: onPageChanged,
-        // physics: const NeverScrollableScrollPhysics(),
       ),
       bottomNavigationBar: bottomNavigation(),
     );
@@ -129,25 +127,20 @@ class _HomePageState extends State<HomePage> {
             items: [
               CustomNavigationBarItem(
                 icon: const Icon(Feather.home),
-                // title: const Text('Sportsbook'),
               ),
               CustomNavigationBarItem(
                 icon: const Icon(Feather.file_plus),
                 showBadge: showBadge,
                 badgeCount: badgeCount,
-                // title: const Text('Bet Slip'),
               ),
               CustomNavigationBarItem(
                 icon: const Icon(Feather.globe),
-                // title: const Text('Leaderboard'),
               ),
               CustomNavigationBarItem(
                 icon: const Icon(Feather.file_text),
-                // title: const Text('Open Bets'),
               ),
               CustomNavigationBarItem(
                 icon: const Icon(Feather.calendar),
-                // title: const Text('Bet History'),
               ),
             ],
           );
@@ -165,14 +158,4 @@ class _HomePageState extends State<HomePage> {
       },
     );
   }
-
-  // void onTap(int pageIndex) {
-  //   pageController.animateToPage(
-  //     pageIndex,
-  //     duration: const Duration(
-  //       milliseconds: 100,
-  //     ),
-  //     curve: Curves.easeInOut,
-  //   );
-  // }
 }

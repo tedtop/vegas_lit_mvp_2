@@ -38,7 +38,8 @@ class SportsBookView extends StatelessWidget {
   const SportsBookView({
     Key key,
     @required this.games,
-  }) : super(key: key);
+  })  : assert(games != null),
+        super(key: key);
 
   final List<Game> games;
 
