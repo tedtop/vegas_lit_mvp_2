@@ -66,7 +66,7 @@ class BetButtonUnclicked extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(5.0),
         child: RaisedButton(
-          padding: const EdgeInsets.all(10.0),
+          padding: const EdgeInsets.all(8.0),
           elevation: Styles.elevation,
           color: Palette.lightGrey,
           child: Text(
@@ -96,7 +96,7 @@ class BetButtonClicked extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(5.0),
         child: RaisedButton(
-          padding: const EdgeInsets.all(10.0),
+          padding: const EdgeInsets.all(8.0),
           elevation: Styles.elevation,
           color: Palette.green,
           child: Text(

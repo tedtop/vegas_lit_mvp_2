@@ -201,8 +201,128 @@ class _BetSlipCardViewState extends State<BetSlipCardView> {
                           ? Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Form(
-                                  key: _formKey,
+                                Expanded(
+                                  child: Form(
+                                    key: _formKey,
+                                    child: Column(
+                                      children: [
+                                        Container(
+                                          decoration: BoxDecoration(
+                                            color: Palette.darkGrey,
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                          ),
+                                          height: 100,
+                                          width: 140,
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(15.0),
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                const Text(
+                                                  'BET AMOUNT',
+                                                  style: TextStyle(
+                                                      color: Palette.white,
+                                                      fontSize: 15),
+                                                ),
+                                                const SizedBox(
+                                                  height: 10,
+                                                ),
+                                                Expanded(
+                                                  child: TextFormField(
+                                                    onChanged: (text) {
+                                                      betAmount = text;
+                                                      setState(() {
+                                                        toWinAmount = (100 /
+                                                                int.parse(
+                                                                    betButtonState
+                                                                        .text) *
+                                                                int.parse(text))
+                                                            .toInt();
+                                                      });
+                                                    },
+                                                    keyboardType:
+                                                        TextInputType.number,
+                                                    textAlign: TextAlign.center,
+                                                    maxLengthEnforcement:
+                                                        MaxLengthEnforcement
+                                                            .enforced,
+                                                    maxLength: 3,
+                                                    initialValue: betAmount,
+                                                    decoration:
+                                                        const InputDecoration(
+                                                      counterText: '',
+                                                    ),
+                                                    validator: (value) {
+                                                      if (value.isEmpty) {
+                                                        return 'Empty Box';
+                                                      }
+                                                      if (int.parse(value) >=
+                                                          101) {
+                                                        return '100\$ Limit Reached';
+                                                      }
+                                                      return null;
+                                                    },
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                        Container(
+                                          width: 140,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(12),
+                                          ),
+                                          child: betSlipCardState.status ==
+                                                  BetSlipCardStatus.confirmed
+                                              ? const Center(
+                                                  child: Padding(
+                                                    padding:
+                                                        EdgeInsets.all(8.0),
+                                                    child: Text(
+                                                      'BET PLACED',
+                                                    ),
+                                                  ),
+                                                )
+                                              : RaisedButton(
+                                                  padding: const EdgeInsets.all(
+                                                    10.0,
+                                                  ),
+                                                  color: Palette.green,
+                                                  child: Text(
+                                                    'PLACE BET',
+                                                    style: Styles.h3,
+                                                  ),
+                                                  onPressed: () {
+                                                    if (_formKey.currentState
+                                                        .validate()) {
+                                                      context
+                                                          .read<
+                                                              BetButtonCubit>()
+                                                          .confirmBetButton();
+                                                      context
+                                                          .read<
+                                                              BetSlipCardCubit>()
+                                                          .betSlipCardConfirm(
+                                                            betAmount:
+                                                                betAmount,
+                                                          );
+                                                    }
+                                                  },
+                                                ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                Expanded(
                                   child: Column(
                                     children: [
                                       Container(
@@ -220,47 +340,17 @@ class _BetSlipCardViewState extends State<BetSlipCardView> {
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               const Text(
-                                                'BET AMOUNT',
+                                                'To Win',
                                                 style: TextStyle(
                                                     color: Palette.white,
                                                     fontSize: 15),
                                               ),
-                                              const SizedBox(
-                                                height: 10,
-                                              ),
-                                              Expanded(
-                                                child: TextFormField(
-                                                  onChanged: (text) {
-                                                    betAmount = text;
-                                                    setState(() {
-                                                      toWinAmount = (100 /
-                                                              int.parse(
-                                                                  betButtonState
-                                                                      .text) *
-                                                              int.parse(text))
-                                                          .toInt();
-                                                    });
-                                                  },
-                                                  keyboardType:
-                                                      TextInputType.number,
-                                                  textAlign: TextAlign.center,
-                                                  maxLengthEnforced: true,
-                                                  maxLength: 3,
-                                                  initialValue: betAmount,
-                                                  decoration:
-                                                      const InputDecoration(
-                                                    counterText: '',
-                                                  ),
-                                                  validator: (value) {
-                                                    if (value.isEmpty) {
-                                                      return 'Empty Box';
-                                                    }
-                                                    if (int.parse(value) >=
-                                                        101) {
-                                                      return '100\$ Limit Reached';
-                                                    }
-                                                    return null;
-                                                  },
+                                              Text(
+                                                '\$$toWinAmount',
+                                                style: const TextStyle(
+                                                  color: Palette.white,
+                                                  fontSize: 15,
+                                                  fontWeight: FontWeight.w800,
                                                 ),
                                               ),
                                             ],
@@ -275,113 +365,35 @@ class _BetSlipCardViewState extends State<BetSlipCardView> {
                                         ),
                                         child: betSlipCardState.status ==
                                                 BetSlipCardStatus.confirmed
-                                            ? const Center(
-                                                child: Padding(
-                                                  padding: EdgeInsets.all(8.0),
-                                                  child: Text(
-                                                    'BET PLACED',
-                                                  ),
-                                                ),
-                                              )
+                                            ? Container()
                                             : RaisedButton(
                                                 padding: const EdgeInsets.all(
                                                   10.0,
                                                 ),
-                                                color: Palette.green,
-                                                child: Text(
-                                                  'PLACE BET',
-                                                  style: Styles.h3,
+                                                color: Palette.red,
+                                                child: const Text(
+                                                  'CANCEL',
+                                                  style: TextStyle(
+                                                    color: Palette.white,
+                                                    fontSize: 15.0,
+                                                    fontWeight: FontWeight.w300,
+                                                  ),
                                                 ),
                                                 onPressed: () {
-                                                  if (_formKey.currentState
-                                                      .validate()) {
-                                                    context
-                                                        .read<BetButtonCubit>()
-                                                        .confirmBetButton();
-                                                    context
-                                                        .read<
-                                                            BetSlipCardCubit>()
-                                                        .betSlipCardConfirm(
-                                                          betAmount: betAmount,
-                                                        );
-                                                  }
+                                                  context
+                                                      .read<BetButtonCubit>()
+                                                      .unclickBetButton();
+                                                  context
+                                                      .read<BetSlipCubit>()
+                                                      .removeBetSlip(
+                                                        uniqueId: betButtonState
+                                                            .uniqueId,
+                                                      );
                                                 },
                                               ),
                                       )
                                     ],
                                   ),
-                                ),
-                                const SizedBox(
-                                  width: 10,
-                                ),
-                                Column(
-                                  children: [
-                                    Container(
-                                      decoration: BoxDecoration(
-                                        color: Palette.darkGrey,
-                                        borderRadius: BorderRadius.circular(8),
-                                      ),
-                                      height: 100,
-                                      width: 140,
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(15.0),
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            const Text(
-                                              'To Win',
-                                              style: TextStyle(
-                                                  color: Palette.white,
-                                                  fontSize: 15),
-                                            ),
-                                            Text(
-                                              '\$$toWinAmount',
-                                              style: const TextStyle(
-                                                color: Palette.white,
-                                                fontSize: 15,
-                                                fontWeight: FontWeight.w800,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                    Container(
-                                      width: 140,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(12),
-                                      ),
-                                      child: betSlipCardState.status ==
-                                              BetSlipCardStatus.confirmed
-                                          ? Container()
-                                          : RaisedButton(
-                                              padding: const EdgeInsets.all(
-                                                10.0,
-                                              ),
-                                              color: Palette.red,
-                                              child: const Text(
-                                                'CANCEL',
-                                                style: TextStyle(
-                                                  color: Palette.white,
-                                                  fontSize: 15.0,
-                                                  fontWeight: FontWeight.w300,
-                                                ),
-                                              ),
-                                              onPressed: () {
-                                                context
-                                                    .read<BetButtonCubit>()
-                                                    .unclickBetButton();
-                                                context
-                                                    .read<BetSlipCubit>()
-                                                    .removeBetSlip(
-                                                      uniqueId: betButtonState
-                                                          .uniqueId,
-                                                    );
-                                              },
-                                            ),
-                                    )
-                                  ],
                                 ),
                               ],
                             )

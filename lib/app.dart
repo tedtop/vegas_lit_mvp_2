@@ -1,24 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vegas_lit/data/repositories/auth_repository.dart';
-import 'package:vegas_lit/features/authentication/pages/login_page/login_page.dart';
+import 'package:vegas_lit/data/repositories/sportsfeed_repository.dart';
 
 import 'constants/themes.dart';
 import 'features/authentication/bloc/authentication_bloc.dart';
-import 'features/authentication/pages/fill_login_page/fill_login_page.dart';
-import 'features/authentication/pages/splash_page/splash_page.dart';
+import 'features/authentication/screens/fill_login/view/fill_login_page.dart';
+import 'features/authentication/screens/login/view/login_page.dart';
+import 'features/authentication/screens/splash/view/splash_page.dart';
 import 'features/home_page/home_page.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({
     Key key,
     @required this.authenticationRepository,
+    @required this.sportsfeedRepository,
   })  : assert(
           authenticationRepository != null,
+          sportsfeedRepository != null,
         ),
         super(key: key);
 
   final AuthenticationRepository authenticationRepository;
+  final SportsfeedRepository sportsfeedRepository;
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +30,9 @@ class MyApp extends StatelessWidget {
       providers: [
         RepositoryProvider.value(
           value: authenticationRepository,
+        ),
+        RepositoryProvider.value(
+          value: sportsfeedRepository,
         ),
       ],
       child: BlocProvider(
@@ -38,14 +45,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class AppView extends StatefulWidget {
-  AppView({Key key}) : super(key: key);
-
-  @override
-  _AppViewState createState() => _AppViewState();
-}
-
-class _AppViewState extends State<AppView> {
+class AppView extends StatelessWidget {
   final _navigatorKey = GlobalKey<NavigatorState>();
 
   NavigatorState get _navigator => _navigatorKey.currentState;
@@ -68,7 +68,9 @@ class _AppViewState extends State<AppView> {
                 break;
               case AuthenticationStatus.halfauthenticated:
                 _navigator.push<void>(
-                  LoginInfoPage.route(currentUser: state.currentUser),
+                  LoginInfoPage.route(
+                    currentUser: state.user,
+                  ),
                 );
                 break;
               case AuthenticationStatus.unauthenticated:

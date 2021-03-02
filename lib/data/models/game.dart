@@ -1,22 +1,12 @@
+// To parse this JSON data, do
+//
+//     final game = gameFromJson(jsonString);
+
 import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
-import 'package:flutter/services.dart';
-import 'package:vegas_lit/constants/assets.dart';
-
-const String jsonAssetPath = Json.mockData;
 
 class Game extends Equatable {
-  final GameSchedule schedule;
-  final String summary;
-  final GameDetails details;
-  final String status;
-  final GameTeams teams;
-  final DateTime lastUpdated;
-  final int gameId;
-  final GameVenue venue;
-  final List<GameOdds> odds;
-
   Game({
     this.schedule,
     this.summary,
@@ -26,49 +16,88 @@ class Game extends Equatable {
     this.lastUpdated,
     this.gameId,
     this.venue,
+    this.scoreboard,
     this.odds,
   });
 
-  factory Game.fromJson(Map<String, dynamic> json) {
-    final List<GameOdds> odds = json['odds'].map<GameOdds>(
-      (json) {
-        return GameOdds.fromJson(json);
-      },
-    ).toList();
-    return Game(
-      schedule: GameSchedule.fromJson(
-        json['schedule'],
-      ),
-      summary: json['summary'],
-      details: GameDetails.fromJson(
-        json['details'],
-      ),
-      status: json['status'],
-      teams: GameTeams.fromJson(
-        json['teams'],
-      ),
-      lastUpdated: DateTime.parse(
-        json['lastUpdated'],
-      ),
-      gameId: json['gameId'],
-      venue: GameVenue.fromJson(
-        json['venue'],
-      ),
-      odds: odds,
-    );
-  }
+  final Schedule schedule;
+  final String summary;
+  final Details details;
+  final Status status;
+  final Teams teams;
+  final DateTime lastUpdated;
+  final int gameId;
+  final Venue venue;
+  final Scoreboard scoreboard;
+  final List<Odd> odds;
 
-  static Future<List<Game>> fetchAllFromMock() async {
-    final dynamic gamesJson = json.decode(
-      await rootBundle.loadString(jsonAssetPath),
-    );
-    final List<dynamic> parsed = gamesJson['results'];
-    return parsed
-        .map<Game>(
-          (json) => Game.fromJson(json),
-        )
-        .toList();
-  }
+  Game copyWith({
+    Schedule schedule,
+    String summary,
+    Details details,
+    Status status,
+    Teams teams,
+    DateTime lastUpdated,
+    int gameId,
+    Venue venue,
+    Scoreboard scoreboard,
+    List<Odd> odds,
+  }) =>
+      Game(
+        schedule: schedule ?? this.schedule,
+        summary: summary ?? this.summary,
+        details: details ?? this.details,
+        status: status ?? this.status,
+        teams: teams ?? this.teams,
+        lastUpdated: lastUpdated ?? this.lastUpdated,
+        gameId: gameId ?? this.gameId,
+        venue: venue ?? this.venue,
+        scoreboard: scoreboard ?? this.scoreboard,
+        odds: odds ?? this.odds,
+      );
+
+  factory Game.fromRawJson(String str) => Game.fromJson(json.decode(str));
+
+  String toRawJson() => json.encode(toJson());
+
+  factory Game.fromJson(Map<String, dynamic> json) => Game(
+        schedule: json["schedule"] == null
+            ? null
+            : Schedule.fromJson(json["schedule"]),
+        summary: json["summary"] == null ? null : json["summary"],
+        details:
+            json["details"] == null ? null : Details.fromJson(json["details"]),
+        status:
+            json["status"] == null ? null : statusValues.map[json["status"]],
+        teams: json["teams"] == null ? null : Teams.fromJson(json["teams"]),
+        lastUpdated: json["lastUpdated"] == null
+            ? null
+            : DateTime.parse(json["lastUpdated"]),
+        gameId: json["gameId"] == null ? null : json["gameId"],
+        venue: json["venue"] == null ? null : Venue.fromJson(json["venue"]),
+        scoreboard: json["scoreboard"] == null
+            ? null
+            : Scoreboard.fromJson(json["scoreboard"]),
+        odds: json["odds"] == null
+            ? null
+            : List<Odd>.from(json["odds"].map((x) => Odd.fromJson(x))),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "schedule": schedule == null ? null : schedule.toJson(),
+        "summary": summary == null ? null : summary,
+        "details": details == null ? null : details.toJson(),
+        "status": status == null ? null : statusValues.reverse[status],
+        "teams": teams == null ? null : teams.toJson(),
+        "lastUpdated":
+            lastUpdated == null ? null : lastUpdated.toIso8601String(),
+        "gameId": gameId == null ? null : gameId,
+        "venue": venue == null ? null : venue.toJson(),
+        "scoreboard": scoreboard == null ? null : scoreboard.toJson(),
+        "odds": odds == null
+            ? null
+            : List<dynamic>.from(odds.map((x) => x.toJson())),
+      };
 
   @override
   List<Object> get props {
@@ -81,39 +110,14 @@ class Game extends Equatable {
       lastUpdated,
       gameId,
       venue,
+      scoreboard,
       odds,
     ];
   }
 }
 
-class GameSchedule extends Equatable {
-  final DateTime date;
-  final dynamic tbaTime;
-
-  GameSchedule({
-    this.date,
-    this.tbaTime,
-  });
-
-  factory GameSchedule.fromJson(Map<String, dynamic> json) {
-    return GameSchedule(
-      date: DateTime.parse(json['date']),
-      tbaTime: json['tbaTime'],
-    );
-  }
-
-  @override
-  List<Object> get props => [date, tbaTime];
-}
-
-class GameDetails extends Equatable {
-  final String league;
-  final String seasonType;
-  final int season;
-  final bool conferenceGame;
-  final bool divisionGame;
-
-  GameDetails({
+class Details extends Equatable {
+  Details({
     this.league,
     this.seasonType,
     this.season,
@@ -121,15 +125,52 @@ class GameDetails extends Equatable {
     this.divisionGame,
   });
 
-  factory GameDetails.fromJson(Map<String, dynamic> json) {
-    return GameDetails(
-      league: json['league'],
-      seasonType: json['seasonType'],
-      season: json['season'],
-      conferenceGame: json['conferenceGame'],
-      divisionGame: json['divisionGame'],
-    );
-  }
+  final League league;
+  final SeasonType seasonType;
+  final int season;
+  final bool conferenceGame;
+  final bool divisionGame;
+
+  Details copyWith({
+    League league,
+    SeasonType seasonType,
+    int season,
+    bool conferenceGame,
+    bool divisionGame,
+  }) =>
+      Details(
+        league: league ?? this.league,
+        seasonType: seasonType ?? this.seasonType,
+        season: season ?? this.season,
+        conferenceGame: conferenceGame ?? this.conferenceGame,
+        divisionGame: divisionGame ?? this.divisionGame,
+      );
+
+  factory Details.fromRawJson(String str) => Details.fromJson(json.decode(str));
+
+  String toRawJson() => json.encode(toJson());
+
+  factory Details.fromJson(Map<String, dynamic> json) => Details(
+        league:
+            json["league"] == null ? null : leagueValues.map[json["league"]],
+        seasonType: json["seasonType"] == null
+            ? null
+            : seasonTypeValues.map[json["seasonType"]],
+        season: json["season"] == null ? null : json["season"],
+        conferenceGame:
+            json["conferenceGame"] == null ? null : json["conferenceGame"],
+        divisionGame:
+            json["divisionGame"] == null ? null : json["divisionGame"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "league": league == null ? null : leagueValues.reverse[league],
+        "seasonType":
+            seasonType == null ? null : seasonTypeValues.reverse[seasonType],
+        "season": season == null ? null : season,
+        "conferenceGame": conferenceGame == null ? null : conferenceGame,
+        "divisionGame": divisionGame == null ? null : divisionGame,
+      };
 
   @override
   List<Object> get props {
@@ -143,35 +184,523 @@ class GameDetails extends Equatable {
   }
 }
 
-class GameTeams extends Equatable {
-  final GameTeam away;
-  final GameTeam home;
+enum League { MLB, NBA, NCAAB, NHL }
 
-  GameTeams({
+final leagueValues = EnumValues({
+  "MLB": League.MLB,
+  "NBA": League.NBA,
+  "NCAAB": League.NCAAB,
+  "NHL": League.NHL
+});
+
+enum SeasonType { PRESEASON, REGULAR }
+
+final seasonTypeValues = EnumValues(
+    {"preseason": SeasonType.PRESEASON, "regular": SeasonType.REGULAR});
+
+class Odd extends Equatable {
+  Odd({
+    this.spread,
+    this.moneyline,
+    this.total,
+    this.openDate,
+    this.lastUpdated,
+  });
+
+  final Spread spread;
+  final Moneyline moneyline;
+  final Total total;
+  final DateTime openDate;
+  final DateTime lastUpdated;
+
+  Odd copyWith({
+    Spread spread,
+    Moneyline moneyline,
+    Total total,
+    DateTime openDate,
+    DateTime lastUpdated,
+  }) =>
+      Odd(
+        spread: spread ?? this.spread,
+        moneyline: moneyline ?? this.moneyline,
+        total: total ?? this.total,
+        openDate: openDate ?? this.openDate,
+        lastUpdated: lastUpdated ?? this.lastUpdated,
+      );
+
+  factory Odd.fromRawJson(String str) => Odd.fromJson(json.decode(str));
+
+  String toRawJson() => json.encode(toJson());
+
+  factory Odd.fromJson(Map<String, dynamic> json) => Odd(
+        spread: json["spread"] == null ? null : Spread.fromJson(json["spread"]),
+        moneyline: json["moneyline"] == null
+            ? null
+            : Moneyline.fromJson(json["moneyline"]),
+        total: json["total"] == null ? null : Total.fromJson(json["total"]),
+        openDate:
+            json["openDate"] == null ? null : DateTime.parse(json["openDate"]),
+        lastUpdated: json["lastUpdated"] == null
+            ? null
+            : DateTime.parse(json["lastUpdated"]),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "spread": spread == null ? null : spread.toJson(),
+        "moneyline": moneyline == null ? null : moneyline.toJson(),
+        "total": total == null ? null : total.toJson(),
+        "openDate": openDate == null ? null : openDate.toIso8601String(),
+        "lastUpdated":
+            lastUpdated == null ? null : lastUpdated.toIso8601String(),
+      };
+
+  @override
+  List<Object> get props {
+    return [
+      spread,
+      moneyline,
+      total,
+      openDate,
+      lastUpdated,
+    ];
+  }
+}
+
+class Moneyline extends Equatable {
+  Moneyline({
+    this.open,
+    this.current,
+  });
+
+  final MoneylineCurrent open;
+  final MoneylineCurrent current;
+
+  Moneyline copyWith({
+    MoneylineCurrent open,
+    MoneylineCurrent current,
+  }) =>
+      Moneyline(
+        open: open ?? this.open,
+        current: current ?? this.current,
+      );
+
+  factory Moneyline.fromRawJson(String str) =>
+      Moneyline.fromJson(json.decode(str));
+
+  String toRawJson() => json.encode(toJson());
+
+  factory Moneyline.fromJson(Map<String, dynamic> json) => Moneyline(
+        open: json["open"] == null
+            ? null
+            : MoneylineCurrent.fromJson(json["open"]),
+        current: json["current"] == null
+            ? null
+            : MoneylineCurrent.fromJson(json["current"]),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "open": open == null ? null : open.toJson(),
+        "current": current == null ? null : current.toJson(),
+      };
+
+  @override
+  List<Object> get props => [open, current];
+}
+
+class MoneylineCurrent extends Equatable {
+  MoneylineCurrent({
+    this.awayOdds,
+    this.homeOdds,
+  });
+
+  final int awayOdds;
+  final int homeOdds;
+
+  MoneylineCurrent copyWith({
+    int awayOdds,
+    int homeOdds,
+  }) =>
+      MoneylineCurrent(
+        awayOdds: awayOdds ?? this.awayOdds,
+        homeOdds: homeOdds ?? this.homeOdds,
+      );
+
+  factory MoneylineCurrent.fromRawJson(String str) =>
+      MoneylineCurrent.fromJson(json.decode(str));
+
+  String toRawJson() => json.encode(toJson());
+
+  factory MoneylineCurrent.fromJson(Map<String, dynamic> json) =>
+      MoneylineCurrent(
+        awayOdds: json["awayOdds"] == null ? null : json["awayOdds"],
+        homeOdds: json["homeOdds"] == null ? null : json["homeOdds"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "awayOdds": awayOdds == null ? null : awayOdds,
+        "homeOdds": homeOdds == null ? null : homeOdds,
+      };
+
+  @override
+  List<Object> get props => [awayOdds, homeOdds];
+}
+
+class Spread extends Equatable {
+  Spread({
+    this.open,
+    this.current,
+  });
+
+  final SpreadCurrent open;
+  final SpreadCurrent current;
+
+  Spread copyWith({
+    SpreadCurrent open,
+    SpreadCurrent current,
+  }) =>
+      Spread(
+        open: open ?? this.open,
+        current: current ?? this.current,
+      );
+
+  factory Spread.fromRawJson(String str) => Spread.fromJson(json.decode(str));
+
+  String toRawJson() => json.encode(toJson());
+
+  factory Spread.fromJson(Map<String, dynamic> json) => Spread(
+        open:
+            json["open"] == null ? null : SpreadCurrent.fromJson(json["open"]),
+        current: json["current"] == null
+            ? null
+            : SpreadCurrent.fromJson(json["current"]),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "open": open == null ? null : open.toJson(),
+        "current": current == null ? null : current.toJson(),
+      };
+
+  @override
+  List<Object> get props => [open, current];
+}
+
+class SpreadCurrent extends Equatable {
+  SpreadCurrent({
+    this.away,
+    this.home,
+    this.awayOdds,
+    this.homeOdds,
+  });
+
+  final double away;
+  final double home;
+  final int awayOdds;
+  final int homeOdds;
+
+  SpreadCurrent copyWith({
+    double away,
+    double home,
+    int awayOdds,
+    int homeOdds,
+  }) =>
+      SpreadCurrent(
+        away: away ?? this.away,
+        home: home ?? this.home,
+        awayOdds: awayOdds ?? this.awayOdds,
+        homeOdds: homeOdds ?? this.homeOdds,
+      );
+
+  factory SpreadCurrent.fromRawJson(String str) =>
+      SpreadCurrent.fromJson(json.decode(str));
+
+  String toRawJson() => json.encode(toJson());
+
+  factory SpreadCurrent.fromJson(Map<String, dynamic> json) => SpreadCurrent(
+        away: json["away"] == null ? null : json["away"].toDouble(),
+        home: json["home"] == null ? null : json["home"].toDouble(),
+        awayOdds: json["awayOdds"] == null ? null : json["awayOdds"],
+        homeOdds: json["homeOdds"] == null ? null : json["homeOdds"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "away": away == null ? null : away,
+        "home": home == null ? null : home,
+        "awayOdds": awayOdds == null ? null : awayOdds,
+        "homeOdds": homeOdds == null ? null : homeOdds,
+      };
+
+  @override
+  List<Object> get props => [away, home, awayOdds, homeOdds];
+}
+
+class Total extends Equatable {
+  Total({
+    this.open,
+    this.current,
+  });
+
+  final TotalCurrent open;
+  final TotalCurrent current;
+
+  Total copyWith({
+    TotalCurrent open,
+    TotalCurrent current,
+  }) =>
+      Total(
+        open: open ?? this.open,
+        current: current ?? this.current,
+      );
+
+  factory Total.fromRawJson(String str) => Total.fromJson(json.decode(str));
+
+  String toRawJson() => json.encode(toJson());
+
+  factory Total.fromJson(Map<String, dynamic> json) => Total(
+        open: json["open"] == null ? null : TotalCurrent.fromJson(json["open"]),
+        current: json["current"] == null
+            ? null
+            : TotalCurrent.fromJson(json["current"]),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "open": open == null ? null : open.toJson(),
+        "current": current == null ? null : current.toJson(),
+      };
+
+  @override
+  List<Object> get props => [open, current];
+}
+
+class TotalCurrent extends Equatable {
+  TotalCurrent({
+    this.total,
+    this.overOdds,
+    this.underOdds,
+  });
+
+  final double total;
+  final int overOdds;
+  final int underOdds;
+
+  TotalCurrent copyWith({
+    double total,
+    int overOdds,
+    int underOdds,
+  }) =>
+      TotalCurrent(
+        total: total ?? this.total,
+        overOdds: overOdds ?? this.overOdds,
+        underOdds: underOdds ?? this.underOdds,
+      );
+
+  factory TotalCurrent.fromRawJson(String str) =>
+      TotalCurrent.fromJson(json.decode(str));
+
+  String toRawJson() => json.encode(toJson());
+
+  factory TotalCurrent.fromJson(Map<String, dynamic> json) => TotalCurrent(
+        total: json["total"] == null ? null : json["total"].toDouble(),
+        overOdds: json["overOdds"] == null ? null : json["overOdds"],
+        underOdds: json["underOdds"] == null ? null : json["underOdds"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "total": total == null ? null : total,
+        "overOdds": overOdds == null ? null : overOdds,
+        "underOdds": underOdds == null ? null : underOdds,
+      };
+
+  @override
+  List<Object> get props => [total, overOdds, underOdds];
+}
+
+class Schedule extends Equatable {
+  Schedule({
+    this.date,
+    this.tbaTime,
+  });
+
+  final DateTime date;
+  final bool tbaTime;
+
+  Schedule copyWith({
+    DateTime date,
+    bool tbaTime,
+  }) =>
+      Schedule(
+        date: date ?? this.date,
+        tbaTime: tbaTime ?? this.tbaTime,
+      );
+
+  factory Schedule.fromRawJson(String str) =>
+      Schedule.fromJson(json.decode(str));
+
+  String toRawJson() => json.encode(toJson());
+
+  factory Schedule.fromJson(Map<String, dynamic> json) => Schedule(
+        date: json["date"] == null ? null : DateTime.parse(json["date"]),
+        tbaTime: json["tbaTime"] == null ? null : json["tbaTime"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "date": date == null ? null : date.toIso8601String(),
+        "tbaTime": tbaTime == null ? null : tbaTime,
+      };
+
+  @override
+  List<Object> get props => [date, tbaTime];
+}
+
+class Scoreboard extends Equatable {
+  Scoreboard({
+    this.score,
+    this.currentPeriod,
+    this.periodTimeRemaining,
+  });
+
+  final Score score;
+  final int currentPeriod;
+  final String periodTimeRemaining;
+
+  Scoreboard copyWith({
+    Score score,
+    int currentPeriod,
+    String periodTimeRemaining,
+  }) =>
+      Scoreboard(
+        score: score ?? this.score,
+        currentPeriod: currentPeriod ?? this.currentPeriod,
+        periodTimeRemaining: periodTimeRemaining ?? this.periodTimeRemaining,
+      );
+
+  factory Scoreboard.fromRawJson(String str) =>
+      Scoreboard.fromJson(json.decode(str));
+
+  String toRawJson() => json.encode(toJson());
+
+  factory Scoreboard.fromJson(Map<String, dynamic> json) => Scoreboard(
+        score: json["score"] == null ? null : Score.fromJson(json["score"]),
+        currentPeriod:
+            json["currentPeriod"] == null ? null : json["currentPeriod"],
+        periodTimeRemaining: json["periodTimeRemaining"] == null
+            ? null
+            : json["periodTimeRemaining"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "score": score == null ? null : score.toJson(),
+        "currentPeriod": currentPeriod == null ? null : currentPeriod,
+        "periodTimeRemaining":
+            periodTimeRemaining == null ? null : periodTimeRemaining,
+      };
+
+  @override
+  List<Object> get props => [score, currentPeriod, periodTimeRemaining];
+}
+
+class Score extends Equatable {
+  Score({
+    this.away,
+    this.home,
+    this.awayPeriods,
+    this.homePeriods,
+  });
+
+  final int away;
+  final int home;
+  final List<int> awayPeriods;
+  final List<int> homePeriods;
+
+  Score copyWith({
+    int away,
+    int home,
+    List<int> awayPeriods,
+    List<int> homePeriods,
+  }) =>
+      Score(
+        away: away ?? this.away,
+        home: home ?? this.home,
+        awayPeriods: awayPeriods ?? this.awayPeriods,
+        homePeriods: homePeriods ?? this.homePeriods,
+      );
+
+  factory Score.fromRawJson(String str) => Score.fromJson(json.decode(str));
+
+  String toRawJson() => json.encode(toJson());
+
+  factory Score.fromJson(Map<String, dynamic> json) => Score(
+        away: json["away"] == null ? null : json["away"],
+        home: json["home"] == null ? null : json["home"],
+        awayPeriods: json["awayPeriods"] == null
+            ? null
+            : List<int>.from(json["awayPeriods"].map((x) => x)),
+        homePeriods: json["homePeriods"] == null
+            ? null
+            : List<int>.from(json["homePeriods"].map((x) => x)),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "away": away == null ? null : away,
+        "home": home == null ? null : home,
+        "awayPeriods": awayPeriods == null
+            ? null
+            : List<dynamic>.from(awayPeriods.map((x) => x)),
+        "homePeriods": homePeriods == null
+            ? null
+            : List<dynamic>.from(homePeriods.map((x) => x)),
+      };
+
+  @override
+  List<Object> get props => [away, home, awayPeriods, homePeriods];
+}
+
+enum Status { FINAL, IN_PROGRESS, SCHEDULED, CANCELED }
+
+final statusValues = EnumValues({
+  "canceled": Status.CANCELED,
+  "final": Status.FINAL,
+  "in progress": Status.IN_PROGRESS,
+  "scheduled": Status.SCHEDULED
+});
+
+class Teams extends Equatable {
+  Teams({
     this.away,
     this.home,
   });
 
-  factory GameTeams.fromJson(Map<String, dynamic> json) {
-    return GameTeams(
-      away: GameTeam.fromJson(json['away']),
-      home: GameTeam.fromJson(json['home']),
-    );
-  }
+  final Away away;
+  final Away home;
+
+  Teams copyWith({
+    Away away,
+    Away home,
+  }) =>
+      Teams(
+        away: away ?? this.away,
+        home: home ?? this.home,
+      );
+
+  factory Teams.fromRawJson(String str) => Teams.fromJson(json.decode(str));
+
+  String toRawJson() => json.encode(toJson());
+
+  factory Teams.fromJson(Map<String, dynamic> json) => Teams(
+        away: json["away"] == null ? null : Away.fromJson(json["away"]),
+        home: json["home"] == null ? null : Away.fromJson(json["home"]),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "away": away == null ? null : away.toJson(),
+        "home": home == null ? null : home.toJson(),
+      };
 
   @override
   List<Object> get props => [away, home];
 }
 
-class GameTeam extends Equatable {
-  final String team;
-  final String location;
-  final String mascot;
-  final String abbreviation;
-  final String conference;
-  final String division;
-
-  GameTeam({
+class Away extends Equatable {
+  Away({
     this.team,
     this.location,
     this.mascot,
@@ -180,16 +709,52 @@ class GameTeam extends Equatable {
     this.division,
   });
 
-  factory GameTeam.fromJson(Map<String, dynamic> json) {
-    return GameTeam(
-      team: json['team'],
-      location: json['location'],
-      mascot: json['mascot'],
-      abbreviation: json['abbreviation'],
-      conference: json['conference'],
-      division: json['division'],
-    );
-  }
+  final String team;
+  final String location;
+  final String mascot;
+  final String abbreviation;
+  final String conference;
+  final String division;
+
+  Away copyWith({
+    String team,
+    String location,
+    String mascot,
+    String abbreviation,
+    String conference,
+    String division,
+  }) =>
+      Away(
+        team: team ?? this.team,
+        location: location ?? this.location,
+        mascot: mascot ?? this.mascot,
+        abbreviation: abbreviation ?? this.abbreviation,
+        conference: conference ?? this.conference,
+        division: division ?? this.division,
+      );
+
+  factory Away.fromRawJson(String str) => Away.fromJson(json.decode(str));
+
+  String toRawJson() => json.encode(toJson());
+
+  factory Away.fromJson(Map<String, dynamic> json) => Away(
+        team: json["team"] == null ? null : json["team"],
+        location: json["location"] == null ? null : json["location"],
+        mascot: json["mascot"] == null ? null : json["mascot"],
+        abbreviation:
+            json["abbreviation"] == null ? null : json["abbreviation"],
+        conference: json["conference"] == null ? null : json["conference"],
+        division: json["division"] == null ? null : json["division"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "team": team == null ? null : team,
+        "location": location == null ? null : location,
+        "mascot": mascot == null ? null : mascot,
+        "abbreviation": abbreviation == null ? null : abbreviation,
+        "conference": conference == null ? null : conference,
+        "division": division == null ? null : division,
+      };
 
   @override
   List<Object> get props {
@@ -204,201 +769,64 @@ class GameTeam extends Equatable {
   }
 }
 
-class GameVenue extends Equatable {
-  final String name;
-  final String city;
-  final String state;
-  final bool neutralSite;
-
-  GameVenue({
+class Venue extends Equatable {
+  Venue({
     this.name,
     this.city,
     this.state,
     this.neutralSite,
   });
 
-  factory GameVenue.fromJson(Map<String, dynamic> json) {
-    return GameVenue(
-      name: json['name'],
-      city: json['city'],
-      state: json['state'],
-      neutralSite: json['neutralSite'],
-    );
-  }
+  final String name;
+  final String city;
+  final String state;
+  final bool neutralSite;
+
+  Venue copyWith({
+    String name,
+    String city,
+    String state,
+    bool neutralSite,
+  }) =>
+      Venue(
+        name: name ?? this.name,
+        city: city ?? this.city,
+        state: state ?? this.state,
+        neutralSite: neutralSite ?? this.neutralSite,
+      );
+
+  factory Venue.fromRawJson(String str) => Venue.fromJson(json.decode(str));
+
+  String toRawJson() => json.encode(toJson());
+
+  factory Venue.fromJson(Map<String, dynamic> json) => Venue(
+        name: json["name"] == null ? null : json["name"],
+        city: json["city"] == null ? null : json["city"],
+        state: json["state"] == null ? null : json["state"],
+        neutralSite: json["neutralSite"] == null ? null : json["neutralSite"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "name": name == null ? null : name,
+        "city": city == null ? null : city,
+        "state": state == null ? null : state,
+        "neutralSite": neutralSite == null ? null : neutralSite,
+      };
 
   @override
   List<Object> get props => [name, city, state, neutralSite];
 }
 
-class GameOdds extends Equatable {
-  final GameSpreadOdds spread;
-  final GameMoneylineOdds moneyline;
-  final GameTotalOdds total;
-  final DateTime openDate;
-  final DateTime lastUpdated;
+class EnumValues<T> {
+  Map<String, T> map;
+  Map<T, String> reverseMap;
 
-  GameOdds({
-    this.spread,
-    this.moneyline,
-    this.total,
-    this.openDate,
-    this.lastUpdated,
-  });
+  EnumValues(this.map);
 
-  factory GameOdds.fromJson(Map<String, dynamic> json) {
-    return GameOdds(
-      spread: GameSpreadOdds.fromJson(json['spread']),
-      moneyline: GameMoneylineOdds.fromJson(json['moneyline']),
-      total: GameTotalOdds.fromJson(json['total']),
-      openDate: DateTime.parse(json['openDate']),
-      lastUpdated: DateTime.parse(json['lastUpdated']),
-    );
-  }
-
-  @override
-  List<Object> get props {
-    return [
-      spread,
-      moneyline,
-      total,
-      openDate,
-      lastUpdated,
-    ];
-  }
-}
-
-class GameSpreadOdds extends Equatable {
-  final GameSpreadOddsDetail open;
-  final GameSpreadOddsDetail current;
-
-  GameSpreadOdds({
-    this.open,
-    this.current,
-  });
-
-  factory GameSpreadOdds.fromJson(Map<String, dynamic> json) {
-    return GameSpreadOdds(
-      open: GameSpreadOddsDetail.fromJson(json['open']),
-      current: GameSpreadOddsDetail.fromJson(json['current']),
-    );
-  }
-
-  @override
-  List<Object> get props => [open, current];
-}
-
-class GameSpreadOddsDetail extends Equatable {
-  final double away;
-  final double home;
-  final int awayOdds;
-  final int homeOdds;
-
-  GameSpreadOddsDetail({
-    this.away,
-    this.home,
-    this.awayOdds,
-    this.homeOdds,
-  });
-
-  factory GameSpreadOddsDetail.fromJson(Map<String, dynamic> json) {
-    return GameSpreadOddsDetail(
-      away: json['away'].toDouble(),
-      home: json['home'].toDouble(),
-      awayOdds: json['awayOdds'],
-      homeOdds: json['homeOdds'],
-    );
-  }
-
-  @override
-  List<Object> get props => [away, home, awayOdds, homeOdds];
-}
-
-class GameMoneylineOdds extends Equatable {
-  final GameMoneylineOddsDetail open;
-  final GameMoneylineOddsDetail current;
-
-  GameMoneylineOdds({
-    this.open,
-    this.current,
-  });
-
-  factory GameMoneylineOdds.fromJson(Map<String, dynamic> json) {
-    if (json != null) {
-      return GameMoneylineOdds(
-        open: GameMoneylineOddsDetail.fromJson(json['open']),
-        current: GameMoneylineOddsDetail.fromJson(json['current']),
-      );
-    } else {
-      return GameMoneylineOdds(
-        open: GameMoneylineOddsDetail(awayOdds: 0, homeOdds: 0),
-        current: GameMoneylineOddsDetail(awayOdds: 0, homeOdds: 0),
-      );
+  Map<T, String> get reverse {
+    if (reverseMap == null) {
+      reverseMap = map.map((k, v) => new MapEntry(v, k));
     }
+    return reverseMap;
   }
-
-  @override
-  List<Object> get props => [open, current];
-}
-
-class GameMoneylineOddsDetail extends Equatable {
-  final int awayOdds;
-  final int homeOdds;
-
-  GameMoneylineOddsDetail({
-    this.awayOdds,
-    this.homeOdds,
-  });
-
-  factory GameMoneylineOddsDetail.fromJson(Map<String, dynamic> json) {
-    return GameMoneylineOddsDetail(
-      awayOdds: json['awayOdds'],
-      homeOdds: json['homeOdds'],
-    );
-  }
-
-  @override
-  List<Object> get props => [awayOdds, homeOdds];
-}
-
-class GameTotalOdds extends Equatable {
-  final GameTotalOddsDetail open;
-  final GameTotalOddsDetail current;
-
-  GameTotalOdds({
-    this.open,
-    this.current,
-  });
-
-  factory GameTotalOdds.fromJson(Map<String, dynamic> json) {
-    return GameTotalOdds(
-      open: GameTotalOddsDetail.fromJson(json['open']),
-      current: GameTotalOddsDetail.fromJson(json['current']),
-    );
-  }
-
-  @override
-  List<Object> get props => [open, current];
-}
-
-class GameTotalOddsDetail extends Equatable {
-  final double total;
-  final int overOdds;
-  final int underOdds;
-
-  GameTotalOddsDetail({
-    this.total,
-    this.overOdds,
-    this.underOdds,
-  });
-
-  factory GameTotalOddsDetail.fromJson(Map<String, dynamic> json) {
-    return GameTotalOddsDetail(
-      total: json['total'].toDouble(),
-      overOdds: json['overOdds'],
-      underOdds: json['underOdds'],
-    );
-  }
-
-  @override
-  List<Object> get props => [total, overOdds, underOdds];
 }

@@ -10,28 +10,31 @@ enum AuthenticationStatus {
 class AuthenticationState extends Equatable {
   const AuthenticationState._({
     this.status = AuthenticationStatus.splashscreen,
-    this.currentUser,
-    this.currentUserData,
+    this.user,
+    this.userData,
   });
 
   const AuthenticationState.splashscreen() : this._();
 
   const AuthenticationState.authenticated(UserData userData)
       : this._(
-            status: AuthenticationStatus.authenticated,
-            currentUserData: userData);
+          status: AuthenticationStatus.authenticated,
+          userData: userData,
+        );
 
   const AuthenticationState.halfauthenticated(User user)
       : this._(
-            status: AuthenticationStatus.halfauthenticated, currentUser: user);
+          status: AuthenticationStatus.halfauthenticated,
+          user: user,
+        );
 
   const AuthenticationState.unauthenticated()
       : this._(status: AuthenticationStatus.unauthenticated);
 
-  final User currentUser;
-  final UserData currentUserData;
+  final User user;
+  final UserData userData;
   final AuthenticationStatus status;
 
   @override
-  List<Object> get props => [currentUser, currentUserData, status];
+  List<Object> get props => [user, userData, status];
 }

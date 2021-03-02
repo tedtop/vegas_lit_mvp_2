@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
 
+import 'models/game.dart';
 import 'models/user.dart';
 
 abstract class BaseAuthenticationProvider {
@@ -22,4 +23,8 @@ abstract class BaseDatabaseProvider {
 
 abstract class BaseStorageProvider {
   Future<String> uploadFile(File file, String path);
+}
+
+abstract class BaseSportsfeedProvider {
+  Future<List<Game>> fetchGameList();
 }

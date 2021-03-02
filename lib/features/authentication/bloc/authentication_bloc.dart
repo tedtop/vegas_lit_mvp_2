@@ -27,8 +27,8 @@ class AuthenticationBloc
     );
   }
 
-  StreamSubscription<User> _userSubscription;
   final AuthenticationRepository _authenticationRepository;
+  StreamSubscription<User> _userSubscription;
 
   @override
   Stream<AuthenticationState> mapEventToState(
@@ -45,7 +45,9 @@ class AuthenticationBloc
     } else if (event is CheckProfileComplete) {
       yield* _checkProfileComplete(event);
     } else if (event is AuthenticationLogoutRequested) {
-      unawaited(_authenticationRepository.signOutUser());
+      unawaited(
+        _authenticationRepository.signOutUser(),
+      );
     }
   }
 
@@ -58,11 +60,11 @@ class AuthenticationBloc
   Stream<AuthenticationState> _checkProfileComplete(
       CheckProfileComplete event) async* {
     yield const AuthenticationState.splashscreen();
-    final isProfileComplete = await _authenticationRepository.isProfileComplete(
+    final userData = await _authenticationRepository.isProfileComplete(
       event.user.uid,
     );
-    if (isProfileComplete != null) {
-      yield AuthenticationState.authenticated(isProfileComplete);
+    if (userData != null) {
+      yield AuthenticationState.authenticated(userData);
     } else {
       yield AuthenticationState.halfauthenticated(event.user);
     }

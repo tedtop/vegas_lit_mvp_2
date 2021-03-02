@@ -8,14 +8,14 @@ class UserData extends Equatable {
     @required this.name,
     @required this.email,
     @required this.googlePhoto,
-    // @required this.uploadPhoto,
+    @required this.uploadPhoto,
     @required this.age,
     @required this.username,
     @required this.bio,
   })  : assert(uid != null),
-        assert(name != null),
+        // assert(name != null),
         assert(email != null),
-        // assert(uploadPhoto != null),
+        assert(uploadPhoto != null),
         assert(username != null);
 
   factory UserData.fromFirestore(DocumentSnapshot documentSnapshot) {
@@ -25,7 +25,7 @@ class UserData extends Equatable {
       name: data['name'] as String,
       email: data['email'] as String,
       googlePhoto: data['googlePhoto'] as String,
-      // uploadPhoto: data['uploadPhoto'] as String,
+      uploadPhoto: data['uploadPhoto'] as String,
       age: data['age'] as int,
       username: data['username'] as String,
       bio: data['bio'] as String,
@@ -36,7 +36,7 @@ class UserData extends Equatable {
   final String name;
   final String email;
   final String googlePhoto;
-  // final String uploadPhoto;
+  final String uploadPhoto;
   final int age;
   final String username;
   final String bio;
@@ -47,7 +47,7 @@ class UserData extends Equatable {
         name,
         email,
         googlePhoto,
-        // uploadPhoto,
+        uploadPhoto,
         age,
         username,
         bio,
