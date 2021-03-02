@@ -16,10 +16,12 @@ class AuthenticationState extends Equatable {
 
   const AuthenticationState.splashscreen() : this._();
 
-  const AuthenticationState.authenticated(UserData userData)
-      : this._(
+  const AuthenticationState.authenticated(
+    // UserData userData,
+    User user,
+  ) : this._(
           status: AuthenticationStatus.authenticated,
-          userData: userData,
+          user: user,
         );
 
   const AuthenticationState.halfauthenticated(User user)
