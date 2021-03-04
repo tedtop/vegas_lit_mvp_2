@@ -2,11 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vegas_lit/data/repositories/auth_repository.dart';
 import 'package:vegas_lit/data/repositories/sportsfeed_repository.dart';
-import 'package:vegas_lit/features/authentication/screens/sign_up/sign_up.dart';
 
-import 'constants/themes.dart';
+import 'config/themes.dart';
 import 'features/authentication/bloc/authentication_bloc.dart';
-import 'features/authentication/screens/fill_login/view/fill_login_page.dart';
 import 'features/authentication/screens/login/view/login_page.dart';
 import 'features/authentication/screens/splash/view/splash_page.dart';
 import 'features/home_page/home_page.dart';
@@ -46,7 +44,12 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class AppView extends StatelessWidget {
+class AppView extends StatefulWidget {
+  @override
+  _AppViewState createState() => _AppViewState();
+}
+
+class _AppViewState extends State<AppView> {
   final _navigatorKey = GlobalKey<NavigatorState>();
 
   NavigatorState get _navigator => _navigatorKey.currentState;
@@ -67,13 +70,13 @@ class AppView extends StatelessWidget {
                   (route) => false,
                 );
                 break;
-              case AuthenticationStatus.halfauthenticated:
-                _navigator.push<void>(
-                  LoginInfoPage.route(
-                    currentUser: state.user,
-                  ),
-                );
-                break;
+              // case AuthenticationStatus.halfauthenticated:
+              //   _navigator.push<void>(
+              //     LoginInfoPage.route(
+              //       currentUser: state.user,
+              //     ),
+              //   );
+              //   break;
               case AuthenticationStatus.unauthenticated:
                 _navigator.pushAndRemoveUntil<void>(
                   LoginPage.route(),
@@ -87,7 +90,7 @@ class AppView extends StatelessWidget {
           child: child,
         );
       },
-      onGenerateRoute: (_) => SignUpPage.route(),
+      onGenerateRoute: (_) => SplashPage.route(),
     );
   }
 }

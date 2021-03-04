@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:vegas_lit/constants/palette.dart';
+import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/data/repositories/auth_repository.dart';
 import 'package:vegas_lit/features/authentication/screens/sign_up/cubit/sign_up_cubit.dart';
 
@@ -18,7 +18,8 @@ class SignUpPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Palette.lightGrey,
+      backgroundColor: Palette.signUpPageColor,
+      resizeToAvoidBottomInset: true,
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: BlocProvider<SignUpCubit>(

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:vegas_lit/constants/palette.dart';
-import 'package:vegas_lit/constants/styles.dart';
+import 'package:vegas_lit/config/palette.dart';
+import 'package:vegas_lit/config/styles.dart';
 import 'package:vegas_lit/data/models/game.dart';
 
 import 'bloc/sportsbook_bloc.dart';
@@ -12,6 +12,7 @@ class Sportsbook extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<SportsbookBloc, SportsbookState>(
+      listenWhen: (previous, current) => previous != current,
       listener: (context, state) {
         if (state is SportsbookOpened) {
           Navigator.of(context).push<void>(
@@ -23,6 +24,7 @@ class Sportsbook extends StatelessWidget {
         if (state is SportsbookOpened) {
           return SportsBookView(
             games: state.games,
+            gameName: state.gameName,
           );
         } else {
           return const Center(
@@ -38,10 +40,13 @@ class SportsBookView extends StatelessWidget {
   const SportsBookView({
     Key key,
     @required this.games,
+    @required this.gameName,
   })  : assert(games != null),
+        assert(gameName != null),
         super(key: key);
 
   final List<Game> games;
+  final String gameName;
 
   @override
   Widget build(BuildContext context) {
@@ -60,28 +65,63 @@ class SportsBookView extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               height: 40,
               width: double.infinity,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'NFL Games (13 Games)',
-                    style: Styles.h3,
-                  ),
-                  const Icon(Icons.download_rounded)
-                ],
+              child: DropdownButton<String>(
+                isDense: true,
+                value: '$gameName',
+                icon: const Icon(Icons.arrow_downward),
+                iconSize: 24,
+                elevation: 16,
+                isExpanded: true,
+                underline: Container(
+                  height: 0,
+                ),
+                style: Styles.h3,
+                onChanged: (String newValue) {
+                  if (newValue != gameName) {
+                    context.read<SportsbookBloc>().add(
+                          SportsbookOpen(gameName: newValue),
+                        );
+                  }
+                },
+                items: <String>['NFL', 'NBA', 'MLB', 'NHL', 'NCAAF', 'NCAAB']
+                    .map<DropdownMenuItem<String>>(
+                  (String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  },
+                ).toList(),
               ),
             ),
           ),
         ),
         Expanded(
-          child: ListView.builder(
-            shrinkWrap: true,
-            itemCount: games.length,
-            itemBuilder: (context, index) {
-              return GameCard.route(
-                game: games[index],
-              );
+          child: RefreshIndicator(
+            onRefresh: () async {
+              context.read<SportsbookBloc>().add(
+                    SportsbookOpen(gameName: gameName),
+                  );
             },
+            child: Builder(
+              builder: (context) {
+                if (games.isEmpty) {
+                  return const Center(
+                    child: Text('No Games Found!'),
+                  );
+                } else {
+                  return ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: games.length,
+                    itemBuilder: (context, index) {
+                      return GameCard.route(
+                        game: games[index],
+                      );
+                    },
+                  );
+                }
+              },
+            ),
           ),
         ),
       ],
