@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:vegas_lit/constants/assets.dart';
-import 'package:vegas_lit/constants/palette.dart';
+import 'package:line_awesome_flutter/line_awesome_flutter.dart';
+import 'package:vegas_lit/config/assets.dart';
+import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/data/repositories/auth_repository.dart';
 import 'package:formz/formz.dart';
 import 'package:vegas_lit/features/authentication/screens/sign_up/sign_up.dart';
@@ -27,6 +28,7 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Palette.loginPageColor,
       resizeToAvoidBottomInset: true,
       body: BlocListener<LoginCubit, LoginState>(
         listener: (context, state) {
@@ -40,25 +42,35 @@ class LoginPage extends StatelessWidget {
             );
           }
         },
-        child: Align(
-          alignment: const Alignment(0, -1 / 3),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              _TopLogo(),
-              Column(
+        child: SafeArea(
+          child: Align(
+            alignment: const Alignment(0, -1 / 3),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  _EmailInput(),
-                  const SizedBox(height: 10),
-                  _PasswordInput(),
-                  const SizedBox(height: 30),
-                  _LoginButton(),
-                  const SizedBox(height: 50),
-                  _SocialLoginList(),
+                  Expanded(
+                    child: _TopLogo(),
+                  ),
+                  Expanded(
+                    flex: 3,
+                    child: Column(
+                      children: [
+                        _EmailInput(),
+                        const SizedBox(height: 10),
+                        _PasswordInput(),
+                        const SizedBox(height: 30),
+                        _LoginButton(),
+                        const SizedBox(height: 50),
+                        _SocialLoginList(),
+                      ],
+                    ),
+                  ),
+                  _SignUpButton(),
                 ],
               ),
-              _SignUpButton(),
-            ],
+            ),
           ),
         ),
       ),
@@ -69,23 +81,28 @@ class LoginPage extends StatelessWidget {
 class _TopLogo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Text(
-          'Welcome to',
-          style: GoogleFonts.nunito(
-            fontSize: 25,
-            fontWeight: FontWeight.w300,
+    return Padding(
+      padding: const EdgeInsets.only(top: 30),
+      child: Column(
+        children: [
+          Text(
+            'Welcome to',
+            style: GoogleFonts.nunito(
+              fontSize: 25,
+              fontWeight: FontWeight.w300,
+            ),
           ),
-        ),
-        Hero(
-          tag: 'top_logo',
-          child: Image.asset(
-            Images.topLogo,
-            height: 70,
+          Expanded(
+            child: Hero(
+              tag: 'top_logo',
+              child: Image.asset(
+                Images.topLogo,
+                height: 70,
+              ),
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
@@ -104,8 +121,9 @@ class _EmailInput extends StatelessWidget {
             onChanged: (email) =>
                 context.read<LoginCubit>().emailChanged(email),
             keyboardType: TextInputType.emailAddress,
+            style: GoogleFonts.nunito(),
             decoration: InputDecoration(
-              prefixIcon: const Icon(Icons.person),
+              prefixIcon: const Icon(LineAwesomeIcons.user),
               labelText: 'Email/Username',
               helperText: '',
               errorText: state.email.invalid ? 'invalid email' : null,
@@ -131,8 +149,9 @@ class _PasswordInput extends StatelessWidget {
             onChanged: (password) =>
                 context.read<LoginCubit>().passwordChanged(password),
             obscureText: true,
+            style: GoogleFonts.nunito(),
             decoration: InputDecoration(
-              prefixIcon: const Icon(Icons.lock),
+              prefixIcon: const Icon(LineAwesomeIcons.lock),
               labelText: 'Password',
               helperText: '',
               errorText: state.password.invalid ? 'invalid password' : null,
@@ -192,7 +211,7 @@ class _SocialLoginList extends StatelessWidget {
           children: [
             IconButton(
               key: const Key('loginForm_facebookLogin_iconButton'),
-              icon: const Icon(FontAwesomeIcons.facebook),
+              icon: const Icon(LineAwesomeIcons.facebook_square),
               iconSize: 40,
               onPressed: () {
                 ScaffoldMessenger.of(context)
@@ -206,7 +225,7 @@ class _SocialLoginList extends StatelessWidget {
             ),
             IconButton(
               key: const Key('loginForm_appleLogin_iconButton'),
-              icon: const Icon(FontAwesomeIcons.apple),
+              icon: const Icon(LineAwesomeIcons.apple),
               iconSize: 40,
               onPressed: () {
                 ScaffoldMessenger.of(context)
@@ -220,7 +239,7 @@ class _SocialLoginList extends StatelessWidget {
             ),
             IconButton(
               key: const Key('loginForm_googleLogin_iconButton'),
-              icon: const Icon(FontAwesomeIcons.google),
+              icon: const Icon(LineAwesomeIcons.google_logo),
               iconSize: 40,
               onPressed: () => context.read<LoginCubit>().logInWithGoogle(),
             ),

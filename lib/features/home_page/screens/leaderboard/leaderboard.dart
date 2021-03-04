@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
-import 'package:vegas_lit/constants/palette.dart';
-import 'package:vegas_lit/constants/styles.dart';
+import 'package:vegas_lit/config/palette.dart';
+import 'package:vegas_lit/config/styles.dart';
 import 'package:vegas_lit/data/models/player.dart';
 
 class Leaderboard extends StatefulWidget {

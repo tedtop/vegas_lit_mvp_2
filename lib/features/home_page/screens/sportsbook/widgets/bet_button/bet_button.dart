@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:vegas_lit/constants/palette.dart';
-import 'package:vegas_lit/constants/styles.dart';
+import 'package:vegas_lit/config/palette.dart';
+import 'package:vegas_lit/config/styles.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vegas_lit/data/models/game.dart';
 import 'package:vegas_lit/features/home_page/screens/bet_slip/cubit/bet_slip_cubit.dart';

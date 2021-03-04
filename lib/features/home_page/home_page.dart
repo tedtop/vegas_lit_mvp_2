@@ -2,9 +2,10 @@ import 'package:custom_navigation_bar/custom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_icons/flutter_icons.dart';
-import 'package:vegas_lit/constants/assets.dart';
-import 'package:vegas_lit/constants/palette.dart';
-import 'package:vegas_lit/constants/styles.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:vegas_lit/config/assets.dart';
+import 'package:vegas_lit/config/palette.dart';
+import 'package:vegas_lit/config/styles.dart';
 import 'package:vegas_lit/data/repositories/sportsfeed_repository.dart';
 
 import '../authentication/bloc/authentication_bloc.dart';
@@ -27,7 +28,7 @@ class HomePage extends StatefulWidget {
             create: (_) => SportsbookBloc(
               sportsfeedRepository: context.read<SportsfeedRepository>(),
             )..add(
-                SportsbookOpen(),
+                SportsbookOpen(gameName: 'NBA'),
               ),
           ),
           BlocProvider<BetSlipCubit>(
@@ -116,32 +117,34 @@ class _HomePageState extends State<HomePage> {
         if (state.status == BetSlipStatus.opened) {
           final showBadge = state.games.isNotEmpty;
           final badgeCount = state.games.length;
-          return CustomNavigationBar(
+          return BottomNavigationBar(
+            selectedLabelStyle: GoogleFonts.nunito(),
+            selectedFontSize: 10,
+            unselectedFontSize: 8,
             elevation: 0,
-            strokeColor: Palette.white,
-            unSelectedColor: Palette.white,
-            selectedColor: Palette.green,
+            selectedItemColor: Palette.green,
+            unselectedItemColor: Palette.white,
+            // fixedColor: Palette.white,
+            // strokeColor:,
+            // unSelectedColor: ,
+            // selectedColor: ,
             backgroundColor: Palette.darkGrey,
             currentIndex: pageIndex,
             onTap: onPageChanged,
             items: [
-              CustomNavigationBarItem(
-                icon: const Icon(Feather.home),
-              ),
-              CustomNavigationBarItem(
-                icon: const Icon(Feather.file_plus),
-                showBadge: showBadge,
-                badgeCount: badgeCount,
-              ),
-              CustomNavigationBarItem(
-                icon: const Icon(Feather.globe),
-              ),
-              CustomNavigationBarItem(
-                icon: const Icon(Feather.file_text),
-              ),
-              CustomNavigationBarItem(
-                icon: const Icon(Feather.calendar),
-              ),
+              BottomNavigationBarItem(
+                  icon: const Icon(Feather.home), label: 'Sportsbook'),
+              BottomNavigationBarItem(
+                  icon: const Icon(Feather.file_plus), label: 'Bet Slip'
+                  // showBadge: showBadge,
+                  // badgeCount: badgeCount,
+                  ),
+              BottomNavigationBarItem(
+                  icon: const Icon(Feather.globe), label: 'Leaderboard'),
+              BottomNavigationBarItem(
+                  icon: const Icon(Feather.file_text), label: 'Open Bets'),
+              BottomNavigationBarItem(
+                  icon: const Icon(Feather.calendar), label: 'History'),
             ],
           );
         } else {

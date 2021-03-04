@@ -27,4 +27,5 @@ abstract class BaseStorageProvider {
 
 abstract class BaseSportsfeedProvider {
   Future<List<Game>> fetchGameList();
+  Future<List<Game>> fetchGameListByGame({String gameName});
 }

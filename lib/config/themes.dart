@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vegas_lit/constants/palette.dart';
+import 'package:vegas_lit/config/palette.dart';
 
 class Themes {
   static final ThemeData light = ThemeData(

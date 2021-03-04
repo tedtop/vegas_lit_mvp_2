@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:vegas_lit/constants/palette.dart';
+import 'package:vegas_lit/config/palette.dart';
 
 class Styles {
   static const double elevation = 8.0;

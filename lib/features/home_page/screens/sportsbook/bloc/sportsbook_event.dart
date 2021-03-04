@@ -4,4 +4,7 @@ abstract class SportsbookEvent {
   const SportsbookEvent();
 }
 
-class SportsbookOpen extends SportsbookEvent {}
+class SportsbookOpen extends SportsbookEvent {
+  SportsbookOpen({@required this.gameName});
+  final String gameName;
+}
