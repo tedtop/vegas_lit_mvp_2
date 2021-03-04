@@ -30,7 +30,7 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
   Stream<SportsbookState> _mapSportsbookOpenToState(
       SportsbookOpen event) async* {
     final games = await _sportsfeedRepository.fetchGameList();
-    print(games.length);
+
     yield SportsbookOpened(
       games: games,
     );

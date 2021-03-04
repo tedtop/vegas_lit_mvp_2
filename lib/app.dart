@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vegas_lit/data/repositories/auth_repository.dart';
 import 'package:vegas_lit/data/repositories/sportsfeed_repository.dart';
+import 'package:vegas_lit/features/authentication/screens/sign_up/sign_up.dart';
 
 import 'constants/themes.dart';
 import 'features/authentication/bloc/authentication_bloc.dart';
@@ -86,7 +87,7 @@ class AppView extends StatelessWidget {
           child: child,
         );
       },
-      onGenerateRoute: (_) => SplashPage.route(),
+      onGenerateRoute: (_) => SignUpPage.route(),
     );
   }
 }

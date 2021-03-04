@@ -64,7 +64,7 @@ class Game extends Equatable {
         schedule: json["schedule"] == null
             ? null
             : Schedule.fromJson(json["schedule"]),
-        summary: json["summary"] == null ? null : json["summary"],
+        summary: json["summary"],
         details:
             json["details"] == null ? null : Details.fromJson(json["details"]),
         status:
@@ -73,7 +73,7 @@ class Game extends Equatable {
         lastUpdated: json["lastUpdated"] == null
             ? null
             : DateTime.parse(json["lastUpdated"]),
-        gameId: json["gameId"] == null ? null : json["gameId"],
+        gameId: json["gameId"],
         venue: json["venue"] == null ? null : Venue.fromJson(json["venue"]),
         scoreboard: json["scoreboard"] == null
             ? null
@@ -85,13 +85,13 @@ class Game extends Equatable {
 
   Map<String, dynamic> toJson() => {
         "schedule": schedule == null ? null : schedule.toJson(),
-        "summary": summary == null ? null : summary,
+        "summary": summary,
         "details": details == null ? null : details.toJson(),
         "status": status == null ? null : statusValues.reverse[status],
         "teams": teams == null ? null : teams.toJson(),
         "lastUpdated":
             lastUpdated == null ? null : lastUpdated.toIso8601String(),
-        "gameId": gameId == null ? null : gameId,
+        "gameId": gameId,
         "venue": venue == null ? null : venue.toJson(),
         "scoreboard": scoreboard == null ? null : scoreboard.toJson(),
         "odds": odds == null
@@ -156,20 +156,18 @@ class Details extends Equatable {
         seasonType: json["seasonType"] == null
             ? null
             : seasonTypeValues.map[json["seasonType"]],
-        season: json["season"] == null ? null : json["season"],
-        conferenceGame:
-            json["conferenceGame"] == null ? null : json["conferenceGame"],
-        divisionGame:
-            json["divisionGame"] == null ? null : json["divisionGame"],
+        season: json["season"],
+        conferenceGame: json["conferenceGame"],
+        divisionGame: json["divisionGame"],
       );
 
   Map<String, dynamic> toJson() => {
         "league": league == null ? null : leagueValues.reverse[league],
         "seasonType":
             seasonType == null ? null : seasonTypeValues.reverse[seasonType],
-        "season": season == null ? null : season,
-        "conferenceGame": conferenceGame == null ? null : conferenceGame,
-        "divisionGame": divisionGame == null ? null : divisionGame,
+        "season": season,
+        "conferenceGame": conferenceGame,
+        "divisionGame": divisionGame,
       };
 
   @override
@@ -332,13 +330,13 @@ class MoneylineCurrent extends Equatable {
 
   factory MoneylineCurrent.fromJson(Map<String, dynamic> json) =>
       MoneylineCurrent(
-        awayOdds: json["awayOdds"] == null ? null : json["awayOdds"],
-        homeOdds: json["homeOdds"] == null ? null : json["homeOdds"],
+        awayOdds: json["awayOdds"],
+        homeOdds: json["homeOdds"],
       );
 
   Map<String, dynamic> toJson() => {
-        "awayOdds": awayOdds == null ? null : awayOdds,
-        "homeOdds": homeOdds == null ? null : homeOdds,
+        "awayOdds": awayOdds,
+        "homeOdds": homeOdds,
       };
 
   @override
@@ -418,15 +416,15 @@ class SpreadCurrent extends Equatable {
   factory SpreadCurrent.fromJson(Map<String, dynamic> json) => SpreadCurrent(
         away: json["away"] == null ? null : json["away"].toDouble(),
         home: json["home"] == null ? null : json["home"].toDouble(),
-        awayOdds: json["awayOdds"] == null ? null : json["awayOdds"],
-        homeOdds: json["homeOdds"] == null ? null : json["homeOdds"],
+        awayOdds: json["awayOdds"],
+        homeOdds: json["homeOdds"],
       );
 
   Map<String, dynamic> toJson() => {
-        "away": away == null ? null : away,
-        "home": home == null ? null : home,
-        "awayOdds": awayOdds == null ? null : awayOdds,
-        "homeOdds": homeOdds == null ? null : homeOdds,
+        "away": away,
+        "home": home,
+        "awayOdds": awayOdds,
+        "homeOdds": homeOdds,
       };
 
   @override
@@ -500,14 +498,14 @@ class TotalCurrent extends Equatable {
 
   factory TotalCurrent.fromJson(Map<String, dynamic> json) => TotalCurrent(
         total: json["total"] == null ? null : json["total"].toDouble(),
-        overOdds: json["overOdds"] == null ? null : json["overOdds"],
-        underOdds: json["underOdds"] == null ? null : json["underOdds"],
+        overOdds: json["overOdds"],
+        underOdds: json["underOdds"],
       );
 
   Map<String, dynamic> toJson() => {
-        "total": total == null ? null : total,
-        "overOdds": overOdds == null ? null : overOdds,
-        "underOdds": underOdds == null ? null : underOdds,
+        "total": total,
+        "overOdds": overOdds,
+        "underOdds": underOdds,
       };
 
   @override
@@ -539,12 +537,12 @@ class Schedule extends Equatable {
 
   factory Schedule.fromJson(Map<String, dynamic> json) => Schedule(
         date: json["date"] == null ? null : DateTime.parse(json["date"]),
-        tbaTime: json["tbaTime"] == null ? null : json["tbaTime"],
+        tbaTime: json["tbaTime"],
       );
 
   Map<String, dynamic> toJson() => {
         "date": date == null ? null : date.toIso8601String(),
-        "tbaTime": tbaTime == null ? null : tbaTime,
+        "tbaTime": tbaTime,
       };
 
   @override
@@ -580,18 +578,14 @@ class Scoreboard extends Equatable {
 
   factory Scoreboard.fromJson(Map<String, dynamic> json) => Scoreboard(
         score: json["score"] == null ? null : Score.fromJson(json["score"]),
-        currentPeriod:
-            json["currentPeriod"] == null ? null : json["currentPeriod"],
-        periodTimeRemaining: json["periodTimeRemaining"] == null
-            ? null
-            : json["periodTimeRemaining"],
+        currentPeriod: json["currentPeriod"],
+        periodTimeRemaining: json["periodTimeRemaining"],
       );
 
   Map<String, dynamic> toJson() => {
         "score": score == null ? null : score.toJson(),
-        "currentPeriod": currentPeriod == null ? null : currentPeriod,
-        "periodTimeRemaining":
-            periodTimeRemaining == null ? null : periodTimeRemaining,
+        "currentPeriod": currentPeriod,
+        "periodTimeRemaining": periodTimeRemaining,
       };
 
   @override
@@ -629,8 +623,8 @@ class Score extends Equatable {
   String toRawJson() => json.encode(toJson());
 
   factory Score.fromJson(Map<String, dynamic> json) => Score(
-        away: json["away"] == null ? null : json["away"],
-        home: json["home"] == null ? null : json["home"],
+        away: json["away"],
+        home: json["home"],
         awayPeriods: json["awayPeriods"] == null
             ? null
             : List<int>.from(json["awayPeriods"].map((x) => x)),
@@ -640,8 +634,8 @@ class Score extends Equatable {
       );
 
   Map<String, dynamic> toJson() => {
-        "away": away == null ? null : away,
-        "home": home == null ? null : home,
+        "away": away,
+        "home": home,
         "awayPeriods": awayPeriods == null
             ? null
             : List<dynamic>.from(awayPeriods.map((x) => x)),
@@ -738,22 +732,21 @@ class Away extends Equatable {
   String toRawJson() => json.encode(toJson());
 
   factory Away.fromJson(Map<String, dynamic> json) => Away(
-        team: json["team"] == null ? null : json["team"],
-        location: json["location"] == null ? null : json["location"],
-        mascot: json["mascot"] == null ? null : json["mascot"],
-        abbreviation:
-            json["abbreviation"] == null ? null : json["abbreviation"],
-        conference: json["conference"] == null ? null : json["conference"],
-        division: json["division"] == null ? null : json["division"],
+        team: json["team"],
+        location: json["location"],
+        mascot: json["mascot"],
+        abbreviation: json["abbreviation"],
+        conference: json["conference"],
+        division: json["division"],
       );
 
   Map<String, dynamic> toJson() => {
-        "team": team == null ? null : team,
-        "location": location == null ? null : location,
-        "mascot": mascot == null ? null : mascot,
-        "abbreviation": abbreviation == null ? null : abbreviation,
-        "conference": conference == null ? null : conference,
-        "division": division == null ? null : division,
+        "team": team,
+        "location": location,
+        "mascot": mascot,
+        "abbreviation": abbreviation,
+        "conference": conference,
+        "division": division,
       };
 
   @override
@@ -800,17 +793,17 @@ class Venue extends Equatable {
   String toRawJson() => json.encode(toJson());
 
   factory Venue.fromJson(Map<String, dynamic> json) => Venue(
-        name: json["name"] == null ? null : json["name"],
-        city: json["city"] == null ? null : json["city"],
-        state: json["state"] == null ? null : json["state"],
-        neutralSite: json["neutralSite"] == null ? null : json["neutralSite"],
+        name: json["name"],
+        city: json["city"],
+        state: json["state"],
+        neutralSite: json["neutralSite"],
       );
 
   Map<String, dynamic> toJson() => {
-        "name": name == null ? null : name,
-        "city": city == null ? null : city,
-        "state": state == null ? null : state,
-        "neutralSite": neutralSite == null ? null : neutralSite,
+        "name": name,
+        "city": city,
+        "state": state,
+        "neutralSite": neutralSite,
       };
 
   @override
@@ -824,9 +817,7 @@ class EnumValues<T> {
   EnumValues(this.map);
 
   Map<T, String> get reverse {
-    if (reverseMap == null) {
-      reverseMap = map.map((k, v) => new MapEntry(v, k));
-    }
+    reverseMap ??= map.map((k, v) => MapEntry(v, k));
     return reverseMap;
   }
 }
