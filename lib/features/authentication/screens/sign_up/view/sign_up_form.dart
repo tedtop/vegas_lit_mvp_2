@@ -121,6 +121,7 @@ class _EmailInput extends StatelessWidget {
                         fontSize: 10,
                         fontWeight: FontWeight.w300,
                       ),
+                      fillColor: Colors.white,
                       border: const OutlineInputBorder(
                         gapPadding: 0,
                         borderRadius: BorderRadius.all(

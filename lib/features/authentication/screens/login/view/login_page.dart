@@ -238,7 +238,7 @@ class _SignUpButton extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
-          'Don\'t have an account yet?',
+          'Don\'t have an account yet? ',
           style: GoogleFonts.nunito(
             fontWeight: FontWeight.w300,
             fontSize: 16,
