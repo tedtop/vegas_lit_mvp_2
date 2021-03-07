@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
+
+import 'open_bets_slip.dart';
 
 class OpenBets extends StatelessWidget {
   @override
@@ -15,99 +19,46 @@ class OpenBets extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
-                  'BET HISTORY',
+                  'OPEN BETS',
                   style: Styles.headingLeaderboard,
                 ),
               ),
             ],
           ),
-          const TextBar(
-            text: 'All Time',
-          ),
-          const TextBar(
-            text: 'All Leagues',
-          ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 6),
-            child: Card(
-              clipBehavior: Clip.antiAlias,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8),
-              ),
-              color: Colors.white,
-              elevation: 8.0,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  children: [
-                    const BetHistoryRow(
-                      text: 'Your Rank',
-                      text2: 'N/A',
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    const BetHistoryRow(
-                      text: 'Total Bets Placed',
-                      text2: '94',
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    const BetHistoryRow(
-                      text: 'Total Risk',
-                      text2: '\$5,006.00',
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    const BetHistoryRow(
-                      text: 'Total Profit',
-                      text2: '\$2,034.00',
-                    ),
-                  ],
-                ),
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: RichText(
+              text: TextSpan(
+                style: GoogleFonts.nunito(
+                    fontSize: 14, fontWeight: FontWeight.w300),
+                children: <TextSpan>[
+                  const TextSpan(
+                      text:
+                          'Bets shown here cannot be modified and are awaiting the outcome of the event. Once bets have been closed they will appear in your'),
+                  TextSpan(
+                      text: ' BET HISTORY ',
+                      style: GoogleFonts.nunito(
+                        color: Palette.green,
+                      )),
+                  const TextSpan(text: 'page.'),
+                ],
               ),
             ),
-          )
+          ),
+          const TextBar(
+            text: 'Ascending - by start time',
+          ),
+          Expanded(
+            child: ListView(
+              shrinkWrap: true,
+              children: List.generate(
+                4,
+                (index) => OpenBetsSlip(),
+              ),
+            ),
+          ),
         ],
       ),
-    );
-  }
-}
-
-class BetHistoryRow extends StatelessWidget {
-  const BetHistoryRow({
-    Key key,
-    @required this.text,
-    @required this.text2,
-  }) : super(key: key);
-
-  final String text;
-  final String text2;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: [
-        Text(
-          text,
-          style: const TextStyle(
-            fontSize: 17,
-            fontWeight: FontWeight.w300,
-            color: Colors.black,
-          ),
-        ),
-        Text(
-          text2,
-          style: const TextStyle(
-            fontSize: 17,
-            fontWeight: FontWeight.w700,
-            color: Colors.black,
-          ),
-        ),
-      ],
     );
   }
 }
@@ -122,6 +73,7 @@ class TextBar extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(
         horizontal: 5,
+        vertical: 10,
       ),
       child: Card(
         clipBehavior: Clip.antiAlias,
@@ -142,7 +94,7 @@ class TextBar extends StatelessWidget {
                 style: Styles.h3,
               ),
               const Icon(
-                Icons.download_rounded,
+                LineAwesomeIcons.arrow_down,
               )
             ],
           ),

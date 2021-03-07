@@ -66,7 +66,7 @@ class Styles {
 
   static final TextStyle headingLeaderboard = GoogleFonts.nunito(
     color: Palette.green,
-    fontSize: 24.0,
-    fontWeight: FontWeight.w700,
+    fontSize: 30.0,
+    fontWeight: FontWeight.w600,
   );
 }

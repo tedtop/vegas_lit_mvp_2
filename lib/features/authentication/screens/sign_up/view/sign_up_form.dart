@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:formz/formz.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
@@ -112,6 +111,7 @@ class _UsernameInput extends StatelessWidget {
             ),
             Expanded(
               child: TextField(
+                cursorColor: Palette.white,
                 style: GoogleFonts.nunito(
                   fontSize: 10,
                   fontWeight: FontWeight.w300,
@@ -168,6 +168,7 @@ class _EmailInput extends StatelessWidget {
             ),
             Expanded(
               child: TextField(
+                cursorColor: Palette.white,
                 style: GoogleFonts.nunito(
                   fontSize: 10,
                   fontWeight: FontWeight.w300,
@@ -235,6 +236,7 @@ class _PasswordInput extends StatelessWidget {
                 onChanged: (password) =>
                     context.read<SignUpCubit>().passwordChanged(password),
                 obscureText: true,
+                cursorColor: Palette.white,
                 decoration: InputDecoration(
                   contentPadding: const EdgeInsets.symmetric(
                     vertical: 4,
@@ -296,6 +298,7 @@ class _ConfirmPasswordInput extends StatelessWidget {
                     .read<SignUpCubit>()
                     .confirmedPasswordChanged(confirmPassword),
                 obscureText: true,
+                cursorColor: Palette.white,
                 decoration: InputDecoration(
                   contentPadding: const EdgeInsets.symmetric(
                     vertical: 4,
@@ -351,6 +354,7 @@ class _StateInput extends StatelessWidget {
                   fontSize: 10,
                   fontWeight: FontWeight.w300,
                 ),
+                cursorColor: Palette.white,
                 key: const Key('signUpForm_stateInput_textField'),
                 keyboardType: TextInputType.text,
                 decoration: InputDecoration(
@@ -416,6 +420,7 @@ class _MobileNumberInput extends StatelessWidget {
                 ),
                 key: const Key('signUpForm_mobileNumberInput_textField'),
                 onChanged: print,
+                cursorColor: Palette.white,
                 keyboardType: TextInputType.phone,
                 decoration: InputDecoration(
                   contentPadding: const EdgeInsets.symmetric(
