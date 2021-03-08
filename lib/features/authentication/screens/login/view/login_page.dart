@@ -125,7 +125,7 @@ class _EmailInput extends StatelessWidget {
               prefixIcon: const Icon(LineAwesomeIcons.user),
               labelText: 'Email/Username',
               helperText: '',
-              errorText: state.email.invalid ? 'invalid email' : null,
+              errorText: state.email.invalid ? 'Invalid email' : null,
             ),
           ),
         );
@@ -153,7 +153,7 @@ class _PasswordInput extends StatelessWidget {
               prefixIcon: const Icon(LineAwesomeIcons.lock),
               labelText: 'Password',
               helperText: '',
-              errorText: state.password.invalid ? 'invalid password' : null,
+              errorText: state.password.invalid ? 'Invalid password' : null,
             ),
           ),
         );
