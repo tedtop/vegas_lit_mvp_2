@@ -82,7 +82,7 @@ class OpenBetsSlip extends StatelessWidget {
                           style: GoogleFonts.nunito(),
                         ),
                         Text(
-                          '\$${openBets.amount.ceilToDouble().toString()}',
+                          '\$${openBets.amount.toStringAsFixed(2).toString()}',
                           style: TextStyle(
                             color: Palette.red,
                             fontSize: 18,
@@ -99,7 +99,7 @@ class OpenBetsSlip extends StatelessWidget {
                           style: GoogleFonts.nunito(),
                         ),
                         Text(
-                          '\$${openBets.win.ceilToDouble().toString()}',
+                          '\$${openBets.win.toStringAsFixed(2).toString()}',
                           style: Styles.homeTeam,
                           textAlign: TextAlign.center,
                         ),
