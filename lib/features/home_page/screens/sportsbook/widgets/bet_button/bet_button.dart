@@ -64,8 +64,11 @@ class BetButtonUnclicked extends StatelessWidget {
     final betButtonState = context.watch<BetButtonCubit>().state;
     return Expanded(
       child: Container(
-        padding: const EdgeInsets.all(5.0),
+        padding: const EdgeInsets.symmetric(horizontal: 5),
         child: RaisedButton(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(4),
+          ),
           padding: const EdgeInsets.all(8.0),
           elevation: Styles.elevation,
           color: Palette.lightGrey,
@@ -94,8 +97,11 @@ class BetButtonClicked extends StatelessWidget {
     final betButtonState = context.watch<BetButtonCubit>().state;
     return Expanded(
       child: Container(
-        padding: const EdgeInsets.all(5.0),
+        padding: const EdgeInsets.symmetric(horizontal: 5),
         child: RaisedButton(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(4),
+          ),
           padding: const EdgeInsets.all(8.0),
           elevation: Styles.elevation,
           color: Palette.green,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vegas_lit/data/repositories/auth_repository.dart';
+import 'package:vegas_lit/data/repositories/bets_repository.dart';
 import 'package:vegas_lit/data/repositories/sportsfeed_repository.dart';
 
 import 'config/themes.dart';
@@ -14,6 +15,7 @@ class MyApp extends StatelessWidget {
     Key key,
     @required this.authenticationRepository,
     @required this.sportsfeedRepository,
+    @required this.betsRepository,
   })  : assert(
           authenticationRepository != null,
           sportsfeedRepository != null,
@@ -22,6 +24,7 @@ class MyApp extends StatelessWidget {
 
   final AuthenticationRepository authenticationRepository;
   final SportsfeedRepository sportsfeedRepository;
+  final BetsRepository betsRepository;
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +35,9 @@ class MyApp extends StatelessWidget {
         ),
         RepositoryProvider.value(
           value: sportsfeedRepository,
+        ),
+        RepositoryProvider.value(
+          value: betsRepository,
         ),
       ],
       child: BlocProvider(

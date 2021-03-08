@@ -25,7 +25,7 @@ class Styles {
 
   static final TextStyle h4 = GoogleFonts.nunito(
     color: Palette.white,
-    fontSize: 10.0,
+    fontSize: 12.0,
     fontWeight: FontWeight.w300,
   );
 
@@ -55,7 +55,7 @@ class Styles {
 
   static final TextStyle startingTimeText = GoogleFonts.nunito(
     color: Palette.red,
-    fontSize: 10.0,
+    fontSize: 12.0,
     fontWeight: FontWeight.w300,
   );
 

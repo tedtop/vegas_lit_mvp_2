@@ -74,8 +74,25 @@ class BetSlipCardView extends StatefulWidget {
 class _BetSlipCardViewState extends State<BetSlipCardView> {
   final _formKey = GlobalKey<FormState>();
 
-  String betAmount = '10';
+  final _betAmountController = TextEditingController(text: '10');
+  final _focusNode = FocusNode();
+
   int toWinAmount = 100;
+
+  @override
+  void initState() {
+    super.initState();
+    _focusNode.addListener(
+      () {
+        if (_focusNode.hasFocus) {
+          _betAmountController.selection = TextSelection(
+            baseOffset: 0,
+            extentOffset: _betAmountController.text.length,
+          );
+        }
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -232,16 +249,21 @@ class _BetSlipCardViewState extends State<BetSlipCardView> {
                                                 ),
                                                 Expanded(
                                                   child: TextFormField(
+                                                    controller:
+                                                        _betAmountController,
+                                                    focusNode: _focusNode,
                                                     onChanged: (text) {
-                                                      betAmount = text;
-                                                      setState(() {
-                                                        toWinAmount = (100 /
-                                                                int.parse(
-                                                                    betButtonState
-                                                                        .text) *
-                                                                int.parse(text))
-                                                            .toInt();
-                                                      });
+                                                      setState(
+                                                        () {
+                                                          toWinAmount = (100 /
+                                                                  int.parse(
+                                                                      betButtonState
+                                                                          .text) *
+                                                                  int.parse(
+                                                                      text))
+                                                              .toInt();
+                                                        },
+                                                      );
                                                     },
                                                     keyboardType:
                                                         TextInputType.number,
@@ -250,7 +272,6 @@ class _BetSlipCardViewState extends State<BetSlipCardView> {
                                                         MaxLengthEnforcement
                                                             .enforced,
                                                     maxLength: 3,
-                                                    initialValue: betAmount,
                                                     decoration:
                                                         const InputDecoration(
                                                       counterText: '',
@@ -275,7 +296,7 @@ class _BetSlipCardViewState extends State<BetSlipCardView> {
                                           width: 140,
                                           decoration: BoxDecoration(
                                             borderRadius:
-                                                BorderRadius.circular(12),
+                                                BorderRadius.circular(6),
                                           ),
                                           child: betSlipCardState.status ==
                                                   BetSlipCardStatus.confirmed
@@ -289,6 +310,11 @@ class _BetSlipCardViewState extends State<BetSlipCardView> {
                                                   ),
                                                 )
                                               : RaisedButton(
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            4),
+                                                  ),
                                                   padding: const EdgeInsets.all(
                                                     10.0,
                                                   ),
@@ -309,7 +335,8 @@ class _BetSlipCardViewState extends State<BetSlipCardView> {
                                                               BetSlipCardCubit>()
                                                           .betSlipCardConfirm(
                                                             betAmount:
-                                                                betAmount,
+                                                                _betAmountController
+                                                                    .text,
                                                           );
                                                     }
                                                   },
@@ -329,7 +356,7 @@ class _BetSlipCardViewState extends State<BetSlipCardView> {
                                         decoration: BoxDecoration(
                                           color: Palette.darkGrey,
                                           borderRadius:
-                                              BorderRadius.circular(8),
+                                              BorderRadius.circular(6),
                                         ),
                                         height: 100,
                                         width: 140,
@@ -367,6 +394,10 @@ class _BetSlipCardViewState extends State<BetSlipCardView> {
                                                 BetSlipCardStatus.confirmed
                                             ? Container()
                                             : RaisedButton(
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(4),
+                                                ),
                                                 padding: const EdgeInsets.all(
                                                   10.0,
                                                 ),

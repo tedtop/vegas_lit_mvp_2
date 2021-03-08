@@ -3,8 +3,17 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
 import 'package:intl/intl.dart';
+import 'package:vegas_lit/data/models/open_bets.dart';
 
 class OpenBetsSlip extends StatelessWidget {
+  const OpenBetsSlip({
+    Key key,
+    @required this.openBets,
+  })  : assert(openBets != null),
+        super(key: key);
+
+  final OpenBets openBets;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -32,7 +41,7 @@ class OpenBetsSlip extends StatelessWidget {
                   children: [
                     Expanded(
                       child: Text(
-                        'BEARS',
+                        openBets.away,
                         style: Styles.awayTeam,
                         textAlign: TextAlign.center,
                       ),
@@ -40,14 +49,14 @@ class OpenBetsSlip extends StatelessWidget {
                     _betButtonSeparator(text: '@', style: Styles.h1),
                     Expanded(
                       child: Text(
-                        'TITANS',
+                        openBets.home,
                         style: Styles.homeTeam,
                         textAlign: TextAlign.center,
                       ),
                     ),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Row(
@@ -56,11 +65,11 @@ class OpenBetsSlip extends StatelessWidget {
                     Column(
                       children: [
                         Text(
-                          'MONEYLINE',
+                          openBets.type,
                           style: GoogleFonts.nunito(),
                         ),
                         Text(
-                          '-242',
+                          openBets.mlAmount.toString(),
                           style: Styles.awayTeam,
                           textAlign: TextAlign.center,
                         ),
@@ -73,7 +82,7 @@ class OpenBetsSlip extends StatelessWidget {
                           style: GoogleFonts.nunito(),
                         ),
                         Text(
-                          '\$50.00',
+                          '\$${openBets.amount.ceilToDouble().toString()}',
                           style: TextStyle(
                             color: Palette.red,
                             fontSize: 18,
@@ -90,7 +99,7 @@ class OpenBetsSlip extends StatelessWidget {
                           style: GoogleFonts.nunito(),
                         ),
                         Text(
-                          '-242',
+                          '\$${openBets.win.ceilToDouble().toString()}',
                           style: Styles.homeTeam,
                           textAlign: TextAlign.center,
                         ),

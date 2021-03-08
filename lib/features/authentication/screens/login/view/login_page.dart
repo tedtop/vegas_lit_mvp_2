@@ -42,29 +42,26 @@ class LoginPage extends StatelessWidget {
           }
         },
         child: SafeArea(
-          child: Align(
-            alignment: const Alignment(0, -1 / 3),
+          child: SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Expanded(
-                    child: _TopLogo(),
+                  _TopLogo(),
+                  Column(
+                    children: [
+                      _EmailInput(),
+                      const SizedBox(height: 10),
+                      _PasswordInput(),
+                      const SizedBox(height: 30),
+                      _LoginButton(),
+                      const SizedBox(height: 50),
+                      _SocialLoginList(),
+                    ],
                   ),
-                  Expanded(
-                    flex: 3,
-                    child: Column(
-                      children: [
-                        _EmailInput(),
-                        const SizedBox(height: 10),
-                        _PasswordInput(),
-                        const SizedBox(height: 30),
-                        _LoginButton(),
-                        const SizedBox(height: 50),
-                        _SocialLoginList(),
-                      ],
-                    ),
+                  const SizedBox(
+                    height: 60,
                   ),
                   _SignUpButton(),
                 ],
@@ -91,13 +88,11 @@ class _TopLogo extends StatelessWidget {
               fontWeight: FontWeight.w300,
             ),
           ),
-          Expanded(
-            child: Hero(
-              tag: 'top_logo',
-              child: Image.asset(
-                Images.topLogo,
-                height: 70,
-              ),
+          Hero(
+            tag: 'top_logo',
+            child: Image.asset(
+              Images.topLogo,
+              height: 70,
             ),
           ),
         ],
