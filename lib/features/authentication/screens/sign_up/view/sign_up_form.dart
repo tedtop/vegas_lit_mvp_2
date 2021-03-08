@@ -540,6 +540,7 @@ class _SignUpButton extends StatelessWidget {
                     vertical: 12,
                   ),
                   key: const Key('signUpForm_continue_raisedButton'),
+                  disabledColor: Palette.green,
                   child: const Text('SIGN UP'),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(4.0),

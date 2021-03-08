@@ -52,8 +52,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final userData = context.select((AuthenticationBloc authenticationBloc) =>
-        authenticationBloc.state.user);
+    final userDataId = context.select((AuthenticationBloc authenticationBloc) =>
+        authenticationBloc.state.user?.uid);
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 80.0,
@@ -219,7 +219,7 @@ class _HomePageState extends State<HomePage> {
           Sportsbook(),
           BetSlip(),
           Leaderboard(),
-          OpenBets.route(currentUserId: userData.uid),
+          OpenBets.route(currentUserId: userDataId),
           BetHistory(),
         ],
       ),
