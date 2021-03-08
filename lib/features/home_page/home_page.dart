@@ -121,29 +121,28 @@ class _HomePageState extends State<HomePage> {
             selectedFontSize: 10,
             unselectedFontSize: 8,
             elevation: 0,
+            showSelectedLabels: true,
+            showUnselectedLabels: true,
+            type: BottomNavigationBarType.fixed,
             selectedItemColor: Palette.green,
             unselectedItemColor: Palette.white,
-            // fixedColor: Palette.white,
-            // strokeColor:,
-            // unSelectedColor: ,
-            // selectedColor: ,
             backgroundColor: Palette.darkGrey,
             currentIndex: pageIndex,
             onTap: onPageChanged,
-            items: [
+            items: const <BottomNavigationBarItem>[
               BottomNavigationBarItem(
-                  icon: const Icon(Feather.home), label: 'Sportsbook'),
+                  icon: Icon(Feather.home), label: 'Sportsbook'),
               BottomNavigationBarItem(
-                  icon: const Icon(Feather.file_plus), label: 'Bet Slip'
+                  icon: Icon(Feather.file_plus), label: 'Bet Slip'
                   // showBadge: showBadge,
                   // badgeCount: badgeCount,
                   ),
               BottomNavigationBarItem(
-                  icon: const Icon(Feather.globe), label: 'Leaderboard'),
+                  icon: Icon(Feather.globe), label: 'Leaderboard'),
               BottomNavigationBarItem(
-                  icon: const Icon(Feather.file_text), label: 'Open Bets'),
+                  icon: Icon(Feather.file_text), label: 'Open Bets'),
               BottomNavigationBarItem(
-                  icon: const Icon(Feather.calendar), label: 'History'),
+                  icon: Icon(Feather.calendar), label: 'History'),
             ],
           );
         } else {

@@ -195,7 +195,7 @@ class _EmailInput extends StatelessWidget {
                   isDense: true,
                   hintText: 'Email Address',
                   helperText: '',
-                  errorText: state.email.invalid ? 'invalid email' : null,
+                  errorText: state.email.invalid ? 'Invalid email' : null,
                 ),
               ),
             ),
@@ -254,7 +254,9 @@ class _PasswordInput extends StatelessWidget {
                   isDense: true,
                   hintText: 'Password',
                   helperText: '',
-                  errorText: state.password.invalid ? 'invalid password' : null,
+                  errorText: state.password.invalid
+                      ? 'Password should be 8 characters and include at least one number'
+                      : null,
                 ),
               ),
             ),
@@ -317,7 +319,7 @@ class _ConfirmPasswordInput extends StatelessWidget {
                   hintText: 'Verify Password',
                   helperText: '',
                   errorText: state.confirmedPassword.invalid
-                      ? 'passwords do not match'
+                      ? 'Passwords do not match'
                       : null,
                 ),
               ),
