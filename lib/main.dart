@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vegas_lit/data/repositories/auth_repository.dart';
+import 'package:vegas_lit/data/repositories/bets_repository.dart';
 import 'package:vegas_lit/data/repositories/sportsfeed_repository.dart';
 
 import 'app.dart';
@@ -18,6 +19,7 @@ Future<void> main() async {
     MyApp(
       sportsfeedRepository: SportsfeedRepository(),
       authenticationRepository: AuthenticationRepository(),
+      betsRepository: BetsRepository(),
     ),
   );
 }

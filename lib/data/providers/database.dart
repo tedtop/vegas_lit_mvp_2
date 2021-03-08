@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:vegas_lit/data/models/open_bets.dart';
 import 'package:vegas_lit/data/models/user.dart';
 
 import '../base_provider.dart';
@@ -76,5 +77,18 @@ class DatabaseProvider extends BaseDatabaseProvider {
     } else {
       return null;
     }
+  }
+
+  @override
+  Stream<List<OpenBets>> fetchOpenBetsById(String currentUserId) {
+    final openBetsData = _firestoreData.collection('open_bets').snapshots().map(
+          (event) => event.docs
+              .map(
+                (e) => OpenBets.fromFirestore(e),
+              )
+              .toList(),
+        );
+
+    return openBetsData;
   }
 }

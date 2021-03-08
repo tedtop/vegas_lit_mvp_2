@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
 import 'package:vegas_lit/data/models/game.dart';
+import 'package:vegas_lit/features/home_page/screens/bet_slip/cubit/bet_slip_cubit.dart';
 
 import 'bloc/sportsbook_bloc.dart';
 import 'widgets/game_card/game_card.dart';
@@ -54,46 +56,108 @@ class SportsBookView extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Card(
-            clipBehavior: Clip.antiAlias,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-            elevation: 8.0,
-            child: Container(
-              color: Palette.green,
-              padding: const EdgeInsets.all(8.0),
-              height: 40,
-              width: double.infinity,
-              child: DropdownButton<String>(
-                isDense: true,
-                value: '$gameName',
-                icon: const Icon(Icons.arrow_downward),
-                iconSize: 24,
-                elevation: 16,
-                isExpanded: true,
-                underline: Container(
-                  height: 0,
+          child: Row(
+            children: [
+              Expanded(
+                flex: 3,
+                child: Card(
+                  clipBehavior: Clip.antiAlias,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                  elevation: 8.0,
+                  child: Container(
+                    color: Palette.green,
+                    padding: const EdgeInsets.all(8.0),
+                    height: 40,
+                    width: double.infinity,
+                    child: DropdownButton<String>(
+                      isDense: true,
+                      value: '$gameName',
+                      icon: const Icon(Icons.arrow_downward),
+                      iconSize: 24,
+                      elevation: 16,
+                      isExpanded: true,
+                      underline: Container(
+                        height: 0,
+                      ),
+                      style: Styles.h3,
+                      onChanged: (String newValue) {
+                        if (newValue != gameName) {
+                          context.read<SportsbookBloc>().add(
+                                SportsbookOpen(gameName: newValue),
+                              );
+                        }
+                      },
+                      items: <String>[
+                        'NFL',
+                        'NBA',
+                        'MLB',
+                        'NHL',
+                        'NCAAF',
+                        'NCAAB'
+                      ].map<DropdownMenuItem<String>>(
+                        (String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: value == gameName
+                                ? Text('$value (${games.length} Games)')
+                                : Text(value),
+                          );
+                        },
+                      ).toList(),
+                    ),
+                  ),
                 ),
-                style: Styles.h3,
-                onChanged: (String newValue) {
-                  if (newValue != gameName) {
-                    context.read<SportsbookBloc>().add(
-                          SportsbookOpen(gameName: newValue),
-                        );
-                  }
-                },
-                items: <String>['NFL', 'NBA', 'MLB', 'NHL', 'NCAAF', 'NCAAB']
-                    .map<DropdownMenuItem<String>>(
-                  (String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
-                    );
-                  },
-                ).toList(),
               ),
-            ),
+              Expanded(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    const SizedBox(
+                      width: 4,
+                    ),
+                    Text(
+                      'BET SLIP',
+                      style: GoogleFonts.nunito(),
+                    ),
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    BlocBuilder<BetSlipCubit, BetSlipState>(
+                      builder: (context, state) {
+                        switch (state.status) {
+                          case BetSlipStatus.opened:
+                            return Container(
+                              height: 25,
+                              width: 25,
+                              color: state.games.isEmpty
+                                  ? Palette.darkGrey
+                                  : Palette.white,
+                              child: Center(
+                                child: Text(
+                                  state.games.length.toString(),
+                                  style: GoogleFonts.nunito(
+                                    color: state.games.isEmpty
+                                        ? Palette.white
+                                        : Palette.darkGrey,
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            );
+                            break;
+                          default:
+                            return const CircularProgressIndicator();
+                            break;
+                        }
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
         ),
         Expanded(

@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
 
@@ -49,10 +50,17 @@ class BetSlipUpper extends StatelessWidget {
                 ? Container(
                     height: 20,
                     width: 20,
-                    color: Palette.darkGrey,
+                    color: betSlipState.games.isEmpty
+                        ? Palette.darkGrey
+                        : Palette.white,
                     child: Center(
                       child: Text(
                         betSlipState.games.length.toString(),
+                        style: GoogleFonts.nunito(
+                          color: betSlipState.games.isEmpty
+                              ? Palette.white
+                              : Palette.darkGrey,
+                        ),
                       ),
                     ),
                   )
@@ -121,7 +129,9 @@ class BetSlipList extends StatelessWidget {
         padding: EdgeInsets.symmetric(
           horizontal: kIsWeb ? width / 2 : 0,
         ),
-        key: Key('${betSlipState.games.length}'),
+        key: Key(
+          '${betSlipState.games.length}',
+        ),
         shrinkWrap: true,
         children: betSlipState.games,
       ),

@@ -1,12 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
+import 'package:vegas_lit/data/repositories/bets_repository.dart';
+import 'package:vegas_lit/features/home_page/screens/open_bets/cubit/open_bets_cubit.dart';
 
 import 'open_bets_slip.dart';
 
 class OpenBets extends StatelessWidget {
+  static Builder route({String currentUserId}) {
+    return Builder(
+      builder: (context) {
+        return BlocProvider(
+          create: (context) => OpenBetsCubit(
+            betsRepository: context.read<BetsRepository>(),
+          )..openBetsOpen(
+              currentUserId: currentUserId,
+            ),
+          child: OpenBets(),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -48,14 +66,35 @@ class OpenBets extends StatelessWidget {
           const TextBar(
             text: 'Ascending - by start time',
           ),
-          Expanded(
-            child: ListView(
-              shrinkWrap: true,
-              children: List.generate(
-                4,
-                (index) => OpenBetsSlip(),
-              ),
-            ),
+          BlocBuilder<OpenBetsCubit, OpenBetsState>(
+            builder: (context, state) {
+              if (state is OpenBetsOpened) {
+                if (state.openBets.isEmpty) {
+                  return Center(
+                    child: Text(
+                      'No open bet slips found!',
+                      style: GoogleFonts.nunito(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w300,
+                      ),
+                    ),
+                  );
+                }
+                return Expanded(
+                  child: ListView.builder(
+                    key: Key('${state.openBets.length}'),
+                    itemCount: state.openBets.length,
+                    itemBuilder: (context, index) {
+                      return OpenBetsSlip(
+                        openBets: state.openBets[index],
+                      );
+                    },
+                  ),
+                );
+              } else {
+                return const CircularProgressIndicator();
+              }
+            },
           ),
         ],
       ),

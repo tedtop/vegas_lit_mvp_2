@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'models/game.dart';
+import 'models/open_bets.dart';
 import 'models/user.dart';
 
 abstract class BaseAuthenticationProvider {
@@ -19,6 +20,7 @@ abstract class BaseDatabaseProvider {
   Future<void> saveUserDetails(
       {String currentUserId, String profileImageURL, String username, int age});
   Future<UserData> isProfileComplete(String currentUserId);
+  Stream<List<OpenBets>> fetchOpenBetsById(String currentUserId);
 }
 
 abstract class BaseStorageProvider {
