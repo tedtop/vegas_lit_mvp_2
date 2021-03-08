@@ -114,23 +114,17 @@ class SportsBookView extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    const SizedBox(
-                      width: 4,
-                    ),
                     Text(
                       'BET SLIP',
                       style: GoogleFonts.nunito(),
-                    ),
-                    const SizedBox(
-                      width: 5,
                     ),
                     BlocBuilder<BetSlipCubit, BetSlipState>(
                       builder: (context, state) {
                         switch (state.status) {
                           case BetSlipStatus.opened:
                             return Container(
-                              height: 25,
-                              width: 25,
+                              height: 22,
+                              width: 22,
                               color: Palette.white,
                               child: Center(
                                 child: Text(

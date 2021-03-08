@@ -173,7 +173,7 @@ class GameCard extends StatelessWidget {
     TextStyle style,
   }) {
     return SizedBox(
-      width: 100,
+      width: 40,
       child: Text(
         text,
         textAlign: TextAlign.center,

@@ -155,7 +155,7 @@ class _HomePageState extends State<HomePage> {
                                   '$badgeCount',
                                   style: TextStyle(
                                     color: Colors.white,
-                                    fontSize: 8,
+                                    fontSize: 12,
                                   ),
                                   textAlign: TextAlign.center,
                                 ),
