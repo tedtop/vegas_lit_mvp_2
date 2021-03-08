@@ -131,11 +131,40 @@ class _HomePageState extends State<HomePage> {
             backgroundColor: Palette.darkGrey,
             currentIndex: pageIndex,
             onTap: onPageChanged,
-            items: const <BottomNavigationBarItem>[
-              BottomNavigationBarItem(
+            items: <BottomNavigationBarItem>[
+              const BottomNavigationBarItem(
                   icon: Icon(Feather.home), label: 'Sportsbook'),
               BottomNavigationBarItem(
-                  icon: Icon(Feather.file_plus), label: 'Bet Slip'
+                  icon: Stack(
+                    children: <Widget>[
+                      const Icon(Icons.notifications),
+                      Positioned(
+                        right: 0,
+                        child: showBadge
+                            ? Container(
+                                padding: const EdgeInsets.all(1),
+                                decoration: BoxDecoration(
+                                  color: Colors.red,
+                                  borderRadius: BorderRadius.circular(6),
+                                ),
+                                constraints: const BoxConstraints(
+                                  minWidth: 12,
+                                  minHeight: 12,
+                                ),
+                                child: Text(
+                                  '$badgeCount',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 8,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              )
+                            : Container(),
+                      )
+                    ],
+                  ),
+                  label: 'Bet Slip'
                   // showBadge: showBadge,
                   // badgeCount: badgeCount,
                   ),

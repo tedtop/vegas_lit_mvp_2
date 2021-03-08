@@ -131,16 +131,12 @@ class SportsBookView extends StatelessWidget {
                             return Container(
                               height: 25,
                               width: 25,
-                              color: state.games.isEmpty
-                                  ? Palette.darkGrey
-                                  : Palette.white,
+                              color: Palette.white,
                               child: Center(
                                 child: Text(
                                   state.games.length.toString(),
                                   style: GoogleFonts.nunito(
-                                    color: state.games.isEmpty
-                                        ? Palette.white
-                                        : Palette.darkGrey,
+                                    color: Palette.darkGrey,
                                     fontSize: 15,
                                     fontWeight: FontWeight.bold,
                                   ),
