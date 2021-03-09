@@ -79,24 +79,139 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: FlatButton(
-              onPressed: () {
-                context.read<AuthenticationBloc>().add(
-                      AuthenticationLogoutRequested(),
-                    );
-              },
-              child: const Text(
-                'Logout',
-                style: TextStyle(
-                  color: Colors.red,
-                  fontSize: 20.0,
-                ),
+          // ** Ted temporarily removed Logout button, will get moved to Drawer
+          // Padding(
+          //   padding: const EdgeInsets.all(16.0),
+          //   child: FlatButton(
+          //     onPressed: () {
+          //       context.read<AuthenticationBloc>().add(
+          //             AuthenticationLogoutRequested(),
+          //           );
+          //     },
+          //     // child: const Text(
+          //     //   'Logout',
+          //     //   style: TextStyle(
+          //     //     color: Colors.red,
+          //     //     fontSize: 20.0,
+          //     //   ),
+          //     // ),
+          //   ),
+          // )
+        ],
+      ),
+      drawer: Drawer(
+        // Add a ListView to the drawer. This ensures the user can scroll
+        // through the options in the drawer if there isn't enough vertical
+        // space to fit everything.
+        child: ListView(
+          // Important: Remove any padding from the ListView.
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            DrawerHeader(
+              child: Image.asset(
+                Images.topLogo,
+                fit: BoxFit.contain,
+                height: 80,
+              ),
+              decoration: const BoxDecoration(
+                color: Palette.lightGrey,
               ),
             ),
-          )
-        ],
+            ListTile(
+              // tileColor: Palette.lightGrey,
+              title: Text(
+                'PROFILE',
+                style: GoogleFonts.nunito(
+                  color: Palette.white,
+                  fontSize: 24,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              onTap: () {
+                // Update the state of the app.
+                // ...
+              },
+            ),
+            ListTile(
+              title: Text(
+                'LEADERBOARD',
+                style: GoogleFonts.nunito(
+                  color: Palette.white,
+                  fontSize: 24,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              onTap: () {
+                // Update the state of the app.
+                // ...
+              },
+            ),
+            ListTile(
+              title: Text(
+                'LOGOUT',
+                style: GoogleFonts.nunito(
+                  color: Palette.white,
+                  fontSize: 24,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              onTap: () {
+                // Update the state of the app.
+                // ...
+              },
+            ),
+            ListTile(
+              title: Text(
+                'RULES',
+                style: Styles.h3,
+              ),
+              onTap: () {
+                // Update the state of the app.
+                // ...
+              },
+            ),
+            ListTile(
+              title: Text(
+                'FAQ',
+                style: Styles.h3,
+              ),
+              onTap: () {
+                // Update the state of the app.
+                // ...
+              },
+            ),
+            ListTile(
+              title: Text(
+                'TERMS OF SERVICE',
+                style: Styles.h3,
+              ),
+              onTap: () {
+                // Update the state of the app.
+                // ...
+              },
+            ),
+            ListTile(
+              title: Text(
+                'PRIVACY POLICY',
+                style: Styles.h3,
+              ),
+              onTap: () {
+                // Update the state of the app.
+                // ...
+              },
+            ),
+            ListTile(
+              title: Text(
+                'CONTACT US',
+                style: Styles.h3,
+              ),
+              onTap: () {
+                // Update the state of the app.
+                // ...
+              },
+            ),
+          ],
+        ),
       ),
       body: IndexedStack(
         index: pageIndex,
@@ -148,14 +263,14 @@ class _HomePageState extends State<HomePage> {
                                   borderRadius: BorderRadius.circular(6),
                                 ),
                                 constraints: const BoxConstraints(
-                                  minWidth: 12,
-                                  minHeight: 12,
+                                  minWidth: 14,
+                                  minHeight: 14,
                                 ),
                                 child: Text(
                                   '$badgeCount',
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     color: Colors.white,
-                                    fontSize: 12,
+                                    fontSize: 14,
                                   ),
                                   textAlign: TextAlign.center,
                                 ),
@@ -168,11 +283,11 @@ class _HomePageState extends State<HomePage> {
                   // showBadge: showBadge,
                   // badgeCount: badgeCount,
                   ),
-              BottomNavigationBarItem(
+              const BottomNavigationBarItem(
                   icon: Icon(Feather.globe), label: 'Leaderboard'),
-              BottomNavigationBarItem(
+              const BottomNavigationBarItem(
                   icon: Icon(Feather.file_text), label: 'Open Bets'),
-              BottomNavigationBarItem(
+              const BottomNavigationBarItem(
                   icon: Icon(Feather.calendar), label: 'History'),
             ],
           );

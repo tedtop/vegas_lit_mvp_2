@@ -8,6 +8,6 @@ class Palette {
   static const darkGrey = Color(0xFF2D3540);
 
   // Pages Color
-  static const loginPageColor = Color(0xFF2D3540);
-  static const signUpPageColor = Color(0xFF364558);
+  // static const loginPageColor = Color(0xFF2D3540);
+  // static const signUpPageColor = Color(0xFF364558);
 }

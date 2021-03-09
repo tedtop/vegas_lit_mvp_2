@@ -15,7 +15,7 @@ class AuthenticationBloc
     extends Bloc<AuthenticationEvent, AuthenticationState> {
   AuthenticationBloc({
     @required AuthenticationRepository authenticationRepository,
-  })  : assert(authenticationRepository != null),
+  }) : assert(authenticationRepository != null),
         _authenticationRepository = authenticationRepository,
         super(
           const AuthenticationState.splashscreen(),

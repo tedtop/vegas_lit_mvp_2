@@ -149,7 +149,7 @@ class _BetSlipCardViewState extends State<BetSlipCardView> {
                       text: TextSpan(
                         children: [
                           TextSpan(
-                            text: 'Starting in',
+                            text: 'Starting in ',
                             style: Styles.h4,
                           ),
                           TextSpan(
