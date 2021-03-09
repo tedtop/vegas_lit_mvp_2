@@ -6,7 +6,7 @@ import 'package:vegas_lit/data/repositories/sportsfeed_repository.dart';
 
 import 'config/themes.dart';
 import 'features/authentication/bloc/authentication_bloc.dart';
-import 'features/home_page/home_page.dart';
+import 'features/home/home_page.dart';
 import 'features/login/view/login_page.dart';
 import 'features/splash/view/splash_page.dart';
 
