@@ -5,8 +5,7 @@ import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
 import 'package:vegas_lit/data/repositories/bets_repository.dart';
-import 'package:vegas_lit/features/home_page/screens/open_bets/cubit/open_bets_cubit.dart';
-
+import 'cubit/open_bets_cubit.dart';
 import 'open_bets_slip.dart';
 
 class OpenBets extends StatelessWidget {

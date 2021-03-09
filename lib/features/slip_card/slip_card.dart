@@ -5,9 +5,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
 import 'package:intl/intl.dart';
-
-import 'package:vegas_lit/features/home_page/screens/bet_slip/cubit/bet_slip_cubit.dart';
-import 'package:vegas_lit/features/home_page/screens/sportsbook/widgets/bet_button/cubit/bet_button_cubit.dart';
+import 'package:vegas_lit/features/bet_button/cubit/bet_button_cubit.dart';
+import 'package:vegas_lit/features/bet_slip/cubit/bet_slip_cubit.dart';
 
 import 'cubit/bet_slip_card_cubit.dart';
 import 'widgets/slip_card_interstitial.dart';

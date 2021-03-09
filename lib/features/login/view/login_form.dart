@@ -1,31 +1,19 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:google_fonts/google_fonts.dart';
+import 'package:formz/formz.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:vegas_lit/config/assets.dart';
 import 'package:vegas_lit/config/palette.dart';
-import 'package:vegas_lit/data/repositories/auth_repository.dart';
-import 'package:formz/formz.dart';
-import 'package:vegas_lit/features/authentication/screens/sign_up/sign_up.dart';
-import '../cubit/login_cubit.dart';
+import 'package:vegas_lit/features/sign_up/view/sign_up_page.dart';
 
-class LoginPage extends StatelessWidget {
-  const LoginPage._({Key key}) : super(key: key);
+import '../login.dart';
 
-  static Route route() {
-    return MaterialPageRoute<void>(
-      builder: (context) => BlocProvider<LoginCubit>(
-        create: (_) => LoginCubit(
-          context.read<AuthenticationRepository>(),
-        ),
-        child: const LoginPage._(),
-      ),
-    );
-  }
-
+class LoginForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+<<<<<<< HEAD:lib/features/authentication/screens/login/view/login_page.dart
     return Scaffold(
       // backgroundColor: Palette.loginPageColor,
       resizeToAvoidBottomInset: true,
@@ -33,12 +21,21 @@ class LoginPage extends StatelessWidget {
         listener: (context, state) {
           if (state.status.isSubmissionFailure) {
             ScaffoldMessenger.of(context).showSnackBar(
+=======
+    return BlocListener<LoginCubit, LoginState>(
+      listener: (context, state) {
+        if (state.status.isSubmissionFailure) {
+          ScaffoldMessenger.of(context)
+            ..hideCurrentSnackBar()
+            ..showSnackBar(
+>>>>>>> 56c735e... changed file structure, fixed login and sign-up ui:lib/features/login/view/login_form.dart
               const SnackBar(
                 content: Text(
                   'Authentication Failure',
                 ),
               ),
             );
+<<<<<<< HEAD:lib/features/authentication/screens/login/view/login_page.dart
           }
         },
         child: SafeArea(
@@ -59,6 +56,26 @@ class LoginPage extends StatelessWidget {
               ],
             ),
           ),
+=======
+        }
+      },
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            const SizedBox(height: 10),
+            _TopLogo(),
+            const SizedBox(height: 40),
+            _EmailInput(),
+            const SizedBox(height: 10),
+            _PasswordInput(),
+            const SizedBox(height: 30),
+            _LoginButton(),
+            const SizedBox(height: 20),
+            _SignUpButton(),
+            const SizedBox(height: 200),
+            _SocialLoginList(),
+          ],
+>>>>>>> 56c735e... changed file structure, fixed login and sign-up ui:lib/features/login/view/login_form.dart
         ),
       ),
     );
@@ -105,8 +122,9 @@ class _EmailInput extends StatelessWidget {
             keyboardType: TextInputType.emailAddress,
             style: GoogleFonts.nunito(),
             decoration: InputDecoration(
+              labelStyle: GoogleFonts.nunito(),
               prefixIcon: const Icon(LineAwesomeIcons.user),
-              labelText: 'Email/Username',
+              labelText: 'Email / Username',
               helperText: '',
               errorText: state.email.invalid ? 'Invalid email' : null,
             ),
@@ -133,6 +151,7 @@ class _PasswordInput extends StatelessWidget {
             obscureText: true,
             style: GoogleFonts.nunito(),
             decoration: InputDecoration(
+              labelStyle: GoogleFonts.nunito(),
               prefixIcon: const Icon(LineAwesomeIcons.lock),
               labelText: 'Password',
               helperText: '',

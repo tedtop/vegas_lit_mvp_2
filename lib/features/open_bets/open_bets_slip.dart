@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
-import 'package:intl/intl.dart';
 import 'package:vegas_lit/data/models/open_bets.dart';
 
 class OpenBetsSlip extends StatelessWidget {
@@ -83,7 +82,7 @@ class OpenBetsSlip extends StatelessWidget {
                         ),
                         Text(
                           '\$${openBets.amount.toStringAsFixed(2)}',
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: Palette.red,
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
@@ -107,7 +106,7 @@ class OpenBetsSlip extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 RichText(
@@ -117,10 +116,10 @@ class OpenBetsSlip extends StatelessWidget {
                       fontSize: 14,
                     ),
                     children: [
-                      TextSpan(
+                      const TextSpan(
                         text: 'Starting in ',
                       ),
-                      TextSpan(
+                      const TextSpan(
                         text: '20hr:17m:18s',
                       ),
                     ],

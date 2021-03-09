@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
@@ -5,8 +6,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:vegas_lit/config/assets.dart';
 import 'package:vegas_lit/config/palette.dart';
-import 'package:vegas_lit/features/authentication/screens/login/login.dart';
-import 'package:vegas_lit/features/authentication/screens/sign_up/sign_up.dart';
+import 'package:vegas_lit/features/login/cubit/login_cubit.dart';
+
+import '../sign_up.dart';
 
 class SignUpForm extends StatelessWidget {
   @override
@@ -19,15 +21,16 @@ class SignUpForm extends StatelessWidget {
             ..hideCurrentSnackBar()
             ..showSnackBar(
               const SnackBar(
-                content: Text('Sign Up Failure'),
+                content: Text(
+                  'Sign Up Failure',
+                ),
               ),
             );
         }
       },
-      child: SafeArea(
-        child: SingleChildScrollView(
+      child: SingleChildScrollView(
+        child: Center(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               _TopLogo(),
               Column(
@@ -61,7 +64,7 @@ class _TopLogo extends StatelessWidget {
         Text(
           'Welcome to',
           style: GoogleFonts.nunito(
-            fontSize: 25,
+            fontSize: 22,
             fontWeight: FontWeight.w300,
           ),
         ),
@@ -69,7 +72,7 @@ class _TopLogo extends StatelessWidget {
           tag: 'top_logo',
           child: Image.asset(
             Images.topLogo,
-            height: 80,
+            height: 70,
           ),
         ),
       ],
@@ -113,6 +116,7 @@ class _UsernameInput extends StatelessWidget {
                   hintStyle: GoogleFonts.nunito(
                     fontSize: 10,
                     fontWeight: FontWeight.w300,
+                    color: Palette.white,
                   ),
                   fillColor: Colors.white,
                   border: const OutlineInputBorder(
@@ -172,6 +176,7 @@ class _EmailInput extends StatelessWidget {
                   hintStyle: GoogleFonts.nunito(
                     fontSize: 10,
                     fontWeight: FontWeight.w300,
+                    color: Palette.white,
                   ),
                   fillColor: Colors.white,
                   border: const OutlineInputBorder(
@@ -232,6 +237,7 @@ class _PasswordInput extends StatelessWidget {
                   hintStyle: GoogleFonts.nunito(
                     fontSize: 10,
                     fontWeight: FontWeight.w300,
+                    color: Palette.white,
                   ),
                   border: const OutlineInputBorder(
                     borderRadius: BorderRadius.all(
@@ -296,6 +302,7 @@ class _ConfirmPasswordInput extends StatelessWidget {
                   hintStyle: GoogleFonts.nunito(
                     fontSize: 10,
                     fontWeight: FontWeight.w300,
+                    color: Palette.white,
                   ),
                   border: const OutlineInputBorder(
                     borderRadius: BorderRadius.all(
@@ -338,41 +345,69 @@ class _StateInput extends StatelessWidget {
               ),
             ),
             Expanded(
-              child: TextField(
-                style: GoogleFonts.nunito(
-                  fontSize: 10,
-                  fontWeight: FontWeight.w300,
-                ),
-                cursorColor: Palette.white,
-                key: const Key('signUpForm_stateInput_textField'),
-                keyboardType: TextInputType.text,
-                decoration: InputDecoration(
-                  suffixIconConstraints:
-                      const BoxConstraints(maxHeight: 10, maxWidth: 25),
-                  suffixIcon: IconButton(
-                    padding: const EdgeInsets.all(0),
-                    onPressed: () {},
-                    icon: const Icon(LineAwesomeIcons.angle_down),
-                    iconSize: 10,
-                  ),
-                  contentPadding: const EdgeInsets.symmetric(
-                    vertical: 4,
-                    horizontal: 8,
-                  ),
-                  hintStyle: GoogleFonts.nunito(
-                    fontSize: 10,
-                    fontWeight: FontWeight.w300,
-                  ),
-                  fillColor: Colors.white,
-                  border: const OutlineInputBorder(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(4),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Expanded(
+                    child: SizedBox(
+                      width: 80,
+                      child: TextField(
+                        style: GoogleFonts.nunito(
+                          fontSize: 10,
+                          fontWeight: FontWeight.w300,
+                        ),
+                        cursorColor: Palette.white,
+                        key: const Key('signUpForm_stateInput_textField'),
+                        keyboardType: TextInputType.text,
+                        decoration: InputDecoration(
+                          suffixIconConstraints:
+                              const BoxConstraints(maxHeight: 10, maxWidth: 25),
+                          // suffixIcon: ,
+                          contentPadding: const EdgeInsets.symmetric(
+                            vertical: 4,
+                            horizontal: 8,
+                          ),
+                          hintStyle: GoogleFonts.nunito(
+                            fontSize: 10,
+                            fontWeight: FontWeight.w300,
+                            color: Palette.white,
+                          ),
+                          fillColor: Colors.white,
+                          border: const OutlineInputBorder(
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(4),
+                              bottomLeft: Radius.circular(4),
+                            ),
+                          ),
+                          isDense: true,
+                          hintText: 'State',
+                          helperText: '',
+                        ),
+                      ),
                     ),
                   ),
-                  isDense: true,
-                  hintText: 'State',
-                  helperText: '',
-                ),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 22),
+                    child: Container(
+                      height: 22,
+                      width: 20,
+                      decoration: const BoxDecoration(
+                        color: Palette.green,
+                        borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(4),
+                          bottomRight: Radius.circular(4),
+                        ),
+                      ),
+                      child: IconButton(
+                        padding: const EdgeInsets.all(0),
+                        onPressed: () {},
+                        icon: const Icon(LineAwesomeIcons.arrow_circle_down),
+                        iconSize: 15,
+                      ),
+                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                    ),
+                  )
+                ],
               ),
             ),
           ],
@@ -419,6 +454,7 @@ class _MobileNumberInput extends StatelessWidget {
                   hintStyle: GoogleFonts.nunito(
                     fontSize: 10,
                     fontWeight: FontWeight.w300,
+                    color: Palette.white,
                   ),
                   fillColor: Colors.white,
                   border: const OutlineInputBorder(
@@ -452,6 +488,7 @@ class __AgeCheckboxState extends State<_AgeCheckbox> {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Checkbox(
+          materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
           fillColor: MaterialStateProperty.all(Palette.green),
           value: isSelected,
           onChanged: (value) {
@@ -465,7 +502,7 @@ class __AgeCheckboxState extends State<_AgeCheckbox> {
         Text(
           'I am 18 years or older',
           style: GoogleFonts.nunito(
-            fontSize: 12,
+            fontSize: 11,
           ),
         ),
       ],
@@ -486,6 +523,7 @@ class __RulesCheckboxState extends State<_RulesCheckbox> {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Checkbox(
+          materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
           fillColor: MaterialStateProperty.all(Palette.green),
           value: isSelected,
           onChanged: (value) {
@@ -500,11 +538,19 @@ class __RulesCheckboxState extends State<_RulesCheckbox> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+<<<<<<< HEAD:lib/features/authentication/screens/sign_up/view/sign_up_form.dart
+=======
+              Text(
+                'I have read and agree to the official Vegas Lit contest rules and conditions.',
+                softWrap: true,
+                style: GoogleFonts.nunito(
+                  fontSize: 11,
+                ),
+              ),
+>>>>>>> 56c735e... changed file structure, fixed login and sign-up ui:lib/features/sign_up/view/sign_up_form.dart
               RichText(
                 text: TextSpan(
-                  style: GoogleFonts.nunito(
-                    fontSize: 12,
-                  ),
+                  style: GoogleFonts.nunito(fontSize: 11, color: Palette.white),
                   children: <TextSpan>[
                     const TextSpan(
                         text:
@@ -545,6 +591,7 @@ class _SignUpButton extends StatelessWidget {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(4.0),
                   ),
+                  disabledTextColor: Palette.white,
                   color: Palette.green,
                   onPressed: state.status.isValidated
                       ? () => context.read<SignUpCubit>().signUpFormSubmitted()
@@ -636,7 +683,11 @@ class _ExistingAccountSignIn extends StatelessWidget {
             'Log In',
             style: GoogleFonts.nunito(
               color: Palette.green,
+<<<<<<< HEAD:lib/features/authentication/screens/sign_up/view/sign_up_form.dart
               fontSize: 17,
+=======
+              fontSize: 18,
+>>>>>>> 56c735e... changed file structure, fixed login and sign-up ui:lib/features/sign_up/view/sign_up_form.dart
               fontWeight: FontWeight.w700,
             ),
           ),
