@@ -27,7 +27,7 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Palette.loginPageColor,
+      // backgroundColor: Palette.loginPageColor,
       resizeToAvoidBottomInset: true,
       body: BlocListener<LoginCubit, LoginState>(
         listener: (context, state) {
@@ -43,29 +43,20 @@ class LoginPage extends StatelessWidget {
         },
         child: SafeArea(
           child: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  _TopLogo(),
-                  Column(
-                    children: [
-                      _EmailInput(),
-                      const SizedBox(height: 10),
-                      _PasswordInput(),
-                      const SizedBox(height: 30),
-                      _LoginButton(),
-                      const SizedBox(height: 50),
-                      _SocialLoginList(),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 60,
-                  ),
-                  _SignUpButton(),
-                ],
-              ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                _TopLogo(),
+                Column(
+                  children: [
+                    _EmailInput(),
+                    _PasswordInput(),
+                    _LoginButton(),
+                    _LinkToSignup(),
+                    _SocialLoginList(),
+                  ],
+                ),
+              ],
             ),
           ),
         ),
@@ -77,26 +68,23 @@ class LoginPage extends StatelessWidget {
 class _TopLogo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 30),
-      child: Column(
-        children: [
-          Text(
-            'Welcome to',
-            style: GoogleFonts.nunito(
-              fontSize: 25,
-              fontWeight: FontWeight.w300,
-            ),
+    return Column(
+      children: [
+        Text(
+          'Welcome to',
+          style: GoogleFonts.nunito(
+            fontSize: 25,
+            fontWeight: FontWeight.w300,
           ),
-          Hero(
-            tag: 'top_logo',
-            child: Image.asset(
-              Images.topLogo,
-              height: 70,
-            ),
+        ),
+        Hero(
+          tag: 'top_logo',
+          child: Image.asset(
+            Images.topLogo,
+            height: 80,
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
@@ -166,18 +154,21 @@ class _LoginButton extends StatelessWidget {
       builder: (context, state) {
         return state.status.isSubmissionInProgress
             ? const CircularProgressIndicator()
-            : RaisedButton(
-                key: const Key('loginForm_continue_raisedButton'),
-                padding:
-                    EdgeInsets.symmetric(horizontal: width / 6, vertical: 12),
-                child: const Text('Log In'),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(5.0),
+            : Padding(
+                padding: const EdgeInsets.symmetric(vertical: 20.0),
+                child: RaisedButton(
+                  key: const Key('loginForm_continue_raisedButton'),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: width / 6, vertical: 12),
+                  child: const Text('LOG IN'),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(5.0),
+                  ),
+                  color: Palette.green,
+                  onPressed: state.status.isValidated
+                      ? () => context.read<LoginCubit>().logInWithCredentials()
+                      : null,
                 ),
-                color: Palette.green,
-                onPressed: state.status.isValidated
-                    ? () => context.read<LoginCubit>().logInWithCredentials()
-                    : null,
               );
       },
     );
@@ -244,14 +235,14 @@ class _SocialLoginList extends StatelessWidget {
   }
 }
 
-class _SignUpButton extends StatelessWidget {
+class _LinkToSignup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
-          'Don\'t have an account yet? ',
+          "Don't have an account yet?",
           style: GoogleFonts.nunito(
             fontWeight: FontWeight.w300,
             fontSize: 16,
@@ -263,7 +254,7 @@ class _SignUpButton extends StatelessWidget {
           child: Text(
             'Sign Up',
             style: GoogleFonts.nunito(
-              color: Palette.white,
+              color: Palette.green,
               fontSize: 17,
               fontWeight: FontWeight.w700,
             ),

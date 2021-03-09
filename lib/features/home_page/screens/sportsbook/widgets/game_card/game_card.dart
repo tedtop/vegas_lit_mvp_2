@@ -68,7 +68,7 @@ class GameCard extends StatelessWidget {
                             text: TextSpan(
                               children: [
                                 TextSpan(
-                                  text: 'Starting in',
+                                  text: 'Starting in ',
                                   style: Styles.h4,
                                 ),
                                 TextSpan(

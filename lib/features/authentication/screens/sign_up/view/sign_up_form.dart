@@ -29,33 +29,20 @@ class SignUpForm extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Padding(
-                padding: const EdgeInsets.all(30.0),
-                child: _TopLogo(),
-              ),
-              SizedBox(
-                width: width / 1.5,
-                child: Column(
-                  children: [
-                    _UsernameInput(),
-                    _EmailInput(),
-                    _PasswordInput(),
-                    _ConfirmPasswordInput(),
-                    _StateInput(),
-                    _MobileNumberInput(),
-                    _AgeCheckbox(),
-                    _RulesCheckbox(),
-                    _SignUpButton(),
-                  ],
-                ),
-              ),
-              const SizedBox(
-                height: 80,
-              ),
+              _TopLogo(),
               Column(
                 children: [
+                  _ExistingAccountSignIn(),
+                  _UsernameInput(),
+                  _EmailInput(),
+                  _PasswordInput(),
+                  _ConfirmPasswordInput(),
+                  _StateInput(),
+                  _MobileNumberInput(),
+                  _AgeCheckbox(),
+                  _RulesCheckbox(),
+                  _SignUpButton(),
                   _SocialLoginList(),
-                  _AlreadyAccount(),
                 ],
               ),
             ],
@@ -513,25 +500,19 @@ class __RulesCheckboxState extends State<_RulesCheckbox> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'I have read and agree to the official Vegas Lit contest rules and conditions.',
-                softWrap: true,
-                style: GoogleFonts.nunito(
-                  fontSize: 12,
-                ),
-              ),
               RichText(
                 text: TextSpan(
                   style: GoogleFonts.nunito(
                     fontSize: 12,
                   ),
                   children: <TextSpan>[
-                    const TextSpan(text: 'Please review the official rules '),
+                    const TextSpan(
+                        text:
+                            'I have read and agree to the official Vegas Lit contest rules and conditions found '),
                     const TextSpan(
                       text: 'here',
                       style: TextStyle(color: Palette.green),
                     ),
-                    const TextSpan(text: '.')
                   ],
                 ),
               ),
@@ -547,7 +528,7 @@ class _SignUpButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 30),
+      padding: const EdgeInsets.symmetric(vertical: 20.0),
       child: BlocBuilder<SignUpCubit, SignUpState>(
         buildWhen: (previous, current) => previous.status != current.status,
         builder: (context, state) {
@@ -634,14 +615,14 @@ class _SocialLoginList extends StatelessWidget {
   }
 }
 
-class _AlreadyAccount extends StatelessWidget {
+class _ExistingAccountSignIn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
-          'Already have an account?',
+          "Already have an account?",
           style: GoogleFonts.nunito(
             fontSize: 16,
             fontWeight: FontWeight.w300,
@@ -653,7 +634,7 @@ class _AlreadyAccount extends StatelessWidget {
           child: Text(
             'Log In',
             style: GoogleFonts.nunito(
-              color: Palette.white,
+              color: Palette.green,
               fontSize: 17,
               fontWeight: FontWeight.w700,
             ),
