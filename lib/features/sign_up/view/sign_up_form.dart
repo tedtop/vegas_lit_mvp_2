@@ -184,6 +184,7 @@ class _EmailInput extends StatelessWidget {
                       Radius.circular(4),
                     ),
                   ),
+                  errorStyle: GoogleFonts.nunito(fontSize: 10),
                   isDense: true,
                   hintText: 'Email Address',
                   helperText: '',
@@ -245,6 +246,10 @@ class _PasswordInput extends StatelessWidget {
                     ),
                   ),
                   isDense: true,
+                  errorMaxLines: 3,
+                  errorStyle: GoogleFonts.nunito(
+                    fontSize: 10,
+                  ),
                   hintText: 'Password',
                   helperText: '',
                   errorText: state.password.invalid
@@ -308,6 +313,10 @@ class _ConfirmPasswordInput extends StatelessWidget {
                     borderRadius: BorderRadius.all(
                       Radius.circular(4),
                     ),
+                  ),
+                  errorMaxLines: 3,
+                  errorStyle: GoogleFonts.nunito(
+                    fontSize: 10,
                   ),
                   isDense: true,
                   hintText: 'Verify Password',

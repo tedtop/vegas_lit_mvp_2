@@ -13,7 +13,6 @@ import '../login.dart';
 class LoginForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-<<<<<<< HEAD:lib/features/authentication/screens/login/view/login_page.dart
     return Scaffold(
       // backgroundColor: Palette.loginPageColor,
       resizeToAvoidBottomInset: true,
@@ -21,21 +20,12 @@ class LoginForm extends StatelessWidget {
         listener: (context, state) {
           if (state.status.isSubmissionFailure) {
             ScaffoldMessenger.of(context).showSnackBar(
-=======
-    return BlocListener<LoginCubit, LoginState>(
-      listener: (context, state) {
-        if (state.status.isSubmissionFailure) {
-          ScaffoldMessenger.of(context)
-            ..hideCurrentSnackBar()
-            ..showSnackBar(
->>>>>>> 56c735e... changed file structure, fixed login and sign-up ui:lib/features/login/view/login_form.dart
               const SnackBar(
                 content: Text(
                   'Authentication Failure',
                 ),
               ),
             );
-<<<<<<< HEAD:lib/features/authentication/screens/login/view/login_page.dart
           }
         },
         child: SafeArea(
@@ -56,26 +46,6 @@ class LoginForm extends StatelessWidget {
               ],
             ),
           ),
-=======
-        }
-      },
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            const SizedBox(height: 10),
-            _TopLogo(),
-            const SizedBox(height: 40),
-            _EmailInput(),
-            const SizedBox(height: 10),
-            _PasswordInput(),
-            const SizedBox(height: 30),
-            _LoginButton(),
-            const SizedBox(height: 20),
-            _SignUpButton(),
-            const SizedBox(height: 200),
-            _SocialLoginList(),
-          ],
->>>>>>> 56c735e... changed file structure, fixed login and sign-up ui:lib/features/login/view/login_form.dart
         ),
       ),
     );

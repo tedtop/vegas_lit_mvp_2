@@ -6,15 +6,15 @@ import 'package:vegas_lit/config/assets.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
 import 'package:vegas_lit/data/repositories/sportsfeed_repository.dart';
-import 'package:vegas_lit/features/bet_history/bet_history.dart';
-import 'package:vegas_lit/features/bet_slip/bet_slip.dart';
-import 'package:vegas_lit/features/bet_slip/cubit/bet_slip_cubit.dart';
-import 'package:vegas_lit/features/leaderboard/leaderboard.dart';
-import 'package:vegas_lit/features/open_bets/open_bets.dart';
+import 'package:vegas_lit/features/history/bet_history.dart';
+import 'package:vegas_lit/features/leaderboard/view/leaderboard_page.dart';
+import 'package:vegas_lit/features/open_bets/view/open_bets_page.dart';
+import 'package:vegas_lit/features/slip/bet_slip.dart';
+import 'package:vegas_lit/features/slip/cubit/bet_slip_cubit.dart';
 import 'package:vegas_lit/features/sportsbook/bloc/sportsbook_bloc.dart';
-import 'package:vegas_lit/features/sportsbook/sportsbook.dart';
+import 'package:vegas_lit/features/sportsbook/view/sportsbook_page.dart';
 
-import '../authentication/bloc/authentication_bloc.dart';
+import '../../authentication/bloc/authentication_bloc.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage._({Key key}) : super(key: key);

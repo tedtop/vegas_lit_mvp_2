@@ -4,7 +4,7 @@ import 'package:vegas_lit/config/palette.dart';
 import 'package:intl/intl.dart';
 import 'package:vegas_lit/config/styles.dart';
 import 'package:vegas_lit/data/models/game.dart';
-import 'package:vegas_lit/features/bet_button/bet_button.dart';
+import 'package:vegas_lit/features/wager_button/wager_button.dart';
 import 'cubit/game_card_cubit.dart';
 
 class GameCard extends StatelessWidget {
@@ -57,11 +57,13 @@ class GameCard extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            DateFormat('EEEE, MMMM, c, y @ hh:mm a').format(
-                              state.game.schedule.date.toLocal(),
+                          Expanded(
+                            child: Text(
+                              DateFormat('EEEE, MMMM, c, y @ hh:mm a').format(
+                                state.game.schedule.date.toLocal(),
+                              ),
+                              style: Styles.h4,
                             ),
-                            style: Styles.h4,
                           ),
                           RichText(
                             text: TextSpan(
@@ -105,13 +107,13 @@ class GameCard extends StatelessWidget {
                               ? Container()
                               : Row(
                                   children: [
-                                    BetButton.route(
+                                    WagerButton.route(
                                       text:
                                           '${state.game.odds[0].moneyline.current.awayOdds}',
                                       game: state.game,
                                     ),
                                     _betButtonSeparator(text: 'ML'),
-                                    BetButton.route(
+                                    WagerButton.route(
                                       game: state.game,
                                       text:
                                           '${state.game.odds[0].moneyline.current.homeOdds}',
@@ -122,13 +124,13 @@ class GameCard extends StatelessWidget {
                               ? Container()
                               : Row(
                                   children: [
-                                    BetButton.route(
+                                    WagerButton.route(
                                       game: state.game,
                                       text:
                                           '${state.game.odds[0].spread.current.away}     ${state.game.odds[0].spread.current.awayOdds}',
                                     ),
                                     _betButtonSeparator(text: 'PTS'),
-                                    BetButton.route(
+                                    WagerButton.route(
                                       game: state.game,
                                       text:
                                           '${state.game.odds[0].spread.current.home}     ${state.game.odds[0].spread.current.homeOdds}',
@@ -139,13 +141,13 @@ class GameCard extends StatelessWidget {
                               ? Container()
                               : Row(
                                   children: [
-                                    BetButton.route(
+                                    WagerButton.route(
                                       game: state.game,
                                       text:
                                           'o${state.game.odds[0].total.current.total}     ${state.game.odds[0].total.current.overOdds}',
                                     ),
                                     _betButtonSeparator(text: 'TOT'),
-                                    BetButton.route(
+                                    WagerButton.route(
                                       game: state.game,
                                       text:
                                           'u${state.game.odds[0].total.current.total}     ${state.game.odds[0].total.current.underOdds}',

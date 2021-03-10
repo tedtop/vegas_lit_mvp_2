@@ -5,7 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
 
-import 'cubit/bet_slip_cubit.dart';
+import '../cubit/bet_slip_cubit.dart';
 
 class BetSlip extends StatelessWidget {
   @override

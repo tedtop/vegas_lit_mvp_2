@@ -3,13 +3,13 @@ import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vegas_lit/data/models/game.dart';
-import 'package:vegas_lit/features/bet_slip/cubit/bet_slip_cubit.dart';
-import 'package:vegas_lit/features/slip_card/slip_card.dart';
+import 'package:vegas_lit/features/slip/bet_slip.dart';
+import 'package:vegas_lit/features/slip_card/view/slip_card_widget.dart';
 
-import 'cubit/bet_button_cubit.dart';
+import '../cubit/bet_button_cubit.dart';
 
-class BetButton extends StatefulWidget {
-  const BetButton._({Key key}) : super(key: key);
+class WagerButton extends StatelessWidget {
+  const WagerButton._({Key key}) : super(key: key);
 
   static Builder route({
     @required String text,
@@ -23,17 +23,12 @@ class BetButton extends StatefulWidget {
               text: text,
               game: game,
             ),
-          child: const BetButton._(),
+          child: const WagerButton._(),
         );
       },
     );
   }
 
-  @override
-  _BetButtonState createState() => _BetButtonState();
-}
-
-class _BetButtonState extends State<BetButton> {
   @override
   Widget build(BuildContext context) {
     return Builder(
