@@ -55,6 +55,7 @@ class _HomePageState extends State<HomePage> {
     final userDataId = context.select((AuthenticationBloc authenticationBloc) =>
         authenticationBloc.state.user?.uid);
     return Scaffold(
+      backgroundColor: Palette.lightGrey,
       appBar: AppBar(
         toolbarHeight: 80.0,
         title: Image.asset(
@@ -147,12 +148,20 @@ class _HomePageState extends State<HomePage> {
               },
             ),
             ListTile(
-              title: Text(
-                'LOGOUT',
-                style: GoogleFonts.nunito(
-                  color: Palette.white,
-                  fontSize: 24,
-                  fontWeight: FontWeight.w700,
+              contentPadding: const EdgeInsets.all(0),
+              leading: MaterialButton(
+                onPressed: () {
+                  context.read<AuthenticationBloc>().add(
+                        AuthenticationLogoutRequested(),
+                      );
+                },
+                child: Text(
+                  'LOGOUT',
+                  style: GoogleFonts.nunito(
+                    color: Palette.white,
+                    fontSize: 24,
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
               ),
               onTap: () {

@@ -26,6 +26,7 @@ class LoginForm extends StatelessWidget {
                 ),
               ),
             );
+<<<<<<< HEAD
           }
         },
         child: SafeArea(
@@ -46,6 +47,26 @@ class LoginForm extends StatelessWidget {
               ],
             ),
           ),
+=======
+        }
+      },
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            const SizedBox(height: 20),
+            _TopLogo(),
+            const SizedBox(height: 40),
+            _EmailInput(),
+            const SizedBox(height: 10),
+            _PasswordInput(),
+            const SizedBox(height: 30),
+            _LoginButton(),
+            const SizedBox(height: 20),
+            _LinkToSignup(),
+            const SizedBox(height: 200),
+            _SocialLoginList(),
+          ],
+>>>>>>> 6d2fc07... Added border to sportbook card, logout button working
         ),
       ),
     );
