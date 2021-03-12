@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_icons/flutter_icons.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:vegas_lit/config/assets.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
 import 'package:vegas_lit/data/repositories/sportsfeed_repository.dart';
 import 'package:vegas_lit/features/history/bet_history.dart';
+import 'package:vegas_lit/features/home/cubit/home_cubit.dart';
+import 'package:vegas_lit/features/home/widgets/widgets.dart';
 import 'package:vegas_lit/features/leaderboard/view/leaderboard_page.dart';
 import 'package:vegas_lit/features/open_bets/view/open_bets_page.dart';
 import 'package:vegas_lit/features/slip/bet_slip.dart';
@@ -27,7 +27,9 @@ class HomePage extends StatefulWidget {
             create: (_) => SportsbookBloc(
               sportsfeedRepository: context.read<SportsfeedRepository>(),
             )..add(
-                SportsbookOpen(gameName: 'NBA'),
+                SportsbookOpen(
+                  gameName: 'NBA',
+                ),
               ),
           ),
           BlocProvider<BetSlipCubit>(
@@ -35,6 +37,9 @@ class HomePage extends StatefulWidget {
               ..openBetSlip(
                 betSlipGames: [],
               ),
+          ),
+          BlocProvider<HomeCubit>(
+            create: (_) => HomeCubit(),
           ),
         ],
         child: const HomePage._(),
@@ -48,12 +53,15 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   PageController pageController = PageController();
-  int pageIndex = 0;
 
   @override
   Widget build(BuildContext context) {
-    final userDataId = context.select((AuthenticationBloc authenticationBloc) =>
-        authenticationBloc.state.user?.uid);
+    final pageIndex =
+        context.select((HomeCubit homeCubit) => homeCubit.state.pageIndex);
+    final userId = context.select(
+      (AuthenticationBloc authenticationBloc) =>
+          authenticationBloc.state.user?.uid,
+    );
     return Scaffold(
       backgroundColor: Palette.lightGrey,
       appBar: AppBar(
@@ -80,238 +88,20 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
           ),
-          // ** Ted temporarily removed Logout button, will get moved to Drawer
-          // Padding(
-          //   padding: const EdgeInsets.all(16.0),
-          //   child: FlatButton(
-          //     onPressed: () {
-          //       context.read<AuthenticationBloc>().add(
-          //             AuthenticationLogoutRequested(),
-          //           );
-          //     },
-          //     // child: const Text(
-          //     //   'Logout',
-          //     //   style: TextStyle(
-          //     //     color: Colors.red,
-          //     //     fontSize: 20.0,
-          //     //   ),
-          //     // ),
-          //   ),
-          // )
         ],
       ),
-      drawer: Drawer(
-        // Add a ListView to the drawer. This ensures the user can scroll
-        // through the options in the drawer if there isn't enough vertical
-        // space to fit everything.
-        child: ListView(
-          // Important: Remove any padding from the ListView.
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            DrawerHeader(
-              child: Image.asset(
-                Images.topLogo,
-                fit: BoxFit.contain,
-                height: 80,
-              ),
-              decoration: const BoxDecoration(
-                color: Palette.lightGrey,
-              ),
-            ),
-            ListTile(
-              // tileColor: Palette.lightGrey,
-              title: Text(
-                'PROFILE',
-                style: GoogleFonts.nunito(
-                  color: Palette.white,
-                  fontSize: 24,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-              onTap: () {
-                // Update the state of the app.
-                // ...
-              },
-            ),
-            ListTile(
-              title: Text(
-                'LEADERBOARD',
-                style: GoogleFonts.nunito(
-                  color: Palette.white,
-                  fontSize: 24,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-              onTap: () {
-                // Update the state of the app.
-                // ...
-              },
-            ),
-            ListTile(
-              contentPadding: const EdgeInsets.all(0),
-              leading: MaterialButton(
-                onPressed: () {
-                  context.read<AuthenticationBloc>().add(
-                        AuthenticationLogoutRequested(),
-                      );
-                },
-                child: Text(
-                  'LOGOUT',
-                  style: GoogleFonts.nunito(
-                    color: Palette.white,
-                    fontSize: 24,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-              ),
-              onTap: () {
-                // Update the state of the app.
-                // ...
-              },
-            ),
-            ListTile(
-              title: Text(
-                'RULES',
-                style: Styles.h3,
-              ),
-              onTap: () {
-                // Update the state of the app.
-                // ...
-              },
-            ),
-            ListTile(
-              title: Text(
-                'FAQ',
-                style: Styles.h3,
-              ),
-              onTap: () {
-                // Update the state of the app.
-                // ...
-              },
-            ),
-            ListTile(
-              title: Text(
-                'TERMS OF SERVICE',
-                style: Styles.h3,
-              ),
-              onTap: () {
-                // Update the state of the app.
-                // ...
-              },
-            ),
-            ListTile(
-              title: Text(
-                'PRIVACY POLICY',
-                style: Styles.h3,
-              ),
-              onTap: () {
-                // Update the state of the app.
-                // ...
-              },
-            ),
-            ListTile(
-              title: Text(
-                'CONTACT US',
-                style: Styles.h3,
-              ),
-              onTap: () {
-                // Update the state of the app.
-                // ...
-              },
-            ),
-          ],
-        ),
-      ),
+      drawer: HomeDrawer(),
       body: IndexedStack(
         index: pageIndex,
         children: [
           Sportsbook(),
           BetSlip(),
           Leaderboard(),
-          OpenBets.route(currentUserId: userDataId),
+          OpenBets.route(currentUserId: userId),
           BetHistory(),
         ],
       ),
-      bottomNavigationBar: bottomNavigation(),
-    );
-  }
-
-  Widget bottomNavigation() {
-    return BlocBuilder<BetSlipCubit, BetSlipState>(
-      builder: (context, state) {
-        if (state.status == BetSlipStatus.opened) {
-          final showBadge = state.games.isNotEmpty;
-          final badgeCount = state.games.length;
-          return BottomNavigationBar(
-            currentIndex: pageIndex,
-            type: BottomNavigationBarType.fixed,
-            // backgroundColor: Palette.darkGrey,
-            selectedItemColor: Palette.green,
-            unselectedItemColor: Palette.white,
-            // selectedFontSize: 14.0, // default
-            // unselectedFontSize: 12.0, // default
-            selectedLabelStyle: GoogleFonts.nunito(),
-            unselectedLabelStyle: GoogleFonts.nunito(),
-            showSelectedLabels: true,
-            showUnselectedLabels: true,
-            onTap: onPageChanged,
-            items: <BottomNavigationBarItem>[
-              const BottomNavigationBarItem(
-                  icon: Icon(Feather.home), label: 'Sportsbook'),
-              BottomNavigationBarItem(
-                  icon: Stack(
-                    children: <Widget>[
-                      const Icon(Icons.notifications),
-                      Positioned(
-                        right: 0,
-                        child: showBadge
-                            ? Container(
-                                padding: const EdgeInsets.all(1),
-                                decoration: BoxDecoration(
-                                  color: Colors.red,
-                                  borderRadius: BorderRadius.circular(6),
-                                ),
-                                constraints: const BoxConstraints(
-                                  minWidth: 14,
-                                  minHeight: 14,
-                                ),
-                                child: Text(
-                                  '$badgeCount',
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 14,
-                                  ),
-                                  textAlign: TextAlign.center,
-                                ),
-                              )
-                            : Container(),
-                      )
-                    ],
-                  ),
-                  label: 'Bet Slip'
-                  // showBadge: showBadge,
-                  // badgeCount: badgeCount,
-                  ),
-              const BottomNavigationBarItem(
-                  icon: Icon(Feather.globe), label: 'Leaderboard'),
-              const BottomNavigationBarItem(
-                  icon: Icon(Feather.file_text), label: 'Open Bets'),
-              const BottomNavigationBarItem(
-                  icon: Icon(Feather.calendar), label: 'History'),
-            ],
-          );
-        } else {
-          return Container();
-        }
-      },
-    );
-  }
-
-  void onPageChanged(int pageIndex) {
-    setState(
-      () {
-        this.pageIndex = pageIndex;
-      },
+      bottomNavigationBar: HomeBottomNavigation(),
     );
   }
 }

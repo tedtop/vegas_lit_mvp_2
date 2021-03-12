@@ -137,24 +137,28 @@ class _BetSlipCardViewState extends State<BetSlipCardView> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      DateFormat('EEEE, MMMM, c, y @ hh:mm a').format(
-                        betButtonState.game.schedule.date.toLocal(),
+                    Expanded(
+                      child: Text(
+                        DateFormat('EEEE, MMMM, c, y @ hh:mm a').format(
+                          betButtonState.game.schedule.date.toLocal(),
+                        ),
+                        style: Styles.h4,
                       ),
-                      style: Styles.h4,
                     ),
-                    RichText(
-                      text: TextSpan(
-                        children: [
-                          TextSpan(
-                            text: 'Starting in',
-                            style: Styles.h4,
-                          ),
-                          TextSpan(
-                            text: '20hr:17m:18s',
-                            style: Styles.startingTimeText,
-                          ),
-                        ],
+                    Expanded(
+                      child: RichText(
+                        text: TextSpan(
+                          children: [
+                            TextSpan(
+                              text: 'Starting in ',
+                              style: Styles.h4,
+                            ),
+                            TextSpan(
+                              text: '20hr:17m:18s',
+                              style: Styles.startingTimeText,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ],
