@@ -14,7 +14,6 @@ class LoginForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: Palette.loginPageColor,
       resizeToAvoidBottomInset: true,
       body: BlocListener<LoginCubit, LoginState>(
         listener: (context, state) {
@@ -26,7 +25,6 @@ class LoginForm extends StatelessWidget {
                 ),
               ),
             );
-<<<<<<< HEAD
           }
         },
         child: SafeArea(
@@ -47,26 +45,6 @@ class LoginForm extends StatelessWidget {
               ],
             ),
           ),
-=======
-        }
-      },
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            const SizedBox(height: 20),
-            _TopLogo(),
-            const SizedBox(height: 40),
-            _EmailInput(),
-            const SizedBox(height: 10),
-            _PasswordInput(),
-            const SizedBox(height: 30),
-            _LoginButton(),
-            const SizedBox(height: 20),
-            _LinkToSignup(),
-            const SizedBox(height: 200),
-            _SocialLoginList(),
-          ],
->>>>>>> 6d2fc07... Added border to sportbook card, logout button working
         ),
       ),
     );
@@ -78,13 +56,6 @@ class _TopLogo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text(
-          'Welcome to',
-          style: GoogleFonts.nunito(
-            fontSize: 25,
-            fontWeight: FontWeight.w300,
-          ),
-        ),
         Hero(
           tag: 'top_logo',
           child: Image.asset(

@@ -61,18 +61,11 @@ class _TopLogo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text(
-          'Welcome to',
-          style: GoogleFonts.nunito(
-            fontSize: 22,
-            fontWeight: FontWeight.w300,
-          ),
-        ),
         Hero(
           tag: 'top_logo',
           child: Image.asset(
             Images.topLogo,
-            height: 70,
+            height: 80,
           ),
         ),
       ],
@@ -547,16 +540,6 @@ class __RulesCheckboxState extends State<_RulesCheckbox> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-<<<<<<< HEAD:lib/features/authentication/screens/sign_up/view/sign_up_form.dart
-=======
-              Text(
-                'I have read and agree to the official Vegas Lit contest rules and conditions.',
-                softWrap: true,
-                style: GoogleFonts.nunito(
-                  fontSize: 11,
-                ),
-              ),
->>>>>>> 56c735e... changed file structure, fixed login and sign-up ui:lib/features/sign_up/view/sign_up_form.dart
               RichText(
                 text: TextSpan(
                   style: GoogleFonts.nunito(fontSize: 11, color: Palette.white),
@@ -692,11 +675,7 @@ class _ExistingAccountSignIn extends StatelessWidget {
             'Log In',
             style: GoogleFonts.nunito(
               color: Palette.green,
-<<<<<<< HEAD:lib/features/authentication/screens/sign_up/view/sign_up_form.dart
-              fontSize: 17,
-=======
               fontSize: 18,
->>>>>>> 56c735e... changed file structure, fixed login and sign-up ui:lib/features/sign_up/view/sign_up_form.dart
               fontWeight: FontWeight.w700,
             ),
           ),

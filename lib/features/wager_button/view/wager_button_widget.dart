@@ -65,7 +65,6 @@ class BetButtonUnclicked extends StatelessWidget {
             borderRadius: BorderRadius.circular(4),
           ),
           padding: const EdgeInsets.all(8.0),
-          elevation: Styles.elevation,
           color: Palette.lightGrey,
           child: Text(
             betButtonState.text,
@@ -98,7 +97,6 @@ class BetButtonClicked extends StatelessWidget {
             borderRadius: BorderRadius.circular(4),
           ),
           padding: const EdgeInsets.all(8.0),
-          elevation: Styles.elevation,
           color: Palette.green,
           child: Text(
             betButtonState.text,

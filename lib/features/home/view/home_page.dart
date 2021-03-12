@@ -243,17 +243,17 @@ class _HomePageState extends State<HomePage> {
           final showBadge = state.games.isNotEmpty;
           final badgeCount = state.games.length;
           return BottomNavigationBar(
-            selectedLabelStyle: GoogleFonts.nunito(),
-            selectedFontSize: 10,
-            unselectedFontSize: 8,
-            elevation: 0,
-            showSelectedLabels: true,
-            showUnselectedLabels: true,
+            currentIndex: pageIndex,
             type: BottomNavigationBarType.fixed,
+            // backgroundColor: Palette.darkGrey,
             selectedItemColor: Palette.green,
             unselectedItemColor: Palette.white,
-            backgroundColor: Palette.darkGrey,
-            currentIndex: pageIndex,
+            // selectedFontSize: 14.0, // default
+            // unselectedFontSize: 12.0, // default
+            selectedLabelStyle: GoogleFonts.nunito(),
+            unselectedLabelStyle: GoogleFonts.nunito(),
+            showSelectedLabels: true,
+            showUnselectedLabels: true,
             onTap: onPageChanged,
             items: <BottomNavigationBarItem>[
               const BottomNavigationBarItem(

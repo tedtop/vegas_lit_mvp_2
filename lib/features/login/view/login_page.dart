@@ -19,7 +19,6 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Palette.loginPageColor,
       resizeToAvoidBottomInset: true,
       body: SafeArea(
         child: BlocProvider<LoginCubit>(

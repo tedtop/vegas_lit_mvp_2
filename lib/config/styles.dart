@@ -3,13 +3,27 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:vegas_lit/config/palette.dart';
 
 class Styles {
-  static const double elevation = 8.0;
-
+  // This is for the green page headings, should be green 36 bold with drop shadow
   static final TextStyle h1 = GoogleFonts.nunito(
     color: Palette.white,
-    fontSize: 24.0,
+    fontSize: 36.0,
     fontWeight: FontWeight.w700,
   );
+
+  // size 36 green bold with drop shadow for page titles
+  // size 24 white for Open Bets "TITANS TO WIN"
+
+  // size 18 white bold for green buttons & dropdown menus, with drop shadow
+  // size 18 white regular for red buttons, which drop shadow
+
+  // size 18 white for all default text
+  // size 18 green bold, for green text inline with 18 white text
+
+  // size 14 white for disclaimer text on signup
+  // size 14 bold for social button labels & selected botton nav item
+
+  // size 12 white for game times
+  // size 12 red for game time countdown
 
   static final TextStyle h2 = GoogleFonts.nunito(
     color: Palette.white,

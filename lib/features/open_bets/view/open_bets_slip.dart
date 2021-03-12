@@ -21,7 +21,6 @@ class OpenBetsSlip extends StatelessWidget {
         bottom: 4.0,
       ),
       child: Card(
-        elevation: Styles.elevation,
         color: Palette.darkGrey,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),

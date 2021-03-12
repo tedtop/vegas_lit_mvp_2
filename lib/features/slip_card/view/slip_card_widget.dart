@@ -103,7 +103,6 @@ class _BetSlipCardViewState extends State<BetSlipCardView> {
         bottom: 4.0,
       ),
       child: Card(
-        elevation: Styles.elevation,
         color: Palette.lightGrey,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
@@ -187,7 +186,6 @@ class _BetSlipCardViewState extends State<BetSlipCardView> {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
-                      elevation: 8.0,
                       child: Container(
                         color: Palette.green,
                         padding: const EdgeInsets.all(8.0),

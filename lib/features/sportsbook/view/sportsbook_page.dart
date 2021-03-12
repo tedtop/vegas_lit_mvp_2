@@ -65,7 +65,6 @@ class SportsBookView extends StatelessWidget {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(6),
                   ),
-                  elevation: 8.0,
                   child: Container(
                     color: Palette.green,
                     padding: const EdgeInsets.all(8.0),
@@ -76,7 +75,6 @@ class SportsBookView extends StatelessWidget {
                       value: '$gameName',
                       icon: const Icon(Icons.arrow_downward),
                       iconSize: 24,
-                      elevation: 16,
                       isExpanded: true,
                       underline: Container(
                         height: 0,

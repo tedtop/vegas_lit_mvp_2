@@ -113,7 +113,6 @@ class TextBar extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(6),
         ),
-        elevation: 8.0,
         child: Container(
           color: Palette.darkGrey,
           padding: const EdgeInsets.all(8.0),

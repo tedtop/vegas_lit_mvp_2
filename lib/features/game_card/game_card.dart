@@ -44,7 +44,6 @@ class GameCard extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Card(
-                elevation: Styles.elevation,
                 color: Palette.darkGrey,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
