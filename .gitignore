@@ -18,7 +18,14 @@
 # The .vscode folder contains launch configuration and tasks you configure in
 # VS Code which you may wish to be included in version control, so this line
 # is commented out by default.
-#.vscode/
+.vscode/
+
+# This file is part of a new feature in Firebase Hosting that minimizes the size
+# the time of a hosting deployment by only uploading the files that changed since
+# the last deployment. It's new in CLI version 4.2.0
+#
+# https://stackoverflow.com/questions/52130772/whats-the-purpose-of-firebase-hosting-alphanum-cache
+.firebase/*
 
 # Flutter/Dart/Pub related
 **/doc/api/
@@ -33,6 +40,7 @@
 
 # Web related
 lib/generated_plugin_registrant.dart
+
 
 # Symbolication related
 app.*.symbols

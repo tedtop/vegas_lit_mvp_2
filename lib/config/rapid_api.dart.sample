@@ -1,0 +1,2 @@
+const RAPID_API_KEY = 'RAPID_API_KEY';
+const RAPID_API_URL = 'sportspage-feeds.p.rapidapi.com';

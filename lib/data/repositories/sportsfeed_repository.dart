@@ -1,5 +1,5 @@
 import 'package:vegas_lit/data/models/game.dart';
-import 'package:vegas_lit/data/providers/sportsfeed.dart';
+import 'package:vegas_lit/data/providers/sportspage.dart';
 
 class SportsfeedRepository {
   final _baseSportsfeedProvider = SportsfeedProvider();
