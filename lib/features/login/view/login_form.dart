@@ -7,6 +7,7 @@ import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import "../../widgets/auth_logo.dart";
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/features/sign_up/view/sign_up_page.dart';
+import '../../widgets/default_button.dart';
 
 import '../login.dart';
 
@@ -64,8 +65,8 @@ class _EmailInput extends StatelessWidget {
             data: Theme.of(context).copyWith(accentColor: Colors.white),
             child: TextField(
               key: const Key('loginForm_emailInput_textField'),
-              // onChanged: (email) =>
-              //     context.read<LoginCubit>().emailChanged(email),
+              onChanged: (email) =>
+                  context.read<LoginCubit>().emailChanged(email),
               keyboardType: TextInputType.emailAddress,
               style: GoogleFonts.nunito(color: Palette.cream),
               decoration: InputDecoration(
@@ -100,8 +101,8 @@ class _PasswordInput extends StatelessWidget {
             data: Theme.of(context).copyWith(accentColor: Colors.white),
             child: TextField(
               key: const Key('loginForm_passwordInput_textField'),
-              // onChanged: (password) =>
-              //     context.read<LoginCubit>().passwordChanged(password),
+              onChanged: (password) =>
+                  context.read<LoginCubit>().passwordChanged(password),
               obscureText: true,
               style: GoogleFonts.nunito(color: Palette.cream),
               decoration: InputDecoration(
@@ -129,25 +130,14 @@ class _LoginButton extends StatelessWidget {
       builder: (context, state) {
         return state.status.isSubmissionInProgress
             ? const CircularProgressIndicator()
-            : Padding(
-                padding: const EdgeInsets.symmetric(vertical: 20.0),
-                child: RaisedButton(
-                  key: const Key('loginForm_continue_raisedButton'),
-                  padding:
-                      EdgeInsets.symmetric(horizontal: width / 6, vertical: 12),
-                  child: const Text('LOG IN'),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5.0),
-                  ),
-                  textColor: Palette.cream,
-                  color: Palette.green,
-                  onPressed: () {
-                    state.status.isValidated
-                        ? context.read<LoginCubit>().logInWithCredentials()
-                        // ignore: unnecessary_statements
-                        : null;
-                  },
-                ),
+            : DefaultButton(
+                text: 'LOGIN',
+                action: () {
+                  state.status.isValidated
+                      ? context.read<LoginCubit>().logInWithCredentials()
+                      // ignore: unnecessary_statements
+                      : null;
+                },
               );
       },
     );
@@ -163,7 +153,7 @@ class _SocialLoginList extends StatelessWidget {
         Text(
           'Or use any of these social platforms to log in.',
           style: GoogleFonts.nunito(
-            fontSize: 16,
+            fontSize: 18,
             fontWeight: FontWeight.w300,
             // color: Palette.cream,
           ),

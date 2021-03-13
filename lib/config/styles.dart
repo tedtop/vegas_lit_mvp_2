@@ -13,7 +13,29 @@ class Styles {
   // size 36 green bold with drop shadow for page titles
   // size 24 white for Open Bets "TITANS TO WIN"
 
+  // Buttons styles
   // size 18 white bold for green buttons & dropdown menus, with drop shadow
+  static const double dropShadow = 4.0;
+
+  static final ShapeBorder buttonRadius = RoundedRectangleBorder(
+    borderRadius: BorderRadius.circular(6.0),
+  );
+
+  static final TextStyle greenButtonText = GoogleFonts.nunito(
+    fontSize: 18,
+    fontWeight: FontWeight.bold,
+  );
+
+  static final TextStyle redButtonText = GoogleFonts.nunito(
+    fontSize: 18,
+    fontWeight: FontWeight.normal,
+  );
+
+  // Card styles
+  static final ShapeBorder cardRadius = RoundedRectangleBorder(
+    borderRadius: BorderRadius.circular(12.0),
+  );
+
   // size 18 white regular for red buttons, which drop shadow
 
   // size 18 white for all default text

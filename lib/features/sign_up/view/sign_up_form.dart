@@ -4,11 +4,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
-import 'package:vegas_lit/config/assets.dart';
-import '../../widgets/auth_logo.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/features/login/cubit/login_cubit.dart';
+import 'package:vegas_lit/features/widgets/default_button.dart';
 
+import '../../widgets/auth_logo.dart';
 import '../sign_up.dart';
 
 class SignUpForm extends StatelessWidget {
@@ -559,22 +559,13 @@ class _SignUpButton extends StatelessWidget {
         builder: (context, state) {
           return state.status.isSubmissionInProgress
               ? const CircularProgressIndicator()
-              : RaisedButton(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 35,
-                    vertical: 12,
-                  ),
-                  key: const Key('signUpForm_continue_raisedButton'),
-                  disabledColor: Palette.green,
-                  child: const Text('SIGN UP'),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(4.0),
-                  ),
-                  disabledTextColor: Palette.cream,
-                  color: Palette.green,
-                  onPressed: state.status.isValidated
-                      ? () => context.read<SignUpCubit>().signUpFormSubmitted()
-                      : null,
+              : DefaultButton(
+                  text: 'SIGN UP',
+                  action: () {
+                    state.status.isValidated
+                        ? context.read<SignUpCubit>().signUpFormSubmitted()
+                        : null;
+                  },
                 );
         },
       ),

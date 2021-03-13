@@ -8,6 +8,11 @@ class Themes {
     primaryColor: Palette.darkGrey,
     primaryColorLight: Palette.lightGrey,
     primaryColorDark: Palette.darkGrey,
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ButtonStyle(
+        elevation: MaterialStateProperty.all(18.0),
+      ),
+    ),
     visualDensity: VisualDensity.adaptivePlatformDensity,
     appBarTheme: const AppBarTheme(
       color: Palette.darkGrey,

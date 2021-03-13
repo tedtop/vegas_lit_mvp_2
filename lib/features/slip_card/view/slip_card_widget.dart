@@ -4,9 +4,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
+import 'package:vegas_lit/features/widgets/generic_card.dart';
 import 'package:intl/intl.dart';
 import 'package:vegas_lit/features/slip/bet_slip.dart';
 import 'package:vegas_lit/features/wager_button/cubit/bet_button_cubit.dart';
+import 'package:vegas_lit/features/widgets/default_button.dart';
 
 import '../cubit/bet_slip_card_cubit.dart';
 import 'slip_card_intertitial.dart';
@@ -97,351 +99,288 @@ class _BetSlipCardViewState extends State<BetSlipCardView> {
   Widget build(BuildContext context) {
     final betButtonState = context.watch<BetButtonCubit>().state;
     final betSlipCardState = context.watch<BetSlipCardCubit>().state;
-    return Padding(
-      padding: const EdgeInsets.only(
-        top: 8.0,
-        bottom: 4.0,
-      ),
-      child: Card(
-        color: Palette.lightGrey,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
+    return GenericCard(
+      widgets: [
+        RichText(
+          text: TextSpan(
+            children: [
+              TextSpan(
+                text: '${betButtonState.game.teams.away.mascot} @ ',
+                style: Styles.h2,
+              ),
+              TextSpan(
+                text: '${betButtonState.game.teams.home.mascot}',
+                style: GoogleFonts.nunito(
+                  color: Palette.red,
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ],
+          ),
         ),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(10),
-          child: Container(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.start,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Expanded(
+              child: Text(
+                DateFormat('EEEE, MMMM, c, y @ hh:mm a').format(
+                  betButtonState.game.schedule.date.toLocal(),
+                ),
+                style: Styles.h4,
+              ),
+            ),
+            Expanded(
+              child: RichText(
+                text: TextSpan(
+                  children: [
+                    TextSpan(
+                      text: 'Starting in ',
+                      style: Styles.h4,
+                    ),
+                    TextSpan(
+                      text: '20hr:17m:18s',
+                      style: Styles.startingTimeText,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+        Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                RichText(
-                  text: TextSpan(
-                    children: [
-                      TextSpan(
-                        text: '${betButtonState.game.teams.away.mascot} @ ',
-                        style: Styles.h2,
-                      ),
-                      TextSpan(
-                        text: '${betButtonState.game.teams.home.mascot}',
-                        style: GoogleFonts.nunito(
-                          color: Palette.red,
-                          fontSize: 20.0,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                    ],
+                Expanded(
+                  child: Text(
+                    '${betButtonState.game.teams.away.mascot}',
+                    style: Styles.awayTeam,
+                    textAlign: TextAlign.center,
                   ),
                 ),
-                Row(
+                _betButtonSeparator(text: '@', style: Styles.h1),
+                Expanded(
+                  child: Text(
+                    '${betButtonState.game.teams.home.mascot}',
+                    style: Styles.homeTeam,
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ],
+            ),
+            Card(
+              clipBehavior: Clip.antiAlias,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Container(
+                color: Palette.green,
+                padding: const EdgeInsets.all(8.0),
+                height: 40,
+                width: double.infinity,
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Expanded(
-                      child: Text(
-                        DateFormat('EEEE, MMMM, c, y @ hh:mm a').format(
-                          betButtonState.game.schedule.date.toLocal(),
-                        ),
-                        style: Styles.h4,
-                      ),
+                    Text(
+                      'BET BEARS TO WIN',
+                      style: Styles.h3,
                     ),
-                    Expanded(
-                      child: RichText(
-                        text: TextSpan(
-                          children: [
-                            TextSpan(
-                              text: 'Starting in ',
-                              style: Styles.h4,
-                            ),
-                            TextSpan(
-                              text: '20hr:17m:18s',
-                              style: Styles.startingTimeText,
-                            ),
-                          ],
-                        ),
+                    Padding(
+                      padding: const EdgeInsets.only(right: 40),
+                      child: Text(
+                        betButtonState.text,
+                        style: Styles.h3,
                       ),
                     ),
                   ],
                 ),
-                Column(
-                  children: [
-                    Row(
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: betSlipCardState.status == BetSlipCardStatus.opened
+                  ? Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Expanded(
-                          child: Text(
-                            '${betButtonState.game.teams.away.mascot}',
-                            style: Styles.awayTeam,
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                        _betButtonSeparator(text: '@', style: Styles.h1),
-                        Expanded(
-                          child: Text(
-                            '${betButtonState.game.teams.home.mascot}',
-                            style: Styles.homeTeam,
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                      ],
-                    ),
-                    Card(
-                      clipBehavior: Clip.antiAlias,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Container(
-                        color: Palette.green,
-                        padding: const EdgeInsets.all(8.0),
-                        height: 40,
-                        width: double.infinity,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'BET BEARS TO WIN',
-                              style: Styles.h3,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(right: 40),
-                              child: Text(
-                                betButtonState.text,
-                                style: Styles.h3,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: betSlipCardState.status == BetSlipCardStatus.opened
-                          ? Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          child: Form(
+                            key: _formKey,
+                            child: Column(
                               children: [
-                                Expanded(
-                                  child: Form(
-                                    key: _formKey,
+                                Container(
+                                  decoration: BoxDecoration(
+                                    color: Palette.darkGrey,
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  height: 100,
+                                  width: 140,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(15.0),
                                     child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Container(
-                                          decoration: BoxDecoration(
-                                            color: Palette.darkGrey,
-                                            borderRadius:
-                                                BorderRadius.circular(8),
-                                          ),
-                                          height: 100,
-                                          width: 140,
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(15.0),
-                                            child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                const Text(
-                                                  'BET AMOUNT',
-                                                  style: TextStyle(
-                                                      color: Palette.cream,
-                                                      fontSize: 15),
-                                                ),
-                                                const SizedBox(
-                                                  height: 10,
-                                                ),
-                                                Expanded(
-                                                  child: TextFormField(
-                                                    controller:
-                                                        _betAmountController,
-                                                    focusNode: _focusNode,
-                                                    onChanged: (text) {
-                                                      setState(
-                                                        () {
-                                                          toWinAmount = (100 /
-                                                                  int.parse(
-                                                                      betButtonState
-                                                                          .text) *
-                                                                  int.parse(
-                                                                      text))
-                                                              .toInt();
-                                                        },
-                                                      );
-                                                    },
-                                                    keyboardType:
-                                                        TextInputType.number,
-                                                    textAlign: TextAlign.center,
-                                                    maxLengthEnforcement:
-                                                        MaxLengthEnforcement
-                                                            .enforced,
-                                                    maxLength: 3,
-                                                    decoration:
-                                                        const InputDecoration(
-                                                      counterText: '',
-                                                    ),
-                                                    validator: (value) {
-                                                      if (value.isEmpty) {
-                                                        return 'Empty Box';
-                                                      }
-                                                      if (int.parse(value) >=
-                                                          101) {
-                                                        return '100\$ Limit Reached';
-                                                      }
-                                                      return null;
-                                                    },
-                                                  ),
-                                                ),
-                                              ],
+                                        const Text(
+                                          'BET AMOUNT',
+                                          style: TextStyle(
+                                              color: Palette.cream,
+                                              fontSize: 15),
+                                        ),
+                                        const SizedBox(
+                                          height: 10,
+                                        ),
+                                        Expanded(
+                                          child: TextFormField(
+                                            controller: _betAmountController,
+                                            focusNode: _focusNode,
+                                            onChanged: (text) {
+                                              setState(
+                                                () {
+                                                  toWinAmount = (100 /
+                                                          int.parse(
+                                                              betButtonState
+                                                                  .text) *
+                                                          int.parse(text))
+                                                      .toInt();
+                                                },
+                                              );
+                                            },
+                                            keyboardType: TextInputType.number,
+                                            textAlign: TextAlign.center,
+                                            maxLengthEnforcement:
+                                                MaxLengthEnforcement.enforced,
+                                            maxLength: 3,
+                                            decoration: const InputDecoration(
+                                              counterText: '',
                                             ),
+                                            validator: (value) {
+                                              if (value.isEmpty) {
+                                                return 'Empty Box';
+                                              }
+                                              if (int.parse(value) >= 101) {
+                                                return '100\$ Limit Reached';
+                                              }
+                                              return null;
+                                            },
                                           ),
                                         ),
-                                        Container(
-                                          width: 140,
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(6),
-                                          ),
-                                          child: betSlipCardState.status ==
-                                                  BetSlipCardStatus.confirmed
-                                              ? const Center(
-                                                  child: Padding(
-                                                    padding:
-                                                        EdgeInsets.all(8.0),
-                                                    child: Text(
-                                                      'BET PLACED',
-                                                    ),
-                                                  ),
-                                                )
-                                              : RaisedButton(
-                                                  shape: RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            4),
-                                                  ),
-                                                  padding: const EdgeInsets.all(
-                                                    10.0,
-                                                  ),
-                                                  color: Palette.green,
-                                                  child: Text(
-                                                    'PLACE BET',
-                                                    style: Styles.h3,
-                                                  ),
-                                                  onPressed: () {
-                                                    if (_formKey.currentState
-                                                        .validate()) {
-                                                      context
-                                                          .read<
-                                                              BetButtonCubit>()
-                                                          .confirmBetButton();
-                                                      context
-                                                          .read<
-                                                              BetSlipCardCubit>()
-                                                          .betSlipCardConfirm(
-                                                            betAmount:
-                                                                _betAmountController
-                                                                    .text,
-                                                          );
-                                                    }
-                                                  },
-                                                ),
-                                        )
                                       ],
                                     ),
                                   ),
                                 ),
-                                const SizedBox(
-                                  width: 10,
-                                ),
-                                Expanded(
-                                  child: Column(
-                                    children: [
-                                      Container(
-                                        decoration: BoxDecoration(
-                                          color: Palette.darkGrey,
-                                          borderRadius:
-                                              BorderRadius.circular(6),
-                                        ),
-                                        height: 100,
-                                        width: 140,
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(15.0),
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              const Text(
-                                                'To Win',
-                                                style: TextStyle(
-                                                    color: Palette.cream,
-                                                    fontSize: 15),
-                                              ),
-                                              Text(
-                                                '\$$toWinAmount',
-                                                style: const TextStyle(
-                                                  color: Palette.cream,
-                                                  fontSize: 15,
-                                                  fontWeight: FontWeight.w800,
-                                                ),
-                                              ),
-                                            ],
+                                Container(
+                                  width: 140,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(6),
+                                  ),
+                                  child: betSlipCardState.status ==
+                                          BetSlipCardStatus.confirmed
+                                      ? const Center(
+                                          child: Padding(
+                                            padding: EdgeInsets.all(8.0),
+                                            child: Text(
+                                              'BET PLACED',
+                                            ),
                                           ),
+                                        )
+                                      : DefaultButton(
+                                          text: 'PLACE BET',
+                                          action: () {
+                                            if (_formKey.currentState
+                                                .validate()) {
+                                              context
+                                                  .read<BetButtonCubit>()
+                                                  .confirmBetButton();
+                                              context
+                                                  .read<BetSlipCardCubit>()
+                                                  .betSlipCardConfirm(
+                                                    betAmount:
+                                                        _betAmountController
+                                                            .text,
+                                                  );
+                                            }
+                                          },
+                                        ),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Expanded(
+                          child: Column(
+                            children: [
+                              Container(
+                                decoration: BoxDecoration(
+                                  color: Palette.darkGrey,
+                                  borderRadius: BorderRadius.circular(6),
+                                ),
+                                height: 100,
+                                width: 140,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(15.0),
+                                  child: Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      const Text(
+                                        'To Win',
+                                        style: TextStyle(
+                                            color: Palette.cream, fontSize: 15),
+                                      ),
+                                      Text(
+                                        '\$$toWinAmount',
+                                        style: const TextStyle(
+                                          color: Palette.cream,
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w800,
                                         ),
                                       ),
-                                      Container(
-                                        width: 140,
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(12),
-                                        ),
-                                        child: betSlipCardState.status ==
-                                                BetSlipCardStatus.confirmed
-                                            ? Container()
-                                            : RaisedButton(
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(4),
-                                                ),
-                                                padding: const EdgeInsets.all(
-                                                  10.0,
-                                                ),
-                                                color: Palette.red,
-                                                child: const Text(
-                                                  'CANCEL',
-                                                  style: TextStyle(
-                                                    color: Palette.cream,
-                                                    fontSize: 15.0,
-                                                    fontWeight: FontWeight.w300,
-                                                  ),
-                                                ),
-                                                onPressed: () {
-                                                  context
-                                                      .read<BetButtonCubit>()
-                                                      .unclickBetButton();
-                                                  context
-                                                      .read<BetSlipCubit>()
-                                                      .removeBetSlip(
-                                                        uniqueId: betButtonState
-                                                            .uniqueId,
-                                                      );
-                                                },
-                                              ),
-                                      )
                                     ],
                                   ),
                                 ),
-                              ],
-                            )
-                          : Center(
-                              child: Text(
-                                'BET PLACED OF \$${betSlipCardState.betAmount}',
                               ),
-                            ),
+                              Container(
+                                width: 140,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                child: betSlipCardState.status ==
+                                        BetSlipCardStatus.confirmed
+                                    ? Container()
+                                    : DefaultButton(
+                                        text: 'CANCEL',
+                                        action: () {
+                                          context
+                                              .read<BetButtonCubit>()
+                                              .unclickBetButton();
+                                          context
+                                              .read<BetSlipCubit>()
+                                              .removeBetSlip(
+                                                uniqueId:
+                                                    betButtonState.uniqueId,
+                                              );
+                                        },
+                                      ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ],
+                    )
+                  : Center(
+                      child: Text(
+                        'BET PLACED OF \$${betSlipCardState.betAmount}',
+                      ),
                     ),
-                  ],
-                ),
-              ],
             ),
-          ),
+          ],
         ),
-      ),
+      ],
     );
   }
 

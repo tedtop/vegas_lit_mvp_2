@@ -62,7 +62,7 @@ class BetButtonUnclicked extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 5),
         child: RaisedButton(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(4),
+            borderRadius: BorderRadius.circular(6),
           ),
           padding: const EdgeInsets.all(8.0),
           color: Palette.darkGrey,

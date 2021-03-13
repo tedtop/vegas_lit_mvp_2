@@ -37,7 +37,7 @@ class HomeBottomNavigation extends StatelessWidget {
               BottomNavigationBarItem(
                   icon: Stack(
                     children: <Widget>[
-                      const Icon(Icons.notifications),
+                      const Icon(Feather.file_plus),
                       Positioned(
                         right: 0,
                         child: showBadge
