@@ -242,7 +242,7 @@ class _BetSlipCardViewState extends State<BetSlipCardView> {
                                                 const Text(
                                                   'BET AMOUNT',
                                                   style: TextStyle(
-                                                      color: Palette.white,
+                                                      color: Palette.cream,
                                                       fontSize: 15),
                                                 ),
                                                 const SizedBox(
@@ -370,13 +370,13 @@ class _BetSlipCardViewState extends State<BetSlipCardView> {
                                               const Text(
                                                 'To Win',
                                                 style: TextStyle(
-                                                    color: Palette.white,
+                                                    color: Palette.cream,
                                                     fontSize: 15),
                                               ),
                                               Text(
                                                 '\$$toWinAmount',
                                                 style: const TextStyle(
-                                                  color: Palette.white,
+                                                  color: Palette.cream,
                                                   fontSize: 15,
                                                   fontWeight: FontWeight.w800,
                                                 ),
@@ -406,7 +406,7 @@ class _BetSlipCardViewState extends State<BetSlipCardView> {
                                                 child: const Text(
                                                   'CANCEL',
                                                   style: TextStyle(
-                                                    color: Palette.white,
+                                                    color: Palette.cream,
                                                     fontSize: 15.0,
                                                     fontWeight: FontWeight.w300,
                                                   ),

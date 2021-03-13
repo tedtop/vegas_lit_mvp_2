@@ -5,6 +5,7 @@ import 'package:formz/formz.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:vegas_lit/config/assets.dart';
+import '../../widgets/auth_logo.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/features/login/cubit/login_cubit.dart';
 
@@ -32,43 +33,29 @@ class SignUpForm extends StatelessWidget {
         child: Center(
           child: Column(
             children: [
-              _TopLogo(),
-              Column(
-                children: [
-                  _ExistingAccountSignIn(),
-                  _UsernameInput(),
-                  _EmailInput(),
-                  _PasswordInput(),
-                  _ConfirmPasswordInput(),
-                  _StateInput(),
-                  _MobileNumberInput(),
-                  _AgeCheckbox(),
-                  _RulesCheckbox(),
-                  _SignUpButton(),
-                  _SocialLoginList(),
-                ],
+              TopLogo(),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: [
+                    _ExistingAccountSignIn(),
+                    _UsernameInput(),
+                    _EmailInput(),
+                    _PasswordInput(),
+                    _ConfirmPasswordInput(),
+                    _StateInput(),
+                    _MobileNumberInput(),
+                    _AgeCheckbox(),
+                    _RulesCheckbox(),
+                    _SignUpButton(),
+                    _SocialLoginList(),
+                  ],
+                ),
               ),
             ],
           ),
         ),
       ),
-    );
-  }
-}
-
-class _TopLogo extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Hero(
-          tag: 'top_logo',
-          child: Image.asset(
-            Images.topLogo,
-            height: 80,
-          ),
-        ),
-      ],
     );
   }
 }
@@ -94,7 +81,7 @@ class _UsernameInput extends StatelessWidget {
             ),
             Expanded(
               child: TextField(
-                cursorColor: Palette.white,
+                cursorColor: Palette.cream,
                 style: GoogleFonts.nunito(
                   fontSize: 10,
                   fontWeight: FontWeight.w300,
@@ -109,7 +96,7 @@ class _UsernameInput extends StatelessWidget {
                   hintStyle: GoogleFonts.nunito(
                     fontSize: 10,
                     fontWeight: FontWeight.w300,
-                    color: Palette.white,
+                    color: Palette.cream,
                   ),
                   fillColor: Colors.white,
                   border: const OutlineInputBorder(
@@ -152,7 +139,7 @@ class _EmailInput extends StatelessWidget {
             ),
             Expanded(
               child: TextField(
-                cursorColor: Palette.white,
+                cursorColor: Palette.cream,
                 style: GoogleFonts.nunito(
                   fontSize: 10,
                   fontWeight: FontWeight.w300,
@@ -169,7 +156,7 @@ class _EmailInput extends StatelessWidget {
                   hintStyle: GoogleFonts.nunito(
                     fontSize: 10,
                     fontWeight: FontWeight.w300,
-                    color: Palette.white,
+                    color: Palette.cream,
                   ),
                   fillColor: Colors.white,
                   border: const OutlineInputBorder(
@@ -222,7 +209,7 @@ class _PasswordInput extends StatelessWidget {
                 onChanged: (password) =>
                     context.read<SignUpCubit>().passwordChanged(password),
                 obscureText: true,
-                cursorColor: Palette.white,
+                cursorColor: Palette.cream,
                 decoration: InputDecoration(
                   contentPadding: const EdgeInsets.symmetric(
                     vertical: 4,
@@ -231,7 +218,7 @@ class _PasswordInput extends StatelessWidget {
                   hintStyle: GoogleFonts.nunito(
                     fontSize: 10,
                     fontWeight: FontWeight.w300,
-                    color: Palette.white,
+                    color: Palette.cream,
                   ),
                   border: const OutlineInputBorder(
                     borderRadius: BorderRadius.all(
@@ -291,7 +278,7 @@ class _ConfirmPasswordInput extends StatelessWidget {
                     .read<SignUpCubit>()
                     .confirmedPasswordChanged(confirmPassword),
                 obscureText: true,
-                cursorColor: Palette.white,
+                cursorColor: Palette.cream,
                 decoration: InputDecoration(
                   contentPadding: const EdgeInsets.symmetric(
                     vertical: 4,
@@ -300,7 +287,7 @@ class _ConfirmPasswordInput extends StatelessWidget {
                   hintStyle: GoogleFonts.nunito(
                     fontSize: 10,
                     fontWeight: FontWeight.w300,
-                    color: Palette.white,
+                    color: Palette.cream,
                   ),
                   border: const OutlineInputBorder(
                     borderRadius: BorderRadius.all(
@@ -358,7 +345,7 @@ class _StateInput extends StatelessWidget {
                           fontSize: 10,
                           fontWeight: FontWeight.w300,
                         ),
-                        cursorColor: Palette.white,
+                        cursorColor: Palette.cream,
                         key: const Key('signUpForm_stateInput_textField'),
                         keyboardType: TextInputType.text,
                         decoration: InputDecoration(
@@ -372,7 +359,7 @@ class _StateInput extends StatelessWidget {
                           hintStyle: GoogleFonts.nunito(
                             fontSize: 10,
                             fontWeight: FontWeight.w300,
-                            color: Palette.white,
+                            color: Palette.cream,
                           ),
                           fillColor: Colors.white,
                           border: const OutlineInputBorder(
@@ -446,7 +433,7 @@ class _MobileNumberInput extends StatelessWidget {
                 ),
                 key: const Key('signUpForm_mobileNumberInput_textField'),
                 onChanged: print,
-                cursorColor: Palette.white,
+                cursorColor: Palette.cream,
                 keyboardType: TextInputType.phone,
                 decoration: InputDecoration(
                   contentPadding: const EdgeInsets.symmetric(
@@ -456,7 +443,7 @@ class _MobileNumberInput extends StatelessWidget {
                   hintStyle: GoogleFonts.nunito(
                     fontSize: 10,
                     fontWeight: FontWeight.w300,
-                    color: Palette.white,
+                    color: Palette.cream,
                   ),
                   fillColor: Colors.white,
                   border: const OutlineInputBorder(
@@ -542,7 +529,7 @@ class __RulesCheckboxState extends State<_RulesCheckbox> {
             children: [
               RichText(
                 text: TextSpan(
-                  style: GoogleFonts.nunito(fontSize: 11, color: Palette.white),
+                  style: GoogleFonts.nunito(fontSize: 11, color: Palette.cream),
                   children: <TextSpan>[
                     const TextSpan(
                         text:
@@ -583,7 +570,7 @@ class _SignUpButton extends StatelessWidget {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(4.0),
                   ),
-                  disabledTextColor: Palette.white,
+                  disabledTextColor: Palette.cream,
                   color: Palette.green,
                   onPressed: state.status.isValidated
                       ? () => context.read<SignUpCubit>().signUpFormSubmitted()

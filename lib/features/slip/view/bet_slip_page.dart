@@ -52,13 +52,13 @@ class BetSlipUpper extends StatelessWidget {
                     width: 20,
                     color: betSlipState.games.isEmpty
                         ? Palette.darkGrey
-                        : Palette.white,
+                        : Palette.cream,
                     child: Center(
                       child: Text(
                         betSlipState.games.length.toString(),
                         style: GoogleFonts.nunito(
                           color: betSlipState.games.isEmpty
-                              ? Palette.white
+                              ? Palette.cream
                               : Palette.darkGrey,
                         ),
                       ),

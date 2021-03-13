@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:formz/formz.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
-import 'package:vegas_lit/config/assets.dart';
+import "../../widgets/auth_logo.dart";
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/features/sign_up/view/sign_up_page.dart';
 
@@ -32,7 +32,7 @@ class LoginForm extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                _TopLogo(),
+                TopLogo(),
                 Column(
                   children: [
                     _EmailInput(),
@@ -51,23 +51,6 @@ class LoginForm extends StatelessWidget {
   }
 }
 
-class _TopLogo extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Hero(
-          tag: 'top_logo',
-          child: Image.asset(
-            Images.topLogo,
-            height: 80,
-          ),
-        ),
-      ],
-    );
-  }
-}
-
 class _EmailInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -77,18 +60,24 @@ class _EmailInput extends StatelessWidget {
       builder: (context, state) {
         return SizedBox(
           width: width / 1.5,
-          child: TextField(
-            key: const Key('loginForm_emailInput_textField'),
-            onChanged: (email) =>
-                context.read<LoginCubit>().emailChanged(email),
-            keyboardType: TextInputType.emailAddress,
-            style: GoogleFonts.nunito(),
-            decoration: InputDecoration(
-              labelStyle: GoogleFonts.nunito(),
-              prefixIcon: const Icon(LineAwesomeIcons.user),
-              labelText: 'Email / Username',
-              helperText: '',
-              errorText: state.email.invalid ? 'Invalid email' : null,
+          child: Theme(
+            data: Theme.of(context).copyWith(accentColor: Colors.white),
+            child: TextField(
+              key: const Key('loginForm_emailInput_textField'),
+              // onChanged: (email) =>
+              //     context.read<LoginCubit>().emailChanged(email),
+              keyboardType: TextInputType.emailAddress,
+              style: GoogleFonts.nunito(color: Palette.cream),
+              decoration: InputDecoration(
+                labelStyle: GoogleFonts.nunito(color: Palette.cream),
+                prefixIcon: const Icon(
+                  LineAwesomeIcons.user,
+                  color: Palette.cream,
+                ),
+                labelText: 'Email / Username',
+                helperText: '',
+                errorText: state.email.invalid ? 'Invalid email' : null,
+              ),
             ),
           ),
         );
@@ -98,6 +87,7 @@ class _EmailInput extends StatelessWidget {
 }
 
 class _PasswordInput extends StatelessWidget {
+  String pass;
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
@@ -106,18 +96,22 @@ class _PasswordInput extends StatelessWidget {
       builder: (context, state) {
         return SizedBox(
           width: width / 1.5,
-          child: TextField(
-            key: const Key('loginForm_passwordInput_textField'),
-            onChanged: (password) =>
-                context.read<LoginCubit>().passwordChanged(password),
-            obscureText: true,
-            style: GoogleFonts.nunito(),
-            decoration: InputDecoration(
-              labelStyle: GoogleFonts.nunito(),
-              prefixIcon: const Icon(LineAwesomeIcons.lock),
-              labelText: 'Password',
-              helperText: '',
-              errorText: state.password.invalid ? 'Invalid password' : null,
+          child: Theme(
+            data: Theme.of(context).copyWith(accentColor: Colors.white),
+            child: TextField(
+              key: const Key('loginForm_passwordInput_textField'),
+              // onChanged: (password) =>
+              //     context.read<LoginCubit>().passwordChanged(password),
+              obscureText: true,
+              style: GoogleFonts.nunito(color: Palette.cream),
+              decoration: InputDecoration(
+                labelStyle: GoogleFonts.nunito(color: Palette.cream),
+                prefixIcon:
+                    const Icon(LineAwesomeIcons.lock, color: Palette.cream),
+                labelText: 'Password',
+                helperText: '',
+                errorText: state.password.invalid ? 'Invalid password' : null,
+              ),
             ),
           ),
         );
@@ -145,10 +139,14 @@ class _LoginButton extends StatelessWidget {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(5.0),
                   ),
+                  textColor: Palette.cream,
                   color: Palette.green,
-                  onPressed: state.status.isValidated
-                      ? () => context.read<LoginCubit>().logInWithCredentials()
-                      : null,
+                  onPressed: () {
+                    state.status.isValidated
+                        ? context.read<LoginCubit>().logInWithCredentials()
+                        // ignore: unnecessary_statements
+                        : null;
+                  },
                 ),
               );
       },
@@ -167,6 +165,7 @@ class _SocialLoginList extends StatelessWidget {
           style: GoogleFonts.nunito(
             fontSize: 16,
             fontWeight: FontWeight.w300,
+            // color: Palette.cream,
           ),
         ),
         const SizedBox(
@@ -227,6 +226,7 @@ class _LinkToSignup extends StatelessWidget {
           style: GoogleFonts.nunito(
             fontWeight: FontWeight.w300,
             fontSize: 16,
+            color: Palette.cream,
           ),
         ),
         TextButton(

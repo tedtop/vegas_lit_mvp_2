@@ -111,7 +111,7 @@ class OpenBetsSlip extends StatelessWidget {
                 RichText(
                   text: TextSpan(
                     style: GoogleFonts.nunito(
-                      color: Palette.white,
+                      color: Palette.cream,
                       fontSize: 14,
                     ),
                     children: [

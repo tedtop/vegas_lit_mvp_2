@@ -5,7 +5,7 @@ import 'package:vegas_lit/config/palette.dart';
 class Styles {
   // This is for the green page headings, should be green 36 bold with drop shadow
   static final TextStyle h1 = GoogleFonts.nunito(
-    color: Palette.white,
+    color: Palette.cream,
     fontSize: 36.0,
     fontWeight: FontWeight.w700,
   );
@@ -26,25 +26,25 @@ class Styles {
   // size 12 red for game time countdown
 
   static final TextStyle h2 = GoogleFonts.nunito(
-    color: Palette.white,
+    color: Palette.cream,
     fontSize: 20.0,
     fontWeight: FontWeight.w700,
   );
 
   static final TextStyle h3 = GoogleFonts.nunito(
-    color: Palette.white,
+    color: Palette.cream,
     fontSize: 14.0,
     fontWeight: FontWeight.w700,
   );
 
   static final TextStyle h4 = GoogleFonts.nunito(
-    color: Palette.white,
+    color: Palette.cream,
     fontSize: 12.0,
     fontWeight: FontWeight.w300,
   );
 
   static final TextStyle awayTeam = GoogleFonts.nunito(
-    color: Palette.white,
+    color: Palette.cream,
     fontSize: 24.0,
     fontWeight: FontWeight.w700,
   );
@@ -58,7 +58,7 @@ class Styles {
   static final TextStyle betBtnText = GoogleFonts.nunito(
     fontSize: 15.0,
     fontWeight: FontWeight.normal,
-    color: Palette.white,
+    color: Palette.cream,
   );
 
   static final TextStyle betBtnTextSelected = GoogleFonts.nunito(

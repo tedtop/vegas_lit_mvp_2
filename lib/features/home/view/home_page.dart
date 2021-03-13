@@ -63,7 +63,7 @@ class _HomePageState extends State<HomePage> {
           authenticationBloc.state.user?.uid,
     );
     return Scaffold(
-      backgroundColor: Palette.lightGrey,
+      // backgroundColor: Palette.lightGrey,
       appBar: AppBar(
         toolbarHeight: 80.0,
         title: Image.asset(

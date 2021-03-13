@@ -21,12 +21,11 @@ class HomeBottomNavigation extends StatelessWidget {
             selectedLabelStyle: GoogleFonts.nunito(),
             selectedFontSize: 10,
             unselectedFontSize: 8,
-            elevation: 0,
             showSelectedLabels: true,
             showUnselectedLabels: true,
             type: BottomNavigationBarType.fixed,
             selectedItemColor: Palette.green,
-            unselectedItemColor: Palette.white,
+            unselectedItemColor: Palette.cream,
             backgroundColor: Palette.darkGrey,
             currentIndex: pageIndex,
             onTap: (value) {

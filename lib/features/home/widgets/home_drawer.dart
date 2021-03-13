@@ -29,7 +29,7 @@ class HomeDrawer extends StatelessWidget {
             title: Text(
               'PROFILE',
               style: GoogleFonts.nunito(
-                color: Palette.white,
+                color: Palette.cream,
                 fontSize: 24,
                 fontWeight: FontWeight.w700,
               ),
@@ -40,7 +40,7 @@ class HomeDrawer extends StatelessWidget {
             title: Text(
               'LEADERBOARD',
               style: GoogleFonts.nunito(
-                color: Palette.white,
+                color: Palette.cream,
                 fontSize: 24,
                 fontWeight: FontWeight.w700,
               ),
@@ -54,7 +54,7 @@ class HomeDrawer extends StatelessWidget {
             leading: Text(
               'LOGOUT',
               style: GoogleFonts.nunito(
-                color: Palette.white,
+                color: Palette.cream,
                 fontSize: 24,
                 fontWeight: FontWeight.w700,
               ),

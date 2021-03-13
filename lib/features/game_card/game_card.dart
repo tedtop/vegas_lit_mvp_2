@@ -37,14 +37,17 @@ class GameCard extends StatelessWidget {
               right: 8,
             ),
             child: Container(
+              padding: EdgeInsets.zero,
+              margin: EdgeInsets.zero,
+              clipBehavior: Clip.antiAliasWithSaveLayer,
               decoration: BoxDecoration(
                 border: Border.all(
-                  color: Palette.white,
+                  color: Palette.cream,
                 ),
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Card(
-                color: Palette.darkGrey,
+                color: Palette.lightGrey,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
@@ -55,12 +58,13 @@ class GameCard extends StatelessWidget {
                         horizontal: 15.0, vertical: 10.0),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Text(
                           // '${game.teams.away.team} ${game.teams.away.mascot} vs ${game.teams.home.team} ${game.teams.home.mascot}',
                           '${state.game.teams.away.mascot} vs ${state.game.teams.home.mascot}',
                           style: Styles.h2,
+                          textAlign: TextAlign.center,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,

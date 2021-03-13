@@ -65,7 +65,7 @@ class _AppViewState extends State<AppView> {
     return MaterialApp(
       navigatorKey: _navigatorKey,
       title: 'Vegas Lit',
-      theme: Themes.light,
+      theme: Themes.dark,
       builder: (context, child) {
         return BlocListener<AuthenticationBloc, AuthenticationState>(
           listener: (context, state) {

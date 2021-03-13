@@ -123,7 +123,7 @@ class SportsBookView extends StatelessWidget {
                             return Container(
                               height: 22,
                               width: 22,
-                              color: Palette.white,
+                              color: Palette.cream,
                               child: Center(
                                 child: Text(
                                   state.games.length.toString(),

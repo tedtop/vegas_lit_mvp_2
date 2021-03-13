@@ -65,7 +65,7 @@ class BetButtonUnclicked extends StatelessWidget {
             borderRadius: BorderRadius.circular(4),
           ),
           padding: const EdgeInsets.all(8.0),
-          color: Palette.lightGrey,
+          color: Palette.darkGrey,
           child: Text(
             betButtonState.text,
             style: Styles.betBtnText,
