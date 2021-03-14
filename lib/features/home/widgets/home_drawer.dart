@@ -30,7 +30,7 @@ class HomeDrawer extends StatelessWidget {
               'PROFILE',
               style: GoogleFonts.nunito(
                 color: Palette.cream,
-                fontSize: 24,
+                fontSize: 18,
                 fontWeight: FontWeight.w700,
               ),
             ),
@@ -41,7 +41,7 @@ class HomeDrawer extends StatelessWidget {
               'LEADERBOARD',
               style: GoogleFonts.nunito(
                 color: Palette.cream,
-                fontSize: 24,
+                fontSize: 18,
                 fontWeight: FontWeight.w700,
               ),
             ),
@@ -55,7 +55,7 @@ class HomeDrawer extends StatelessWidget {
               'LOGOUT',
               style: GoogleFonts.nunito(
                 color: Palette.cream,
-                fontSize: 24,
+                fontSize: 18,
                 fontWeight: FontWeight.w700,
               ),
             ),
@@ -65,38 +65,61 @@ class HomeDrawer extends StatelessWidget {
                   );
             },
           ),
+          const Divider(
+            color: Palette.cream,
+          ),
           ListTile(
             title: Text(
               'RULES',
-              style: Styles.h3,
+              style: GoogleFonts.nunito(
+                color: Palette.cream,
+                fontSize: 18,
+                fontWeight: FontWeight.w200,
+              ),
             ),
             onTap: () {},
           ),
           ListTile(
             title: Text(
               'FAQ',
-              style: Styles.h3,
+              style: GoogleFonts.nunito(
+                color: Palette.cream,
+                fontSize: 18,
+                fontWeight: FontWeight.w200,
+              ),
             ),
             onTap: () {},
           ),
           ListTile(
             title: Text(
               'TERMS OF SERVICE',
-              style: Styles.h3,
+              style: GoogleFonts.nunito(
+                color: Palette.cream,
+                fontSize: 18,
+                fontWeight: FontWeight.w200,
+              ),
             ),
             onTap: () {},
           ),
           ListTile(
             title: Text(
               'PRIVACY POLICY',
-              style: Styles.h3,
+              style: GoogleFonts.nunito(
+                color: Palette.cream,
+                fontSize: 18,
+                fontWeight: FontWeight.w200,
+              ),
             ),
             onTap: () {},
           ),
           ListTile(
             title: Text(
               'CONTACT US',
-              style: Styles.h3,
+              style: GoogleFonts.nunito(
+                color: Palette.cream,
+                fontSize: 18,
+                fontWeight: FontWeight.w200,
+              ),
             ),
             onTap: () {},
           ),
