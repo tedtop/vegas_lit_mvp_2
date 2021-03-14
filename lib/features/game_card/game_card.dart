@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:vegas_lit/config/palette.dart';
 
 import 'package:vegas_lit/config/styles.dart';
 import 'package:vegas_lit/data/models/game.dart';
@@ -33,63 +35,63 @@ class GameCard extends StatelessWidget {
         if (state is GameCardOpened) {
           return GenericCard(
             widgets: [
-              Text(
-                // '${game.teams.away.team} ${game.teams.away.mascot} vs ${game.teams.home.team} ${game.teams.home.mascot}',
-                '${state.game.teams.away.mascot} vs ${state.game.teams.home.mascot}',
-                style: Styles.h2,
-                textAlign: TextAlign.center,
+              RichText(
+                text: TextSpan(
+                  style: GoogleFonts.nunito(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  children: [
+                    TextSpan(
+                      text: state.game.teams.away.mascot.toUpperCase(),
+                    ),
+                    const TextSpan(text: '  @  '),
+                    TextSpan(
+                      text: state.game.teams.home.mascot.toUpperCase(),
+                      style: GoogleFonts.nunito(color: Palette.green),
+                    ),
+                  ],
+                ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    child: Text(
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 4),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Text(
                       DateFormat('EEEE, MMMM, c, y @ hh:mm a').format(
                         state.game.schedule.date.toLocal(),
                       ),
-                      style: Styles.h4,
+                      style: GoogleFonts.nunito(
+                        color: Palette.cream,
+                        fontSize: 12,
+                      ),
                     ),
-                  ),
-                  Expanded(
-                    child: RichText(
+                    RichText(
                       text: TextSpan(
                         children: [
                           TextSpan(
                             text: 'Starting in',
-                            style: Styles.h4,
+                            style: GoogleFonts.nunito(
+                              color: Palette.cream,
+                              fontSize: 10,
+                            ),
                           ),
                           TextSpan(
                             text: '20hr:17m:18s',
-                            style: Styles.startingTimeText,
+                            style: GoogleFonts.nunito(
+                              color: Palette.red,
+                              fontSize: 10,
+                            ),
                           ),
                         ],
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
               Column(
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                        child: Text(
-                          '${state.game.teams.away.mascot}',
-                          style: Styles.awayTeam,
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                      _betButtonSeparator(text: '@', style: Styles.h1),
-                      Expanded(
-                        child: Text(
-                          '${state.game.teams.home.mascot}',
-                          style: Styles.homeTeam,
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                    ],
-                  ),
                   state.game.odds == null
                       ? Container()
                       : Row(
@@ -154,14 +156,17 @@ class GameCard extends StatelessWidget {
 
   Widget _betButtonSeparator({
     String text,
-    TextStyle style,
   }) {
     return SizedBox(
       width: 40,
       child: Text(
         text,
         textAlign: TextAlign.center,
-        style: style ?? Styles.h3,
+        style: GoogleFonts.nunito(
+          color: Palette.cream,
+          fontSize: 18,
+          fontWeight: FontWeight.bold,
+        ),
       ),
     );
   }

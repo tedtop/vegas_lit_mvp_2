@@ -5,8 +5,8 @@ import 'package:formz/formz.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:vegas_lit/config/palette.dart';
-import 'package:vegas_lit/features/login/cubit/login_cubit.dart';
 import 'package:vegas_lit/features/widgets/default_button.dart';
+import '../../widgets/auth_login_list.dart';
 
 import '../../widgets/auth_logo.dart';
 import '../sign_up.dart';
@@ -14,7 +14,6 @@ import '../sign_up.dart';
 class SignUpForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
     return BlocListener<SignUpCubit, SignUpState>(
       listener: (context, state) {
         if (state.status.isSubmissionFailure) {
@@ -29,32 +28,31 @@ class SignUpForm extends StatelessWidget {
             );
         }
       },
-      child: SingleChildScrollView(
-        child: Center(
-          child: Column(
-            children: [
-              TopLogo(),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  children: [
-                    _ExistingAccountSignIn(),
-                    _UsernameInput(),
-                    _EmailInput(),
-                    _PasswordInput(),
-                    _ConfirmPasswordInput(),
-                    _StateInput(),
-                    _MobileNumberInput(),
-                    _AgeCheckbox(),
-                    _RulesCheckbox(),
-                    _SignUpButton(),
-                    _SocialLoginList(),
-                  ],
-                ),
-              ),
-            ],
+      child: ListView(
+        padding: const EdgeInsets.all(20),
+        children: [
+          TopLogo(),
+          Padding(
+            padding: const EdgeInsets.all(14),
+            child: Column(
+              children: [
+                _ExistingAccountSignIn(),
+                _UsernameInput(),
+                _EmailInput(),
+                _PasswordInput(),
+                _ConfirmPasswordInput(),
+                _StateInput(),
+                _MobileNumberInput(),
+                _AgeCheckbox(),
+                _RulesCheckbox(),
+                _SignUpButton(),
+              ],
+            ),
           ),
-        ),
+          const SocialLoginList(
+            authenticationType: AuthenticationType.signup,
+          ),
+        ],
       ),
     );
   }
@@ -73,7 +71,7 @@ class _UsernameInput extends StatelessWidget {
                 child: Text(
                   'Username',
                   style: GoogleFonts.nunito(
-                    fontSize: 14,
+                    fontSize: 18,
                     fontWeight: FontWeight.w200,
                   ),
                 ),
@@ -90,11 +88,11 @@ class _UsernameInput extends StatelessWidget {
                 onChanged: print,
                 decoration: InputDecoration(
                   contentPadding: const EdgeInsets.symmetric(
-                    vertical: 4,
+                    vertical: 2.5,
                     horizontal: 8,
                   ),
                   hintStyle: GoogleFonts.nunito(
-                    fontSize: 10,
+                    fontSize: 18,
                     fontWeight: FontWeight.w300,
                     color: Palette.cream,
                   ),
@@ -131,7 +129,7 @@ class _EmailInput extends StatelessWidget {
                 child: Text(
                   'Email Address',
                   style: GoogleFonts.nunito(
-                    fontSize: 14,
+                    fontSize: 18,
                     fontWeight: FontWeight.w200,
                   ),
                 ),
@@ -141,7 +139,7 @@ class _EmailInput extends StatelessWidget {
               child: TextField(
                 cursorColor: Palette.cream,
                 style: GoogleFonts.nunito(
-                  fontSize: 10,
+                  fontSize: 18,
                   fontWeight: FontWeight.w300,
                 ),
                 key: const Key('signUpForm_emailInput_textField'),
@@ -150,11 +148,11 @@ class _EmailInput extends StatelessWidget {
                 keyboardType: TextInputType.emailAddress,
                 decoration: InputDecoration(
                   contentPadding: const EdgeInsets.symmetric(
-                    vertical: 4,
+                    vertical: 2.5,
                     horizontal: 8,
                   ),
                   hintStyle: GoogleFonts.nunito(
-                    fontSize: 10,
+                    fontSize: 18,
                     fontWeight: FontWeight.w300,
                     color: Palette.cream,
                   ),
@@ -193,7 +191,7 @@ class _PasswordInput extends StatelessWidget {
                 child: Text(
                   'Password',
                   style: GoogleFonts.nunito(
-                    fontSize: 14,
+                    fontSize: 18,
                     fontWeight: FontWeight.w200,
                   ),
                 ),
@@ -212,11 +210,11 @@ class _PasswordInput extends StatelessWidget {
                 cursorColor: Palette.cream,
                 decoration: InputDecoration(
                   contentPadding: const EdgeInsets.symmetric(
-                    vertical: 4,
+                    vertical: 2.5,
                     horizontal: 8,
                   ),
                   hintStyle: GoogleFonts.nunito(
-                    fontSize: 10,
+                    fontSize: 18,
                     fontWeight: FontWeight.w300,
                     color: Palette.cream,
                   ),
@@ -261,7 +259,7 @@ class _ConfirmPasswordInput extends StatelessWidget {
                 child: Text(
                   'Verify Password',
                   style: GoogleFonts.nunito(
-                    fontSize: 14,
+                    fontSize: 18,
                     fontWeight: FontWeight.w200,
                   ),
                 ),
@@ -270,7 +268,7 @@ class _ConfirmPasswordInput extends StatelessWidget {
             Expanded(
               child: TextField(
                 style: GoogleFonts.nunito(
-                  fontSize: 10,
+                  fontSize: 18,
                   fontWeight: FontWeight.w300,
                 ),
                 key: const Key('signUpForm_confirmedPasswordInput_textField'),
@@ -281,11 +279,11 @@ class _ConfirmPasswordInput extends StatelessWidget {
                 cursorColor: Palette.cream,
                 decoration: InputDecoration(
                   contentPadding: const EdgeInsets.symmetric(
-                    vertical: 4,
+                    vertical: 2.5,
                     horizontal: 8,
                   ),
                   hintStyle: GoogleFonts.nunito(
-                    fontSize: 10,
+                    fontSize: 18,
                     fontWeight: FontWeight.w300,
                     color: Palette.cream,
                   ),
@@ -327,7 +325,7 @@ class _StateInput extends StatelessWidget {
                 child: Text(
                   'State',
                   style: GoogleFonts.nunito(
-                    fontSize: 14,
+                    fontSize: 18,
                     fontWeight: FontWeight.w200,
                   ),
                 ),
@@ -342,7 +340,7 @@ class _StateInput extends StatelessWidget {
                       width: 80,
                       child: TextField(
                         style: GoogleFonts.nunito(
-                          fontSize: 10,
+                          fontSize: 18,
                           fontWeight: FontWeight.w300,
                         ),
                         cursorColor: Palette.cream,
@@ -351,13 +349,12 @@ class _StateInput extends StatelessWidget {
                         decoration: InputDecoration(
                           suffixIconConstraints:
                               const BoxConstraints(maxHeight: 10, maxWidth: 25),
-                          // suffixIcon: ,
                           contentPadding: const EdgeInsets.symmetric(
-                            vertical: 4,
+                            vertical: 2.5,
                             horizontal: 8,
                           ),
                           hintStyle: GoogleFonts.nunito(
-                            fontSize: 10,
+                            fontSize: 18,
                             fontWeight: FontWeight.w300,
                             color: Palette.cream,
                           ),
@@ -378,8 +375,8 @@ class _StateInput extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(bottom: 22),
                     child: Container(
-                      height: 22,
-                      width: 20,
+                      height: 30,
+                      width: 30,
                       decoration: const BoxDecoration(
                         color: Palette.green,
                         borderRadius: BorderRadius.only(
@@ -419,7 +416,7 @@ class _MobileNumberInput extends StatelessWidget {
                 child: Text(
                   'Mobile Number',
                   style: GoogleFonts.nunito(
-                    fontSize: 14,
+                    fontSize: 18,
                     fontWeight: FontWeight.w200,
                   ),
                 ),
@@ -428,7 +425,7 @@ class _MobileNumberInput extends StatelessWidget {
             Expanded(
               child: TextField(
                 style: GoogleFonts.nunito(
-                  fontSize: 10,
+                  fontSize: 18,
                   fontWeight: FontWeight.w300,
                 ),
                 key: const Key('signUpForm_mobileNumberInput_textField'),
@@ -437,11 +434,11 @@ class _MobileNumberInput extends StatelessWidget {
                 keyboardType: TextInputType.phone,
                 decoration: InputDecoration(
                   contentPadding: const EdgeInsets.symmetric(
-                    vertical: 4,
+                    vertical: 2.5,
                     horizontal: 8,
                   ),
                   hintStyle: GoogleFonts.nunito(
-                    fontSize: 10,
+                    fontSize: 18,
                     fontWeight: FontWeight.w300,
                     color: Palette.cream,
                   ),
@@ -491,7 +488,7 @@ class __AgeCheckboxState extends State<_AgeCheckbox> {
         Text(
           'I am 18 years or older',
           style: GoogleFonts.nunito(
-            fontSize: 11,
+            fontSize: 14,
           ),
         ),
       ],
@@ -531,12 +528,19 @@ class __RulesCheckboxState extends State<_RulesCheckbox> {
                 text: TextSpan(
                   style: GoogleFonts.nunito(fontSize: 11, color: Palette.cream),
                   children: <TextSpan>[
-                    const TextSpan(
-                        text:
-                            'I have read and agree to the official Vegas Lit contest rules and conditions found '),
-                    const TextSpan(
+                    TextSpan(
+                      text:
+                          'I have read and agree to the official Vegas Lit contest rules and conditions found ',
+                      style: GoogleFonts.nunito(
+                        fontSize: 14,
+                      ),
+                    ),
+                    TextSpan(
                       text: 'here',
-                      style: TextStyle(color: Palette.green),
+                      style: GoogleFonts.nunito(
+                        fontSize: 14,
+                        color: Palette.green,
+                      ),
                     ),
                   ],
                 ),
@@ -573,92 +577,35 @@ class _SignUpButton extends StatelessWidget {
   }
 }
 
-class _SocialLoginList extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Text(
-          'Or use any of these social platforms to sign up.',
-          style: GoogleFonts.nunito(
-            fontSize: 17,
-            fontWeight: FontWeight.w300,
-          ),
-        ),
-        const SizedBox(
-          height: 10,
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            IconButton(
-              key: const Key('loginForm_facebookLogin_iconButton'),
-              icon: const Icon(LineAwesomeIcons.facebook_square),
-              iconSize: 40,
-              onPressed: () {
-                ScaffoldMessenger.of(context)
-                  ..hideCurrentSnackBar()
-                  ..showSnackBar(
-                    const SnackBar(
-                      content: Text('Coming Soon!'),
-                    ),
-                  );
-              },
-            ),
-            IconButton(
-              key: const Key('loginForm_appleLogin_iconButton'),
-              icon: const Icon(LineAwesomeIcons.apple),
-              iconSize: 40,
-              onPressed: () {
-                ScaffoldMessenger.of(context)
-                  ..hideCurrentSnackBar()
-                  ..showSnackBar(
-                    const SnackBar(
-                      content: Text('Coming Soon!'),
-                    ),
-                  );
-              },
-            ),
-            IconButton(
-              key: const Key('loginForm_googleLogin_iconButton'),
-              icon: const Icon(LineAwesomeIcons.google_logo),
-              iconSize: 40,
-              onPressed: () => context.read<LoginCubit>().logInWithGoogle(),
-            ),
-          ],
-        )
-      ],
-    );
-  }
-}
-
 class _ExistingAccountSignIn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text(
-          "Already have an account?",
-          style: GoogleFonts.nunito(
-            fontSize: 16,
-            fontWeight: FontWeight.w300,
-          ),
-        ),
-        TextButton(
-          key: const Key('loginForm_createAccount_flatButton'),
-          onPressed: () => Navigator.of(context).pop(),
-          child: Text(
-            'Log In',
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            "Already have an account?",
             style: GoogleFonts.nunito(
-              color: Palette.green,
               fontSize: 18,
-              fontWeight: FontWeight.w700,
+              fontWeight: FontWeight.w300,
             ),
           ),
-        ),
-      ],
+          TextButton(
+            key: const Key('loginForm_createAccount_flatButton'),
+            onPressed: () => Navigator.of(context).pop(),
+            child: Text(
+              'Log In',
+              style: GoogleFonts.nunito(
+                color: Palette.green,
+                fontSize: 18,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

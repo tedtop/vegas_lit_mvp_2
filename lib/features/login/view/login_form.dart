@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import 'package:google_fonts/google_fonts.dart';
 import 'package:formz/formz.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
-import "../../widgets/auth_logo.dart";
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/features/sign_up/view/sign_up_page.dart';
-import '../../widgets/default_button.dart';
 
+import '../../widgets/auth_login_list.dart';
+import "../../widgets/auth_logo.dart";
+import '../../widgets/default_button.dart';
 import '../login.dart';
 
 class LoginForm extends StatelessWidget {
@@ -29,22 +29,25 @@ class LoginForm extends StatelessWidget {
           }
         },
         child: SafeArea(
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                TopLogo(),
-                Column(
-                  children: [
-                    _EmailInput(),
-                    _PasswordInput(),
-                    _LoginButton(),
-                    _LinkToSignup(),
-                    _SocialLoginList(),
-                  ],
-                ),
-              ],
+          child: ListView(
+            padding: EdgeInsets.symmetric(
+              vertical: 40,
             ),
+            children: [
+              TopLogo(),
+              const SizedBox(height: 30),
+              Column(
+                children: [
+                  _EmailInput(),
+                  _PasswordInput(),
+                  _LoginButton(),
+                  _LinkToSignup(),
+                  const SocialLoginList(
+                    authenticationType: AuthenticationType.login,
+                  ),
+                ],
+              ),
+            ],
           ),
         ),
       ),
@@ -77,7 +80,7 @@ class _EmailInput extends StatelessWidget {
                 ),
                 labelText: 'Email / Username',
                 helperText: '',
-                errorText: state.email.invalid ? 'Invalid email' : null,
+                // errorText: state.email.invalid ? 'Invalid email' : null,
               ),
             ),
           ),
@@ -88,7 +91,6 @@ class _EmailInput extends StatelessWidget {
 }
 
 class _PasswordInput extends StatelessWidget {
-  String pass;
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
@@ -111,7 +113,7 @@ class _PasswordInput extends StatelessWidget {
                     const Icon(LineAwesomeIcons.lock, color: Palette.cream),
                 labelText: 'Password',
                 helperText: '',
-                errorText: state.password.invalid ? 'Invalid password' : null,
+                // errorText: state.password.invalid ? 'Invalid password' : null,
               ),
             ),
           ),
@@ -144,67 +146,6 @@ class _LoginButton extends StatelessWidget {
   }
 }
 
-class _SocialLoginList extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Text(
-          'Or use any of these social platforms to log in.',
-          style: GoogleFonts.nunito(
-            fontSize: 18,
-            fontWeight: FontWeight.w300,
-            // color: Palette.cream,
-          ),
-        ),
-        const SizedBox(
-          height: 10,
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            IconButton(
-              key: const Key('loginForm_facebookLogin_iconButton'),
-              icon: const Icon(LineAwesomeIcons.facebook_square),
-              iconSize: 40,
-              onPressed: () {
-                ScaffoldMessenger.of(context)
-                  ..hideCurrentSnackBar()
-                  ..showSnackBar(
-                    const SnackBar(
-                      content: Text('Coming Soon!'),
-                    ),
-                  );
-              },
-            ),
-            IconButton(
-              key: const Key('loginForm_appleLogin_iconButton'),
-              icon: const Icon(LineAwesomeIcons.apple),
-              iconSize: 40,
-              onPressed: () {
-                ScaffoldMessenger.of(context)
-                  ..hideCurrentSnackBar()
-                  ..showSnackBar(
-                    const SnackBar(
-                      content: Text('Coming Soon!'),
-                    ),
-                  );
-              },
-            ),
-            IconButton(
-              key: const Key('loginForm_googleLogin_iconButton'),
-              icon: const Icon(LineAwesomeIcons.google_logo),
-              iconSize: 40,
-              onPressed: () => context.read<LoginCubit>().logInWithGoogle(),
-            ),
-          ],
-        )
-      ],
-    );
-  }
-}
-
 class _LinkToSignup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -215,7 +156,7 @@ class _LinkToSignup extends StatelessWidget {
           "Don't have an account yet?",
           style: GoogleFonts.nunito(
             fontWeight: FontWeight.w300,
-            fontSize: 16,
+            fontSize: 18,
             color: Palette.cream,
           ),
         ),
@@ -226,7 +167,7 @@ class _LinkToSignup extends StatelessWidget {
             'Sign Up',
             style: GoogleFonts.nunito(
               color: Palette.green,
-              fontSize: 17,
+              fontSize: 18,
               fontWeight: FontWeight.w700,
             ),
           ),

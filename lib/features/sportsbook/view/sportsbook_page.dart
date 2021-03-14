@@ -54,13 +54,22 @@ class SportsBookView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        Text(
+          'SPORTSBOOK',
+          style: GoogleFonts.nunito(
+            color: Palette.green,
+            fontSize: 36,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Row(
             children: [
               Expanded(
-                flex: 3,
+                flex: 2,
                 child: Card(
+                  elevation: 4,
                   clipBehavior: Clip.antiAlias,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(6),
@@ -71,15 +80,21 @@ class SportsBookView extends StatelessWidget {
                     height: 40,
                     width: double.infinity,
                     child: DropdownButton<String>(
+                      dropdownColor: Palette.green,
                       isDense: true,
                       value: '$gameName',
-                      icon: const Icon(Icons.arrow_downward),
-                      iconSize: 24,
+                      icon: const Icon(
+                        Icons.arrow_circle_down,
+                        color: Palette.cream,
+                      ),
+                      iconSize: 25,
                       isExpanded: true,
                       underline: Container(
                         height: 0,
                       ),
-                      style: Styles.h3,
+                      style: GoogleFonts.nunito(
+                        fontSize: 18,
+                      ),
                       onChanged: (String newValue) {
                         if (newValue != gameName) {
                           context.read<SportsbookBloc>().add(
@@ -99,8 +114,18 @@ class SportsBookView extends StatelessWidget {
                           return DropdownMenuItem<String>(
                             value: value,
                             child: value == gameName
-                                ? Text('$value (${games.length} Games)')
-                                : Text(value),
+                                ? Center(
+                                    child: Text(
+                                      '$value (${games.length} Games)',
+                                      style: GoogleFonts.nunito(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  )
+                                : Center(
+                                    child: Text(value),
+                                  ),
                           );
                         },
                       ).toList(),
@@ -114,22 +139,28 @@ class SportsBookView extends StatelessWidget {
                   children: [
                     Text(
                       'BET SLIP',
-                      style: GoogleFonts.nunito(),
+                      style: GoogleFonts.nunito(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                     BlocBuilder<BetSlipCubit, BetSlipState>(
                       builder: (context, state) {
                         switch (state.status) {
                           case BetSlipStatus.opened:
                             return Container(
-                              height: 22,
-                              width: 22,
-                              color: Palette.cream,
+                              decoration: BoxDecoration(
+                                color: Palette.cream,
+                                borderRadius: BorderRadius.circular(6),
+                              ),
+                              height: 40,
+                              width: 42,
                               child: Center(
                                 child: Text(
                                   state.games.length.toString(),
                                   style: GoogleFonts.nunito(
                                     color: Palette.darkGrey,
-                                    fontSize: 15,
+                                    fontSize: 18,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),

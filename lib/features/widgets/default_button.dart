@@ -8,11 +8,15 @@ class DefaultButton extends StatelessWidget {
     Key key,
     @required this.text,
     @required this.action,
+    this.color = Palette.green,
+    this.elevation = Styles.dropShadow,
   })  : assert(text != null),
         super(key: key);
 
   final String text;
   final Function action;
+  final Color color;
+  final double elevation;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +28,7 @@ class DefaultButton extends StatelessWidget {
           vertical: 20.0,
         ),
         child: RaisedButton(
-          elevation: Styles.dropShadow,
+          elevation: elevation,
           padding: const EdgeInsets.symmetric(
             vertical: 10,
           ),
@@ -34,7 +38,7 @@ class DefaultButton extends StatelessWidget {
           ),
           shape: Styles.buttonRadius,
           textColor: Palette.cream,
-          color: Palette.green,
+          color: color,
           onPressed: action,
         ),
       ),

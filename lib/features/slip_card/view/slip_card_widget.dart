@@ -100,21 +100,22 @@ class _BetSlipCardViewState extends State<BetSlipCardView> {
     final betButtonState = context.watch<BetButtonCubit>().state;
     final betSlipCardState = context.watch<BetSlipCardCubit>().state;
     return GenericCard(
+      crossAxisAlignment: CrossAxisAlignment.start,
       widgets: [
         RichText(
           text: TextSpan(
+            style: GoogleFonts.nunito(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
             children: [
               TextSpan(
-                text: '${betButtonState.game.teams.away.mascot} @ ',
-                style: Styles.h2,
+                text: betButtonState.game.teams.away.mascot.toUpperCase(),
               ),
+              const TextSpan(text: '  @  '),
               TextSpan(
-                text: '${betButtonState.game.teams.home.mascot}',
-                style: GoogleFonts.nunito(
-                  color: Palette.red,
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.w700,
-                ),
+                text: betButtonState.game.teams.home.mascot.toUpperCase(),
+                style: GoogleFonts.nunito(color: Palette.green),
               ),
             ],
           ),
@@ -122,84 +123,66 @@ class _BetSlipCardViewState extends State<BetSlipCardView> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Expanded(
-              child: Text(
-                DateFormat('EEEE, MMMM, c, y @ hh:mm a').format(
-                  betButtonState.game.schedule.date.toLocal(),
-                ),
-                style: Styles.h4,
+            Text(
+              '${betButtonState.game.teams.home.mascot.toUpperCase()} TO WIN',
+              style: GoogleFonts.nunito(
+                fontSize: 18,
+                color: Palette.cream,
+                fontWeight: FontWeight.w700,
               ),
             ),
-            Expanded(
-              child: RichText(
-                text: TextSpan(
-                  children: [
-                    TextSpan(
-                      text: 'Starting in ',
-                      style: Styles.h4,
-                    ),
-                    TextSpan(
-                      text: '20hr:17m:18s',
-                      style: Styles.startingTimeText,
-                    ),
-                  ],
+            Padding(
+              padding: const EdgeInsets.only(right: 40),
+              child: Text(
+                betButtonState.text,
+                style: GoogleFonts.nunito(
+                  fontSize: 18,
+                  color: Palette.cream,
                 ),
+              ),
+            ),
+          ],
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              DateFormat('EEEE, MMMM, c, y @ hh:mm a').format(
+                betButtonState.game.schedule.date.toLocal(),
+              ),
+              style: GoogleFonts.nunito(
+                color: Palette.cream,
+                fontSize: 11,
+              ),
+            ),
+            RichText(
+              text: TextSpan(
+                children: [
+                  TextSpan(
+                    text: 'Starting in',
+                    style: GoogleFonts.nunito(
+                      color: Palette.cream,
+                      fontSize: 11,
+                    ),
+                  ),
+                  TextSpan(
+                    text: '20hr:17m:18s',
+                    style: GoogleFonts.nunito(
+                      color: Palette.red,
+                      fontSize: 11,
+                    ),
+                  ),
+                ],
               ),
             ),
           ],
         ),
         Column(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  child: Text(
-                    '${betButtonState.game.teams.away.mascot}',
-                    style: Styles.awayTeam,
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-                _betButtonSeparator(text: '@', style: Styles.h1),
-                Expanded(
-                  child: Text(
-                    '${betButtonState.game.teams.home.mascot}',
-                    style: Styles.homeTeam,
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              ],
-            ),
-            Card(
-              clipBehavior: Clip.antiAlias,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Container(
-                color: Palette.green,
-                padding: const EdgeInsets.all(8.0),
-                height: 40,
-                width: double.infinity,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'BET BEARS TO WIN',
-                      style: Styles.h3,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(right: 40),
-                      child: Text(
-                        betButtonState.text,
-                        style: Styles.h3,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.symmetric(
+                vertical: 8.0,
+              ),
               child: betSlipCardState.status == BetSlipCardStatus.opened
                   ? Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -209,69 +192,104 @@ class _BetSlipCardViewState extends State<BetSlipCardView> {
                             key: _formKey,
                             child: Column(
                               children: [
-                                Container(
-                                  decoration: BoxDecoration(
-                                    color: Palette.darkGrey,
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  height: 100,
-                                  width: 140,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(15.0),
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        const Text(
-                                          'BET AMOUNT',
-                                          style: TextStyle(
-                                              color: Palette.cream,
-                                              fontSize: 15),
-                                        ),
-                                        const SizedBox(
-                                          height: 10,
-                                        ),
-                                        Expanded(
-                                          child: TextFormField(
-                                            controller: _betAmountController,
-                                            focusNode: _focusNode,
-                                            onChanged: (text) {
-                                              setState(
-                                                () {
-                                                  toWinAmount = (100 /
-                                                          int.parse(
-                                                              betButtonState
-                                                                  .text) *
-                                                          int.parse(text))
-                                                      .toInt();
-                                                },
-                                              );
-                                            },
-                                            keyboardType: TextInputType.number,
-                                            textAlign: TextAlign.center,
-                                            maxLengthEnforcement:
-                                                MaxLengthEnforcement.enforced,
-                                            maxLength: 3,
-                                            decoration: const InputDecoration(
-                                              counterText: '',
+                                Stack(
+                                  children: [
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        color: Palette.cream,
+                                        borderRadius: BorderRadius.circular(6),
+                                      ),
+                                      height: 90,
+                                      width: 170,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(15.0),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            const Expanded(
+                                              child: SizedBox(),
                                             ),
-                                            validator: (value) {
-                                              if (value.isEmpty) {
-                                                return 'Empty Box';
-                                              }
-                                              if (int.parse(value) >= 101) {
-                                                return '100\$ Limit Reached';
-                                              }
-                                              return null;
-                                            },
+                                            Expanded(
+                                              child: TextFormField(
+                                                controller:
+                                                    _betAmountController,
+                                                focusNode: _focusNode,
+                                                onChanged: (text) {
+                                                  setState(
+                                                    () {
+                                                      toWinAmount = (100 /
+                                                              int.parse(
+                                                                  betButtonState
+                                                                      .text) *
+                                                              int.parse(text))
+                                                          .toInt();
+                                                    },
+                                                  );
+                                                },
+                                                style: GoogleFonts.nunito(
+                                                  color: Palette.darkGrey,
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                                keyboardType:
+                                                    TextInputType.number,
+                                                textAlign: TextAlign.center,
+                                                maxLengthEnforcement:
+                                                    MaxLengthEnforcement
+                                                        .enforced,
+                                                maxLength: 3,
+                                                decoration:
+                                                    const InputDecoration(
+                                                  border: InputBorder.none,
+                                                  counterText: '',
+                                                ),
+                                                validator: (value) {
+                                                  if (value.isEmpty) {
+                                                    return 'Empty Box';
+                                                  }
+                                                  if (int.parse(value) >= 101) {
+                                                    return '100\$ Limit Reached';
+                                                  }
+                                                  return null;
+                                                },
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      decoration: const BoxDecoration(
+                                        color: Palette.darkGrey,
+                                        borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(6),
+                                          topRight: Radius.circular(6),
+                                        ),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Palette.darkGrey,
+                                            blurRadius: 10.0,
+                                            offset: Offset(0.0, 0.75),
+                                          ),
+                                        ],
+                                      ),
+                                      height: 40,
+                                      width: 174,
+                                      child: Center(
+                                        child: Text(
+                                          'BET AMOUNT',
+                                          style: GoogleFonts.nunito(
+                                            fontSize: 18,
+                                            color: Palette.cream,
                                           ),
                                         ),
-                                      ],
-                                    ),
-                                  ),
+                                      ),
+                                    )
+                                  ],
                                 ),
                                 Container(
-                                  width: 140,
+                                  width: 174,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(6),
                                   ),
@@ -309,43 +327,74 @@ class _BetSlipCardViewState extends State<BetSlipCardView> {
                           ),
                         ),
                         const SizedBox(
-                          width: 10,
+                          width: 15,
                         ),
                         Expanded(
                           child: Column(
                             children: [
-                              Container(
-                                decoration: BoxDecoration(
-                                  color: Palette.darkGrey,
-                                  borderRadius: BorderRadius.circular(6),
-                                ),
-                                height: 100,
-                                width: 140,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(15.0),
-                                  child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      const Text(
-                                        'To Win',
-                                        style: TextStyle(
-                                            color: Palette.cream, fontSize: 15),
+                              Stack(
+                                children: [
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      color: Palette.cream,
+                                      borderRadius: BorderRadius.circular(6),
+                                    ),
+                                    height: 90,
+                                    width: 170,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(15.0),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          const Expanded(
+                                            child: SizedBox(),
+                                          ),
+                                          Center(
+                                            child: Text(
+                                              '\$${toWinAmount.toString()}',
+                                              style: GoogleFonts.nunito(
+                                                color: Palette.green,
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                      Text(
-                                        '\$$toWinAmount',
-                                        style: const TextStyle(
+                                    ),
+                                  ),
+                                  Container(
+                                    decoration: const BoxDecoration(
+                                      color: Palette.darkGrey,
+                                      borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(6),
+                                        topRight: Radius.circular(6),
+                                      ),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Palette.darkGrey,
+                                          blurRadius: 10.0,
+                                          offset: Offset(0.0, 0.75),
+                                        ),
+                                      ],
+                                    ),
+                                    height: 40,
+                                    width: 174,
+                                    child: Center(
+                                      child: Text(
+                                        'TO WIN',
+                                        style: GoogleFonts.nunito(
+                                          fontSize: 18,
                                           color: Palette.cream,
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.w800,
                                         ),
                                       ),
-                                    ],
-                                  ),
-                                ),
+                                    ),
+                                  )
+                                ],
                               ),
                               Container(
-                                width: 140,
+                                width: 174,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(12),
                                 ),
@@ -353,6 +402,8 @@ class _BetSlipCardViewState extends State<BetSlipCardView> {
                                         BetSlipCardStatus.confirmed
                                     ? Container()
                                     : DefaultButton(
+                                        color: Palette.red,
+                                        elevation: 0,
                                         text: 'CANCEL',
                                         action: () {
                                           context
@@ -373,9 +424,12 @@ class _BetSlipCardViewState extends State<BetSlipCardView> {
                       ],
                     )
                   : Center(
-                      child: Text(
-                        'BET PLACED OF \$${betSlipCardState.betAmount}',
-                      ),
+                      child:
+                          Text('BET PLACED OF \$${betSlipCardState.betAmount}',
+                              style: GoogleFonts.nunito(
+                                fontSize: 18,
+                                color: Palette.cream,
+                              )),
                     ),
             ),
           ],

@@ -16,6 +16,7 @@ class Themes {
     visualDensity: VisualDensity.adaptivePlatformDensity,
     appBarTheme: const AppBarTheme(
       color: Palette.darkGrey,
+      elevation: 0,
     ),
     textButtonTheme: TextButtonThemeData(
       style: ButtonStyle(

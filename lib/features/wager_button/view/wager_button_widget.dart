@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -68,7 +69,10 @@ class BetButtonUnclicked extends StatelessWidget {
           color: Palette.darkGrey,
           child: Text(
             betButtonState.text,
-            style: Styles.betBtnText,
+            style: GoogleFonts.nunito(
+              fontSize: 18,
+              color: Palette.cream,
+            ),
           ),
           onPressed: () {
             context.read<BetButtonCubit>().clickBetButton();
@@ -93,14 +97,19 @@ class BetButtonClicked extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 5),
         child: RaisedButton(
+          elevation: 4,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(4),
+            borderRadius: BorderRadius.circular(6),
           ),
           padding: const EdgeInsets.all(8.0),
           color: Palette.green,
           child: Text(
             betButtonState.text,
-            style: Styles.betBtnTextSelected,
+            style: GoogleFonts.nunito(
+              fontSize: 18,
+              color: Palette.cream,
+              fontWeight: FontWeight.bold,
+            ),
           ),
           onPressed: () {
             context.read<BetButtonCubit>().unclickBetButton();

@@ -5,9 +5,11 @@ class GenericCard extends StatelessWidget {
   const GenericCard({
     Key key,
     @required this.widgets,
+    this.crossAxisAlignment = CrossAxisAlignment.center,
   }) : super(key: key);
 
   final List<Widget> widgets;
+  final CrossAxisAlignment crossAxisAlignment;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +25,7 @@ class GenericCard extends StatelessWidget {
         ),
         child: Card(
           margin: EdgeInsets.zero,
-          color: Palette.darkGrey,
+          color: Palette.lightGrey,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
           ),
@@ -34,7 +36,7 @@ class GenericCard extends StatelessWidget {
                   const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.center,
+                crossAxisAlignment: crossAxisAlignment,
                 children: widgets,
               ),
             ),

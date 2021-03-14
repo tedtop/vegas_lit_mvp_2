@@ -74,18 +74,25 @@ class _HomePageState extends State<HomePage> {
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 8.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'Balance',
-                  style: Styles.h3,
-                ),
-                Text(
-                  '\$100',
-                  style: Styles.h3,
-                ),
-              ],
+            child: Container(
+              width: 60,
+              decoration: const ShapeDecoration(
+                shape: CircleBorder(),
+                color: Palette.green,
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Balance',
+                    style: Styles.h3,
+                  ),
+                  Text(
+                    '\$100',
+                    style: Styles.h3,
+                  ),
+                ],
+              ),
             ),
           ),
         ],
