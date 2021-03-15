@@ -19,8 +19,8 @@ class HomeBottomNavigation extends StatelessWidget {
           final badgeCount = betSlipStatus.games.length;
           return BottomNavigationBar(
             selectedLabelStyle: GoogleFonts.nunito(),
-            selectedFontSize: 10,
-            unselectedFontSize: 8,
+            selectedFontSize: 14,
+            unselectedFontSize: 12,
             showSelectedLabels: true,
             showUnselectedLabels: true,
             type: BottomNavigationBarType.fixed,

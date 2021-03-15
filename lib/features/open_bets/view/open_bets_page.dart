@@ -27,8 +27,9 @@ class OpenBets extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Palette.lightGrey,
+      color: Palette.darkGrey,
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -37,33 +38,47 @@ class OpenBets extends StatelessWidget {
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
                   'OPEN BETS',
-                  style: Styles.headingLeaderboard,
+                  style: GoogleFonts.nunito(
+                    fontSize: 36,
+                    color: Palette.green,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ],
           ),
+          const TextBar(
+            text: 'Ascending - by start time',
+          ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 10.0,
+              vertical: 4,
+            ),
             child: RichText(
               text: TextSpan(
                 style: GoogleFonts.nunito(
-                    fontSize: 14, fontWeight: FontWeight.w300),
+                  fontSize: 16,
+                  fontWeight: FontWeight.w300,
+                ),
                 children: <TextSpan>[
                   const TextSpan(
-                      text:
-                          'Bets shown here cannot be modified and are awaiting the outcome of the event. Once bets have been closed they will appear in your'),
+                    text:
+                        'Bets shown here cannot be modified and are awaiting the outcome of the event. Once bets have been closed they will appear in your',
+                  ),
                   TextSpan(
-                      text: ' BET HISTORY ',
-                      style: GoogleFonts.nunito(
-                        color: Palette.green,
-                      )),
-                  const TextSpan(text: 'page.'),
+                    text: ' BET HISTORY ',
+                    style: GoogleFonts.nunito(
+                      color: Palette.green,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const TextSpan(
+                    text: 'page.',
+                  ),
                 ],
               ),
             ),
-          ),
-          const TextBar(
-            text: 'Ascending - by start time',
           ),
           BlocBuilder<OpenBetsCubit, OpenBetsState>(
             builder: (context, state) {
@@ -73,8 +88,9 @@ class OpenBets extends StatelessWidget {
                     child: Text(
                       'No open bet slips found!',
                       style: GoogleFonts.nunito(
-                        fontSize: 20,
+                        fontSize: 18,
                         fontWeight: FontWeight.w300,
+                        color: Palette.cream,
                       ),
                     ),
                   );
@@ -85,8 +101,8 @@ class OpenBets extends StatelessWidget {
                     itemCount: state.openBets.length,
                     itemBuilder: (context, index) {
                       return OpenBetsSlip(
-                        openBets: state.openBets[index],
-                      );
+                          // openBets: state.openBets[index],
+                          );
                     },
                   ),
                 );
@@ -119,8 +135,10 @@ class TextBar extends StatelessWidget {
           borderRadius: BorderRadius.circular(6),
         ),
         child: Container(
-          color: Palette.darkGrey,
-          padding: const EdgeInsets.all(8.0),
+          color: Palette.green,
+          padding: const EdgeInsets.symmetric(
+            horizontal: 12.0,
+          ),
           height: 40,
           width: double.infinity,
           child: Row(
@@ -128,10 +146,15 @@ class TextBar extends StatelessWidget {
             children: [
               Text(
                 text,
-                style: Styles.h3,
+                style: GoogleFonts.nunito(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w700,
+                  color: Palette.cream,
+                ),
               ),
               const Icon(
-                LineAwesomeIcons.arrow_down,
+                LineAwesomeIcons.arrow_circle_down,
+                size: 25,
               )
             ],
           ),

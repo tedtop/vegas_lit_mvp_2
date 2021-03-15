@@ -8,107 +8,149 @@ import '../../widgets/generic_card.dart';
 class OpenBetsSlip extends StatelessWidget {
   const OpenBetsSlip({
     Key key,
-    @required this.openBets,
-  })  : assert(openBets != null),
+    // @required this.openBets,
+  }) :
+        //  assert(openBets != null),
         super(key: key);
 
-  final OpenBets openBets;
+  // final OpenBets openBets;
 
   @override
   Widget build(BuildContext context) {
-    return GenericCard(
-      widgets: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Expanded(
-              child: Text(
-                openBets.away,
-                style: Styles.awayTeam,
-                textAlign: TextAlign.center,
-              ),
-            ),
-            _betButtonSeparator(text: '@', style: Styles.h1),
-            Expanded(
-              child: Text(
-                openBets.home,
-                style: Styles.homeTeam,
-                textAlign: TextAlign.center,
-              ),
-            ),
-          ],
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 10),
+      child: Container(
+        width: 390,
+        height: 150,
+        decoration: BoxDecoration(
+          border: Border.all(
+            color: Palette.cream,
+          ),
+          borderRadius: BorderRadius.circular(12),
         ),
-        const SizedBox(
-          height: 10,
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Column(
+        child: Card(
+          margin: EdgeInsets.zero,
+          color: Palette.darkGrey,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(12),
+            child: Row(
               children: [
-                Text(
-                  openBets.type,
-                  style: GoogleFonts.nunito(),
-                ),
-                Text(
-                  openBets.mlAmount.toString(),
-                  style: Styles.awayTeam,
-                  textAlign: TextAlign.center,
-                ),
-              ],
-            ),
-            Column(
-              children: [
-                Text(
-                  'RISK',
-                  style: GoogleFonts.nunito(),
-                ),
-                Text(
-                  '\$${openBets.amount.toStringAsFixed(2)}',
-                  style: const TextStyle(
-                    color: Palette.red,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12.0,
+                    vertical: 10.0,
                   ),
-                  textAlign: TextAlign.center,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'TITANS TO WIN',
+                        style: GoogleFonts.nunito(
+                          fontSize: 24,
+                          color: Palette.cream,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      RichText(
+                        text: TextSpan(
+                          style: GoogleFonts.nunito(
+                            fontSize: 18,
+                            color: Palette.cream,
+                            fontWeight: FontWeight.w300,
+                          ),
+                          children: [
+                            const TextSpan(
+                              text: 'BEARS',
+                            ),
+                            const TextSpan(text: '  @  '),
+                            TextSpan(
+                              text: 'TITANS',
+                              style: GoogleFonts.nunito(color: Palette.green),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Text(
+                        'MONEYLINE +100',
+                        style: GoogleFonts.nunito(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w300,
+                          color: Palette.cream,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 3.0,
+                        ),
+                        child: Text(
+                          'You bet \$100 to win \100!',
+                          style: GoogleFonts.nunito(
+                            color: Palette.green,
+                            fontSize: 18,
+                          ),
+                        ),
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            'Sunday, November 08, 2020',
+                            style: GoogleFonts.nunito(
+                              color: Palette.cream,
+                              fontSize: 10,
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 2,
+                          ),
+                          RichText(
+                            text: TextSpan(
+                              style: GoogleFonts.nunito(
+                                fontSize: 10,
+                              ),
+                              children: [
+                                TextSpan(
+                                  text: 'Starting in',
+                                  style: GoogleFonts.nunito(
+                                    color: Palette.cream,
+                                  ),
+                                ),
+                                TextSpan(
+                                  text: '20hr:17m:18s',
+                                  style: GoogleFonts.nunito(
+                                    color: Palette.red,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                Expanded(
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      color: Palette.lightGrey,
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Image.asset(
+                        'assets/images/open_bets_logo.png',
+                      ),
+                    ),
+                    height: 150,
+                    width: 90,
+                  ),
                 ),
               ],
             ),
-            Column(
-              children: [
-                Text(
-                  'TO WIN',
-                  style: GoogleFonts.nunito(),
-                ),
-                Text(
-                  '\$${openBets.win.toStringAsFixed(2)}',
-                  style: Styles.homeTeam,
-                  textAlign: TextAlign.center,
-                ),
-              ],
-            ),
-          ],
-        ),
-        const SizedBox(
-          height: 10,
-        ),
-        RichText(
-          text: TextSpan(
-            style: GoogleFonts.nunito(
-              color: Palette.cream,
-              fontSize: 14,
-            ),
-            children: [
-              const TextSpan(
-                text: 'Starting in ',
-              ),
-              const TextSpan(
-                text: '20hr:17m:18s',
-              ),
-            ],
           ),
         ),
-      ],
+      ),
     );
   }
 }
