@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:vegas_lit/config/enum.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vegas_lit/data/models/game.dart';
@@ -9,12 +10,13 @@ import 'package:vegas_lit/features/slip_card/view/slip_card_widget.dart';
 
 import '../cubit/bet_button_cubit.dart';
 
-class WagerButton extends StatelessWidget {
-  const WagerButton._({Key key}) : super(key: key);
+class BetButton extends StatelessWidget {
+  const BetButton._({Key key}) : super(key: key);
 
   static Builder route({
     @required String text,
     @required Game game,
+    @required Bet betType,
   }) {
     return Builder(
       builder: (context) {
@@ -23,8 +25,9 @@ class WagerButton extends StatelessWidget {
             ..openBetButton(
               text: text,
               game: game,
+              betType: betType,
             ),
-          child: const WagerButton._(),
+          child: const BetButton._(),
         );
       },
     );
@@ -82,6 +85,7 @@ class BetButtonUnclicked extends StatelessWidget {
                   game: BetSlipCard.route(
                     key: Key('${betButtonState.uniqueId}'),
                     betButtonCubit: context.read<BetButtonCubit>(),
+                    betType: betButtonState.betType,
                   ),
                 );
           },

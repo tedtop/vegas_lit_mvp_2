@@ -5,7 +5,6 @@ import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/features/login/login.dart';
 import 'package:vegas_lit/features/sign_up/sign_up.dart';
-import 'auth_login_list.dart';
 
 class SignUpInput extends StatelessWidget {
   const SignUpInput({

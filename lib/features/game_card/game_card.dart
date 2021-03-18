@@ -3,11 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:vegas_lit/config/enum.dart';
 import 'package:vegas_lit/config/palette.dart';
 
 import 'package:vegas_lit/config/styles.dart';
 import 'package:vegas_lit/data/models/game.dart';
-import 'package:vegas_lit/features/wager_button/wager_button.dart';
+import 'package:vegas_lit/features/bet_button/bet_button.dart';
 
 import '../widgets/generic_card.dart';
 import 'cubit/game_card_cubit.dart';
@@ -107,13 +108,15 @@ class GameCard extends StatelessWidget {
                       ? Container()
                       : Row(
                           children: [
-                            WagerButton.route(
+                            BetButton.route(
+                              betType: Bet.ml,
                               text:
                                   '${state.game.odds[0].moneyline.current.awayOdds}',
                               game: state.game,
                             ),
                             _betButtonSeparator(text: 'ML'),
-                            WagerButton.route(
+                            BetButton.route(
+                              betType: Bet.ml,
                               game: state.game,
                               text:
                                   '${state.game.odds[0].moneyline.current.homeOdds}',
@@ -124,13 +127,15 @@ class GameCard extends StatelessWidget {
                       ? Container()
                       : Row(
                           children: [
-                            WagerButton.route(
+                            BetButton.route(
+                              betType: Bet.pts,
                               game: state.game,
                               text:
                                   '${state.game.odds[0].spread.current.away}     ${state.game.odds[0].spread.current.awayOdds}',
                             ),
                             _betButtonSeparator(text: 'PTS'),
-                            WagerButton.route(
+                            BetButton.route(
+                              betType: Bet.pts,
                               game: state.game,
                               text:
                                   '${state.game.odds[0].spread.current.home}     ${state.game.odds[0].spread.current.homeOdds}',
@@ -141,13 +146,15 @@ class GameCard extends StatelessWidget {
                       ? Container()
                       : Row(
                           children: [
-                            WagerButton.route(
+                            BetButton.route(
+                              betType: Bet.tot,
                               game: state.game,
                               text:
                                   'o${state.game.odds[0].total.current.total}     ${state.game.odds[0].total.current.overOdds}',
                             ),
                             _betButtonSeparator(text: 'TOT'),
-                            WagerButton.route(
+                            BetButton.route(
+                              betType: Bet.tot,
                               game: state.game,
                               text:
                                   'u${state.game.odds[0].total.current.total}     ${state.game.odds[0].total.current.underOdds}',

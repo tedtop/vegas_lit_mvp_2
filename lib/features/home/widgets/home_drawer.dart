@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vegas_lit/config/assets.dart';
 import 'package:vegas_lit/config/palette.dart';
-import 'package:vegas_lit/config/styles.dart';
 import 'package:vegas_lit/features/authentication/authentication.dart';
 
 import '../cubit/home_cubit.dart';

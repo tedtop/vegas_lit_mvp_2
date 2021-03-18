@@ -3,12 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:vegas_lit/config/enum.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
 import 'package:vegas_lit/features/widgets/generic_card.dart';
 import 'package:intl/intl.dart';
 import 'package:vegas_lit/features/slip/bet_slip.dart';
-import 'package:vegas_lit/features/wager_button/cubit/bet_button_cubit.dart';
+import 'package:vegas_lit/features/bet_button/cubit/bet_button_cubit.dart';
 import 'package:vegas_lit/features/widgets/default_button.dart';
 
 import '../cubit/bet_slip_card_cubit.dart';
@@ -20,6 +21,7 @@ class BetSlipCard extends StatefulWidget {
   static Builder route({
     @required Key key,
     @required BetButtonCubit betButtonCubit,
+    @required Bet betType,
   }) {
     return Builder(
       key: key,
