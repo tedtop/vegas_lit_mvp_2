@@ -41,7 +41,7 @@ class _LeaderboardState extends State<Leaderboard> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Palette.lightGrey,
+      color: Palette.darkGrey,
       child: Column(
         children: [
           Row(
@@ -51,7 +51,7 @@ class _LeaderboardState extends State<Leaderboard> {
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
                   'LEADERBOARD',
-                  style: Styles.headingLeaderboard,
+                  style: Styles.largeGreenBold,
                 ),
               ),
             ],

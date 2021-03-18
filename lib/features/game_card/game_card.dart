@@ -43,9 +43,11 @@ class GameCard extends StatelessWidget {
                     state.game.teams.away.mascot.toUpperCase(),
                     style: Styles.defaultSizeBoldCream,
                   ),
-                  Text(
-                    '  @  ',
-                    style: Styles.defaultSizeBoldCream,
+                  Positioned(
+                    child: Text(
+                      '  @  ',
+                      style: Styles.defaultSizeBoldCream,
+                    ),
                   ),
                   Text(
                     state.game.teams.home.mascot.toUpperCase(),

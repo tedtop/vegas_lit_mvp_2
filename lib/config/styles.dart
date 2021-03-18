@@ -91,6 +91,13 @@ class Styles {
     fontSize: 36,
     color: Palette.green,
     fontWeight: FontWeight.bold,
+    shadows: <Shadow>[
+      Shadow(
+        offset: const Offset(0, 4.0),
+        blurRadius: 4.0,
+        color: const Color(0xFF000000).withOpacity(0.25),
+      ),
+    ],
   );
 
   static final smallFontLessBold = GoogleFonts.nunito(

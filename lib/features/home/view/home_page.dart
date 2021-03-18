@@ -75,7 +75,7 @@ class _HomePageState extends State<HomePage> {
         ),
         actions: [
           Padding(
-            padding: const EdgeInsets.only(right: 9.0, top: 9.0),
+            padding: const EdgeInsets.fromLTRB(0, 9, 10, 11),
             child: Container(
               width: 60,
               height: 60,
@@ -83,20 +83,23 @@ class _HomePageState extends State<HomePage> {
                 shape: CircleBorder(),
                 color: Palette.green,
               ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  AutoSizeText(
-                    'Balance',
-                    style: Styles.creamMediumLessBold,
-                    maxLines: 1,
-                  ),
-                  AutoSizeText(
-                    '\$100',
-                    style: Styles.creamMediumLessBold,
-                    maxLines: 1,
-                  ),
-                ],
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    AutoSizeText(
+                      'Balance',
+                      style: Styles.creamMediumLessBold,
+                      maxLines: 1,
+                    ),
+                    AutoSizeText(
+                      '\$100',
+                      style: Styles.creamMediumLessBold,
+                      maxLines: 1,
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

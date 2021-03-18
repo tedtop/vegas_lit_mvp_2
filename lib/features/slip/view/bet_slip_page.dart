@@ -43,17 +43,7 @@ class BetSlipUpper extends StatelessWidget {
       child: Text(
         'BET SLIP',
         textAlign: TextAlign.center,
-        style: GoogleFonts.nunito(
-          fontSize: 36,
-          fontWeight: FontWeight.bold,
-          color: Palette.green,
-          shadows: <Shadow>[
-            const Shadow(
-              offset: Offset(0.0, 4.0),
-              blurRadius: 4.0,
-            ),
-          ],
-        ),
+        style: Styles.largeGreenBold,
       ),
     );
   }

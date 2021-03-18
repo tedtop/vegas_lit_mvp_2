@@ -18,7 +18,7 @@ class BetHistory extends StatelessWidget {
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
                   'BET HISTORY',
-                  style: Styles.headingLeaderboard,
+                  style: Styles.largeGreenBold,
                 ),
               ),
             ],
