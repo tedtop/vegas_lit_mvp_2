@@ -37,24 +37,33 @@ class GameCard extends StatelessWidget {
           return GenericCard(
             widgets: [
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
-                    state.game.teams.away.mascot.toUpperCase(),
-                    style: Styles.defaultSizeBoldCream,
+                  Expanded(
+                    child: Center(
+                      child: Text(
+                        state.game.teams.away.mascot.toUpperCase(),
+                        style: Styles.defaultSizeBoldCream,
+                      ),
+                    ),
                   ),
-                  Positioned(
+                  Flexible(
+                    flex: 1,
                     child: Text(
-                      '  @  ',
+                      '@',
                       style: Styles.defaultSizeBoldCream,
                     ),
                   ),
-                  Text(
-                    state.game.teams.home.mascot.toUpperCase(),
-                    style: GoogleFonts.nunito(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Palette.green,
+                  Expanded(
+                    child: Center(
+                      child: Text(
+                        state.game.teams.home.mascot.toUpperCase(),
+                        style: GoogleFonts.nunito(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Palette.green,
+                        ),
+                      ),
                     ),
                   )
                 ],
