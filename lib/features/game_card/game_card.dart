@@ -41,23 +41,28 @@ class GameCard extends StatelessWidget {
                 children: [
                   Expanded(
                     child: Center(
-                      child: Text(
+                      child: AutoSizeText(
                         state.game.teams.away.mascot.toUpperCase(),
+                        maxLines: 1,
                         style: Styles.defaultSizeBoldCream,
                       ),
                     ),
                   ),
                   Flexible(
                     flex: 1,
-                    child: Text(
-                      '@',
-                      style: Styles.defaultSizeBoldCream,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: Text(
+                        '@',
+                        style: Styles.defaultSizeBoldCream,
+                      ),
                     ),
                   ),
                   Expanded(
                     child: Center(
-                      child: Text(
+                      child: AutoSizeText(
                         state.game.teams.home.mascot.toUpperCase(),
+                        maxLines: 1,
                         style: GoogleFonts.nunito(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
