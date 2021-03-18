@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -35,58 +36,52 @@ class GameCard extends StatelessWidget {
         if (state is GameCardOpened) {
           return GenericCard(
             widgets: [
-              RichText(
-                text: TextSpan(
-                  style: GoogleFonts.nunito(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Text(
+                    state.game.teams.away.mascot.toUpperCase(),
+                    style: Styles.defaultSizeBoldCream,
                   ),
-                  children: [
-                    TextSpan(
-                      text: state.game.teams.away.mascot.toUpperCase(),
+                  Text(
+                    '  @  ',
+                    style: Styles.defaultSizeBoldCream,
+                  ),
+                  Text(
+                    state.game.teams.home.mascot.toUpperCase(),
+                    style: GoogleFonts.nunito(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Palette.green,
                     ),
-                    const TextSpan(text: '  @  '),
-                    TextSpan(
-                      text: state.game.teams.home.mascot.toUpperCase(),
-                      style: GoogleFonts.nunito(color: Palette.green),
-                    ),
-                  ],
-                ),
+                  )
+                ],
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 4),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
                       DateFormat('EEEE, MMMM, c, y @ hh:mm a').format(
                         state.game.schedule.date.toLocal(),
                       ),
-                      style: GoogleFonts.nunito(
-                        color: Palette.cream,
-                        fontSize: 12,
-                      ),
+                      style: Styles.smallSizeColorCream,
                     ),
-                    RichText(
-                      text: TextSpan(
-                        children: [
-                          TextSpan(
-                            text: 'Starting in',
-                            style: GoogleFonts.nunito(
-                              color: Palette.cream,
-                              fontSize: 10,
-                            ),
-                          ),
-                          TextSpan(
-                            text: '20hr:17m:18s',
-                            style: GoogleFonts.nunito(
-                              color: Palette.red,
-                              fontSize: 10,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                    // RichText(
+                    //   text: TextSpan(
+                    //     children: [
+                    //       TextSpan(
+                    //         text: 'Starting in',
+                    //         style: Styles.moreSmallSizeColorCream,
+                    //       ),
+                    //       TextSpan(
+                    //         text: '20hr:17m:18s',
+                    //         style: Styles.moreSmallSizeColorRed,
+                    //       ),
+                    //     ],
+                    //   ),
+                    // ),
                   ],
                 ),
               ),
@@ -159,14 +154,11 @@ class GameCard extends StatelessWidget {
   }) {
     return SizedBox(
       width: 40,
-      child: Text(
+      child: AutoSizeText(
         text,
+        maxLines: 1,
         textAlign: TextAlign.center,
-        style: GoogleFonts.nunito(
-          color: Palette.cream,
-          fontSize: 18,
-          fontWeight: FontWeight.bold,
-        ),
+        style: Styles.defaultSizeColorCreamBold,
       ),
     );
   }

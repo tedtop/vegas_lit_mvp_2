@@ -3,18 +3,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:vegas_lit/config/palette.dart';
 
 class Styles {
-  // This is for the green page headings, should be green 36 bold with drop shadow
-  static final TextStyle h1 = GoogleFonts.nunito(
-    color: Palette.cream,
-    fontSize: 36.0,
-    fontWeight: FontWeight.w700,
-  );
-
-  // size 36 green bold with drop shadow for page titles
-  // size 24 white for Open Bets "TITANS TO WIN"
-
-  // Buttons styles
-  // size 18 white bold for green buttons & dropdown menus, with drop shadow
   static const double dropShadow = 4.0;
 
   static final ShapeBorder buttonRadius = RoundedRectangleBorder(
@@ -31,68 +19,8 @@ class Styles {
     fontWeight: FontWeight.normal,
   );
 
-  // Card styles
   static final ShapeBorder cardRadius = RoundedRectangleBorder(
     borderRadius: BorderRadius.circular(12.0),
-  );
-
-  // size 18 white regular for red buttons, which drop shadow
-
-  // size 18 white for all default text
-  // size 18 green bold, for green text inline with 18 white text
-
-  // size 14 white for disclaimer text on signup
-  // size 14 bold for social button labels & selected botton nav item
-
-  // size 12 white for game times
-  // size 12 red for game time countdown
-
-  static final TextStyle h2 = GoogleFonts.nunito(
-    color: Palette.cream,
-    fontSize: 20.0,
-    fontWeight: FontWeight.w700,
-  );
-
-  static final TextStyle h3 = GoogleFonts.nunito(
-    color: Palette.cream,
-    fontSize: 14.0,
-    fontWeight: FontWeight.w700,
-  );
-
-  static final TextStyle h4 = GoogleFonts.nunito(
-    color: Palette.cream,
-    fontSize: 12.0,
-    fontWeight: FontWeight.w300,
-  );
-
-  static final TextStyle awayTeam = GoogleFonts.nunito(
-    color: Palette.cream,
-    fontSize: 24.0,
-    fontWeight: FontWeight.w700,
-  );
-
-  static final TextStyle homeTeam = GoogleFonts.nunito(
-    color: Palette.green,
-    fontSize: 24.0,
-    fontWeight: FontWeight.w700,
-  );
-
-  static final TextStyle betBtnText = GoogleFonts.nunito(
-    fontSize: 15.0,
-    fontWeight: FontWeight.normal,
-    color: Palette.cream,
-  );
-
-  static final TextStyle betBtnTextSelected = GoogleFonts.nunito(
-    fontSize: 15.0,
-    fontWeight: FontWeight.w700,
-    color: Palette.darkGrey,
-  );
-
-  static final TextStyle startingTimeText = GoogleFonts.nunito(
-    color: Palette.red,
-    fontSize: 12.0,
-    fontWeight: FontWeight.w300,
   );
 
   static const TextStyle emptySlipText = TextStyle(
@@ -104,5 +32,136 @@ class Styles {
     color: Palette.green,
     fontSize: 30.0,
     fontWeight: FontWeight.w600,
+  );
+
+  /* ---------------------------------------- */
+
+  static final nunitoFont = GoogleFonts.nunito();
+
+  static final defaultSizeBoldCream = GoogleFonts.nunito(
+    fontSize: 18,
+    fontWeight: FontWeight.bold,
+    color: Palette.cream,
+  );
+
+  static final defaultCreamBold = GoogleFonts.nunito(
+    fontSize: 18,
+    fontWeight: FontWeight.w700,
+    color: Palette.cream,
+  );
+
+  static final defaultSizeColorCreamBold = GoogleFonts.nunito(
+    color: Palette.cream,
+    fontSize: 18,
+    fontWeight: FontWeight.bold,
+  );
+
+  static final greenColor = GoogleFonts.nunito(color: Palette.green);
+
+  static final creamColor = GoogleFonts.nunito(
+    color: Palette.cream,
+  );
+
+  static final redColor = GoogleFonts.nunito(
+    color: Palette.red,
+  );
+
+  static final smallSizeColorCream = GoogleFonts.nunito(
+    color: Palette.cream,
+    fontSize: 12,
+  );
+
+  static final moreSmallSizeColorCream = GoogleFonts.nunito(
+    color: Palette.cream,
+    fontSize: 10,
+  );
+
+  static final moreSmallSizeColorRed = GoogleFonts.nunito(
+    color: Palette.red,
+    fontSize: 10,
+  );
+
+  static final creamMediumLessBold = GoogleFonts.nunito(
+    color: Palette.cream,
+    fontSize: 14.0,
+    fontWeight: FontWeight.w700,
+  );
+
+  static final largeGreenBold = GoogleFonts.nunito(
+    fontSize: 36,
+    color: Palette.green,
+    fontWeight: FontWeight.bold,
+  );
+
+  static final smallFontLessBold = GoogleFonts.nunito(
+    fontSize: 16,
+    fontWeight: FontWeight.w300,
+    color: Palette.cream,
+  );
+
+  static final greenBold = GoogleFonts.nunito(
+    color: Palette.green,
+    fontWeight: FontWeight.bold,
+  );
+
+  static final defaultCreamLessBold = GoogleFonts.nunito(
+    fontSize: 18,
+    fontWeight: FontWeight.w300,
+    color: Palette.cream,
+  );
+
+  static final nunitoGreen = GoogleFonts.nunito(color: Palette.green);
+  static final defaultGreen = GoogleFonts.nunito(
+    color: Palette.green,
+    fontSize: 18,
+  );
+  static final smallCream = GoogleFonts.nunito(
+    color: Palette.cream,
+    fontSize: 10,
+  );
+  static final small = GoogleFonts.nunito(
+    fontSize: 10,
+  );
+
+  static final creamLargeBold = GoogleFonts.nunito(
+    fontSize: 24,
+    color: Palette.cream,
+    fontWeight: FontWeight.w700,
+  );
+  static final defaultBoldCream = GoogleFonts.nunito(
+    fontSize: 18,
+    fontWeight: FontWeight.bold,
+    color: Palette.cream,
+  );
+
+  static final defaultCream = GoogleFonts.nunito(
+    fontSize: 18,
+    color: Palette.cream,
+  );
+
+  static final smallCream2 = GoogleFonts.nunito(
+    color: Palette.cream,
+    fontSize: 11,
+  );
+
+  static final smallRed2 = GoogleFonts.nunito(
+    color: Palette.red,
+    fontSize: 11,
+  );
+
+  static final defaultDarkGreyBold = GoogleFonts.nunito(
+    color: Palette.darkGrey,
+    fontSize: 18,
+    fontWeight: FontWeight.bold,
+  );
+
+  static final defaultGreenBold = GoogleFonts.nunito(
+    color: Palette.green,
+    fontSize: 18,
+    fontWeight: FontWeight.bold,
+  );
+
+  static final defaultSize = GoogleFonts.nunito(
+    fontSize: 18,
   );
 }

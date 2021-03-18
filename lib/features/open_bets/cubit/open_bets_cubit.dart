@@ -20,13 +20,20 @@ class OpenBetsCubit extends Cubit<OpenBetsState> {
   StreamSubscription _openBetsSubscription;
 
   Future<void> openBetsOpen({String currentUserId}) async {
-    final openBetsData = _betsRepository.fetchOpenBetsByUserId(currentUserId);
-    await _openBetsSubscription?.cancel();
-    _openBetsSubscription = openBetsData.listen((event) {
-      emit(
-        OpenBetsOpened(openBets: event),
-      );
-    });
+    emit(
+      OpenBetsOpened(
+        openBets: [],
+      ),
+    );
+    // final openBetsData = _betsRepository.fetchOpenBetsByUserId(currentUserId);
+    // await _openBetsSubscription?.cancel();
+    // _openBetsSubscription = openBetsData.listen(
+    //   (event) {
+    //     emit(
+    //       OpenBetsOpened(openBets: event),
+    //     );
+    //   },
+    // );
   }
 
   @override

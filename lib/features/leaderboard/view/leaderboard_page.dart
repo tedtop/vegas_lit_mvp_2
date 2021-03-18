@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
@@ -123,7 +124,11 @@ class TextBar extends StatelessWidget {
             children: [
               Text(
                 text,
-                style: Styles.h3,
+                style: GoogleFonts.nunito(
+                  color: Palette.cream,
+                  fontSize: 14.0,
+                  fontWeight: FontWeight.w700,
+                ),
               ),
               const Icon(
                 Icons.download_rounded,

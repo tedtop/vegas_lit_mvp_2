@@ -5,6 +5,7 @@ import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
 import 'package:vegas_lit/data/models/game.dart';
 import 'package:vegas_lit/features/game_card/game_card.dart';
+import 'package:vegas_lit/features/home/home.dart';
 import 'package:vegas_lit/features/slip/bet_slip.dart';
 
 import '../bloc/sportsbook_bloc.dart';
@@ -52,166 +53,163 @@ class SportsBookView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Text(
-          'SPORTSBOOK',
-          style: GoogleFonts.nunito(
-            color: Palette.green,
-            fontSize: 36,
-            fontWeight: FontWeight.bold,
+    return RefreshIndicator(
+      onRefresh: () async {
+        context.read<SportsbookBloc>().add(
+              SportsbookOpen(gameName: gameName),
+            );
+        context.read<BetSlipCubit>()
+          ..openBetSlip(
+            betSlipGames: [],
+          );
+      },
+      child: ListView(
+        shrinkWrap: true,
+        children: [
+          Text(
+            'SPORTSBOOK',
+            textAlign: TextAlign.center,
+            style: Styles.largeGreenBold,
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            children: [
-              Expanded(
-                flex: 2,
-                child: Card(
-                  elevation: 4,
-                  clipBehavior: Clip.antiAlias,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(6),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              children: [
+                Expanded(
+                  flex: 2,
+                  child: Card(
+                    elevation: 4,
+                    clipBehavior: Clip.antiAlias,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(6),
+                    ),
+                    child: Container(
+                      color: Palette.green,
+                      padding: const EdgeInsets.all(8.0),
+                      height: 40,
+                      width: double.infinity,
+                      child: DropdownButton<String>(
+                        dropdownColor: Palette.green,
+                        isDense: true,
+                        value: '$gameName',
+                        icon: const Icon(
+                          Icons.arrow_circle_down,
+                          color: Palette.cream,
+                        ),
+                        iconSize: 25,
+                        isExpanded: true,
+                        underline: Container(
+                          height: 0,
+                        ),
+                        style: Styles.defaultSize,
+                        onChanged: (String newValue) {
+                          if (newValue != gameName) {
+                            context.read<SportsbookBloc>().add(
+                                  SportsbookOpen(gameName: newValue),
+                                );
+                          }
+                        },
+                        items: <String>[
+                          'NFL',
+                          'NBA',
+                          'MLB',
+                          'NHL',
+                          'NCAAF',
+                          'NCAAB'
+                        ].map<DropdownMenuItem<String>>(
+                          (String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: value == gameName
+                                  ? Center(
+                                      child: Text(
+                                        '$value (${games.length} Games)',
+                                        style: Styles.defaultBoldCream,
+                                      ),
+                                    )
+                                  : Center(
+                                      child: Text(value),
+                                    ),
+                            );
+                          },
+                        ).toList(),
+                      ),
+                    ),
                   ),
-                  child: Container(
-                    color: Palette.green,
-                    padding: const EdgeInsets.all(8.0),
-                    height: 40,
-                    width: double.infinity,
-                    child: DropdownButton<String>(
-                      dropdownColor: Palette.green,
-                      isDense: true,
-                      value: '$gameName',
-                      icon: const Icon(
-                        Icons.arrow_circle_down,
-                        color: Palette.cream,
-                      ),
-                      iconSize: 25,
-                      isExpanded: true,
-                      underline: Container(
-                        height: 0,
-                      ),
-                      style: GoogleFonts.nunito(
-                        fontSize: 18,
-                      ),
-                      onChanged: (String newValue) {
-                        if (newValue != gameName) {
-                          context.read<SportsbookBloc>().add(
-                                SportsbookOpen(gameName: newValue),
-                              );
-                        }
-                      },
-                      items: <String>[
-                        'NFL',
-                        'NBA',
-                        'MLB',
-                        'NHL',
-                        'NCAAF',
-                        'NCAAB'
-                      ].map<DropdownMenuItem<String>>(
-                        (String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: value == gameName
-                                ? Center(
+                ),
+                Expanded(
+                  child: GestureDetector(
+                    onTap: () {
+                      context.read<HomeCubit>().homeChange(1);
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Text(
+                          'BET SLIP',
+                          style: GoogleFonts.nunito(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        BlocBuilder<BetSlipCubit, BetSlipState>(
+                          builder: (context, state) {
+                            switch (state.status) {
+                              case BetSlipStatus.opened:
+                                return Container(
+                                  decoration: BoxDecoration(
+                                    color: Palette.cream,
+                                    borderRadius: BorderRadius.circular(6),
+                                  ),
+                                  height: 40,
+                                  width: 42,
+                                  child: Center(
                                     child: Text(
-                                      '$value (${games.length} Games)',
+                                      state.games.length.toString(),
                                       style: GoogleFonts.nunito(
+                                        color: Palette.darkGrey,
                                         fontSize: 18,
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
-                                  )
-                                : Center(
-                                    child: Text(value),
                                   ),
-                          );
-                        },
-                      ).toList(),
+                                );
+                                break;
+                              default:
+                                return const CircularProgressIndicator();
+                                break;
+                            }
+                          },
+                        ),
+                      ],
                     ),
                   ),
                 ),
-              ),
-              Expanded(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Text(
-                      'BET SLIP',
-                      style: GoogleFonts.nunito(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    BlocBuilder<BetSlipCubit, BetSlipState>(
-                      builder: (context, state) {
-                        switch (state.status) {
-                          case BetSlipStatus.opened:
-                            return Container(
-                              decoration: BoxDecoration(
-                                color: Palette.cream,
-                                borderRadius: BorderRadius.circular(6),
-                              ),
-                              height: 40,
-                              width: 42,
-                              child: Center(
-                                child: Text(
-                                  state.games.length.toString(),
-                                  style: GoogleFonts.nunito(
-                                    color: Palette.darkGrey,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                            );
-                            break;
-                          default:
-                            return const CircularProgressIndicator();
-                            break;
-                        }
-                      },
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-        Expanded(
-          child: RefreshIndicator(
-            onRefresh: () async {
-              context.read<SportsbookBloc>().add(
-                    SportsbookOpen(gameName: gameName),
-                  );
-              context.read<BetSlipCubit>()
-                ..openBetSlip(
-                  betSlipGames: [],
-                );
-            },
-            child: Builder(
-              builder: (context) {
-                if (games.isEmpty) {
-                  return const Center(
-                    child: Text('No Games Found!'),
-                  );
-                } else {
-                  return ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: games.length,
-                    itemBuilder: (context, index) {
-                      return GameCard.route(
-                        game: games[index],
-                      );
-                    },
-                  );
-                }
-              },
+              ],
             ),
           ),
-        ),
-      ],
+          Builder(
+            builder: (context) {
+              if (games.isEmpty) {
+                return const Center(
+                  child: Text('No Games Found!'),
+                );
+              } else {
+                return ListView.builder(
+                  physics: const ClampingScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: games.length,
+                  itemBuilder: (context, index) {
+                    return GameCard.route(
+                      game: games[index],
+                    );
+                  },
+                );
+              }
+            },
+          ),
+        ],
+      ),
     );
   }
 }

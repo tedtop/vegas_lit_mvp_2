@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -104,10 +105,7 @@ class _BetSlipCardViewState extends State<BetSlipCardView> {
       widgets: [
         RichText(
           text: TextSpan(
-            style: GoogleFonts.nunito(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
+            style: Styles.defaultBoldCream,
             children: [
               TextSpan(
                 text: betButtonState.game.teams.away.mascot.toUpperCase(),
@@ -115,7 +113,7 @@ class _BetSlipCardViewState extends State<BetSlipCardView> {
               const TextSpan(text: '  @  '),
               TextSpan(
                 text: betButtonState.game.teams.home.mascot.toUpperCase(),
-                style: GoogleFonts.nunito(color: Palette.green),
+                style: Styles.greenColor,
               ),
             ],
           ),
@@ -123,58 +121,45 @@ class _BetSlipCardViewState extends State<BetSlipCardView> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
+            AutoSizeText(
               '${betButtonState.game.teams.home.mascot.toUpperCase()} TO WIN',
+              maxLines: 1,
               style: GoogleFonts.nunito(
                 fontSize: 18,
-                color: Palette.cream,
                 fontWeight: FontWeight.w700,
+                color: Palette.cream,
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(right: 40),
-              child: Text(
-                betButtonState.text,
-                style: GoogleFonts.nunito(
-                  fontSize: 18,
-                  color: Palette.cream,
-                ),
-              ),
+            AutoSizeText(
+              betButtonState.text,
+              maxLines: 1,
+              style: Styles.defaultCream,
             ),
           ],
         ),
         Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
               DateFormat('EEEE, MMMM, c, y @ hh:mm a').format(
                 betButtonState.game.schedule.date.toLocal(),
               ),
-              style: GoogleFonts.nunito(
-                color: Palette.cream,
-                fontSize: 11,
-              ),
+              style: Styles.smallCream2,
             ),
-            RichText(
-              text: TextSpan(
-                children: [
-                  TextSpan(
-                    text: 'Starting in',
-                    style: GoogleFonts.nunito(
-                      color: Palette.cream,
-                      fontSize: 11,
-                    ),
-                  ),
-                  TextSpan(
-                    text: '20hr:17m:18s',
-                    style: GoogleFonts.nunito(
-                      color: Palette.red,
-                      fontSize: 11,
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            // RichText(
+            //   text: TextSpan(
+            //     children: [
+            //       TextSpan(
+            //         text: 'Starting in',
+            //         style: Styles.smallCream2,
+            //       ),
+            //       TextSpan(
+            //         text: '20hr:17m:18s',
+            //         style: Styles.smallRed2,
+            //       ),
+            //     ],
+            //   ),
+            // ),
           ],
         ),
         Column(
@@ -227,11 +212,8 @@ class _BetSlipCardViewState extends State<BetSlipCardView> {
                                                     },
                                                   );
                                                 },
-                                                style: GoogleFonts.nunito(
-                                                  color: Palette.darkGrey,
-                                                  fontSize: 18,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
+                                                style:
+                                                    Styles.defaultDarkGreyBold,
                                                 keyboardType:
                                                     TextInputType.number,
                                                 textAlign: TextAlign.center,
@@ -279,10 +261,7 @@ class _BetSlipCardViewState extends State<BetSlipCardView> {
                                       child: Center(
                                         child: Text(
                                           'BET AMOUNT',
-                                          style: GoogleFonts.nunito(
-                                            fontSize: 18,
-                                            color: Palette.cream,
-                                          ),
+                                          style: Styles.defaultCream,
                                         ),
                                       ),
                                     )
@@ -353,11 +332,7 @@ class _BetSlipCardViewState extends State<BetSlipCardView> {
                                           Center(
                                             child: Text(
                                               '\$${toWinAmount.toString()}',
-                                              style: GoogleFonts.nunito(
-                                                color: Palette.green,
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.bold,
-                                              ),
+                                              style: Styles.defaultGreenBold,
                                             ),
                                           ),
                                         ],
@@ -384,10 +359,7 @@ class _BetSlipCardViewState extends State<BetSlipCardView> {
                                     child: Center(
                                       child: Text(
                                         'TO WIN',
-                                        style: GoogleFonts.nunito(
-                                          fontSize: 18,
-                                          color: Palette.cream,
-                                        ),
+                                        style: Styles.defaultCream,
                                       ),
                                     ),
                                   )
@@ -424,31 +396,15 @@ class _BetSlipCardViewState extends State<BetSlipCardView> {
                       ],
                     )
                   : Center(
-                      child:
-                          Text('BET PLACED OF \$${betSlipCardState.betAmount}',
-                              style: GoogleFonts.nunito(
-                                fontSize: 18,
-                                color: Palette.cream,
-                              )),
+                      child: Text(
+                        'BET PLACED OF \$${betSlipCardState.betAmount}',
+                        style: Styles.defaultCream,
+                      ),
                     ),
             ),
           ],
         ),
       ],
-    );
-  }
-
-  Widget _betButtonSeparator({
-    String text,
-    TextStyle style,
-  }) {
-    return SizedBox(
-      width: 100,
-      child: Text(
-        text,
-        textAlign: TextAlign.center,
-        style: style ?? Styles.h3,
-      ),
     );
   }
 }

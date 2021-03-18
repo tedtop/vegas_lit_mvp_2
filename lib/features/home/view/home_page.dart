@@ -1,5 +1,7 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:vegas_lit/config/assets.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
@@ -73,9 +75,10 @@ class _HomePageState extends State<HomePage> {
         ),
         actions: [
           Padding(
-            padding: const EdgeInsets.only(right: 8.0),
+            padding: const EdgeInsets.only(right: 9.0, top: 9.0),
             child: Container(
               width: 60,
+              height: 60,
               decoration: const ShapeDecoration(
                 shape: CircleBorder(),
                 color: Palette.green,
@@ -83,13 +86,15 @@ class _HomePageState extends State<HomePage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
+                  AutoSizeText(
                     'Balance',
-                    style: Styles.h3,
+                    style: Styles.creamMediumLessBold,
+                    maxLines: 1,
                   ),
-                  Text(
+                  AutoSizeText(
                     '\$100',
-                    style: Styles.h3,
+                    style: Styles.creamMediumLessBold,
+                    maxLines: 1,
                   ),
                 ],
               ),

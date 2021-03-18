@@ -28,8 +28,9 @@ class OpenBets extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Palette.darkGrey,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
+      child: ListView(
+        shrinkWrap: true,
+        // crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -38,11 +39,7 @@ class OpenBets extends StatelessWidget {
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
                   'OPEN BETS',
-                  style: GoogleFonts.nunito(
-                    fontSize: 36,
-                    color: Palette.green,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: Styles.largeGreenBold,
                 ),
               ),
             ],
@@ -57,10 +54,7 @@ class OpenBets extends StatelessWidget {
             ),
             child: RichText(
               text: TextSpan(
-                style: GoogleFonts.nunito(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w300,
-                ),
+                style: Styles.smallFontLessBold,
                 children: <TextSpan>[
                   const TextSpan(
                     text:
@@ -68,10 +62,7 @@ class OpenBets extends StatelessWidget {
                   ),
                   TextSpan(
                     text: ' BET HISTORY ',
-                    style: GoogleFonts.nunito(
-                      color: Palette.green,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: Styles.greenBold,
                   ),
                   const TextSpan(
                     text: 'page.',
@@ -83,28 +74,32 @@ class OpenBets extends StatelessWidget {
           BlocBuilder<OpenBetsCubit, OpenBetsState>(
             builder: (context, state) {
               if (state is OpenBetsOpened) {
-                if (state.openBets.isEmpty) {
-                  return Center(
-                    child: Text(
-                      'No open bet slips found!',
-                      style: GoogleFonts.nunito(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w300,
-                        color: Palette.cream,
-                      ),
-                    ),
-                  );
-                }
+                // if (state.openBets.isEmpty) {
+                //   return Center(
+                //     child: Text(
+                //       'No open bet slips found!',
+                //       style: Styles.defaultCreamLessBold,
+                //     ),
+                //   );
+                // }
                 return Expanded(
-                  child: ListView.builder(
-                    key: Key('${state.openBets.length}'),
-                    itemCount: state.openBets.length,
-                    itemBuilder: (context, index) {
-                      return OpenBetsSlip(
-                          // openBets: state.openBets[index],
-                          );
-                    },
+                  child: ListView(
+                    shrinkWrap: true,
+                    physics: const ClampingScrollPhysics(),
+                    children: List.generate(
+                      5,
+                      (index) => const OpenBetsSlip(),
+                    ),
                   ),
+                  // child: ListView.builder(
+                  //   key: Key('${state.openBets.length}'),
+                  //   itemCount: state.openBets.length,
+                  //   itemBuilder: (context, index) {
+                  //     return const OpenBetsSlip(
+                  //         // openBets: state.openBets[index],
+                  //         );
+                  //   },
+                  // ),
                 );
               } else {
                 return const CircularProgressIndicator();
@@ -146,11 +141,7 @@ class TextBar extends StatelessWidget {
             children: [
               Text(
                 text,
-                style: GoogleFonts.nunito(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w700,
-                  color: Palette.cream,
-                ),
+                style: Styles.defaultCreamBold,
               ),
               const Icon(
                 LineAwesomeIcons.arrow_circle_down,
