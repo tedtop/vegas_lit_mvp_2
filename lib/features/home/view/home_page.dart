@@ -66,6 +66,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       // backgroundColor: Palette.lightGrey,
       appBar: AppBar(
+        iconTheme: const IconThemeData(color: Palette.cream),
         toolbarHeight: 80.0,
         title: Image.asset(
           Images.topLogo,

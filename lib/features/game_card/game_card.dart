@@ -41,18 +41,17 @@ class GameCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Expanded(
-                    child: Center(
-                      child: AutoSizeText(
-                        state.game.teams.away.mascot.toUpperCase(),
-                        maxLines: 1,
-                        style: Styles.defaultSizeBoldCream,
-                      ),
+                    child: AutoSizeText(
+                      state.game.teams.away.mascot.toUpperCase(),
+                      maxLines: 1,
+                      textAlign: TextAlign.right,
+                      style: Styles.defaultSizeBoldCream,
                     ),
                   ),
                   Flexible(
                     flex: 1,
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      padding: const EdgeInsets.symmetric(horizontal: 18.0),
                       child: Text(
                         '@',
                         style: Styles.defaultSizeBoldCream,
@@ -60,15 +59,14 @@ class GameCard extends StatelessWidget {
                     ),
                   ),
                   Expanded(
-                    child: Center(
-                      child: AutoSizeText(
-                        state.game.teams.home.mascot.toUpperCase(),
-                        maxLines: 1,
-                        style: GoogleFonts.nunito(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Palette.green,
-                        ),
+                    child: AutoSizeText(
+                      state.game.teams.home.mascot.toUpperCase(),
+                      maxLines: 1,
+                      textAlign: TextAlign.left,
+                      style: GoogleFonts.nunito(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Palette.green,
                       ),
                     ),
                   )

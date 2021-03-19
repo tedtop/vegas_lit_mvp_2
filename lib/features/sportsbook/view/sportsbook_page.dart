@@ -150,6 +150,7 @@ class SportsBookView extends StatelessWidget {
                           style: GoogleFonts.nunito(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
+                            color: Palette.cream,
                           ),
                         ),
                         BlocBuilder<BetSlipCubit, BetSlipState>(
