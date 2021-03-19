@@ -103,6 +103,7 @@ class _BetSlipCardViewState extends State<BetSlipCardView> {
     final betButtonState = context.watch<BetButtonCubit>().state;
     final betSlipCardState = context.watch<BetSlipCardCubit>().state;
     return GenericCard(
+      padding: const EdgeInsets.fromLTRB(12.5, 12, 12.5, 0),
       crossAxisAlignment: CrossAxisAlignment.start,
       widgets: [
         RichText(
@@ -121,7 +122,7 @@ class _BetSlipCardViewState extends State<BetSlipCardView> {
           ),
         ),
         Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             AutoSizeText(
               '${betButtonState.game.teams.home.mascot.toUpperCase()} TO WIN',
@@ -131,6 +132,9 @@ class _BetSlipCardViewState extends State<BetSlipCardView> {
                 fontWeight: FontWeight.w700,
                 color: Palette.cream,
               ),
+            ),
+            const SizedBox(
+              width: 20,
             ),
             AutoSizeText(
               betButtonState.text,
@@ -165,8 +169,8 @@ class _BetSlipCardViewState extends State<BetSlipCardView> {
           ],
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(
-            vertical: 8.0,
+          padding: const EdgeInsets.only(
+            top: 8.0,
           ),
           child: betSlipCardState.status == BetSlipCardStatus.opened
               ? Row(
@@ -187,7 +191,7 @@ class _BetSlipCardViewState extends State<BetSlipCardView> {
                                   height: 80,
                                   width: 170,
                                   child: Padding(
-                                    padding: const EdgeInsets.all(15.0),
+                                    padding: const EdgeInsets.all(6.0),
                                     child: Column(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,

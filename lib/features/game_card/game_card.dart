@@ -41,17 +41,18 @@ class GameCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Expanded(
-                    child: AutoSizeText(
-                      state.game.teams.away.mascot.toUpperCase(),
-                      maxLines: 1,
-                      textAlign: TextAlign.right,
-                      style: Styles.defaultSizeBoldCream,
+                    child: Center(
+                      child: Text(
+                        state.game.teams.away.mascot.toUpperCase(),
+                        // maxLines: 1,
+                        textAlign: TextAlign.center,
+                        style: Styles.defaultSizeBoldCream,
+                      ),
                     ),
                   ),
                   Flexible(
-                    flex: 1,
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 18.0),
+                      padding: const EdgeInsets.symmetric(horizontal: 28.0),
                       child: Text(
                         '@',
                         style: Styles.defaultSizeBoldCream,
@@ -59,14 +60,16 @@ class GameCard extends StatelessWidget {
                     ),
                   ),
                   Expanded(
-                    child: AutoSizeText(
-                      state.game.teams.home.mascot.toUpperCase(),
-                      maxLines: 1,
-                      textAlign: TextAlign.left,
-                      style: GoogleFonts.nunito(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Palette.green,
+                    child: Center(
+                      child: Text(
+                        state.game.teams.home.mascot.toUpperCase(),
+                        // maxLines: 1,
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.nunito(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Palette.green,
+                        ),
                       ),
                     ),
                   )

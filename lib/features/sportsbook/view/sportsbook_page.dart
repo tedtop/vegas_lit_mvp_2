@@ -28,6 +28,7 @@ class Sportsbook extends StatelessWidget {
           return SportsBookView(
             games: state.games,
             gameName: state.gameName,
+            gameNumberList: state.gameNumbers,
           );
         } else {
           return const Center(
@@ -44,12 +45,15 @@ class SportsBookView extends StatelessWidget {
     Key key,
     @required this.games,
     @required this.gameName,
+    @required this.gameNumberList,
   })  : assert(games != null),
         assert(gameName != null),
+        assert(gameNumberList != null),
         super(key: key);
 
   final List<Game> games;
   final String gameName;
+  final Map<String, int> gameNumberList;
 
   @override
   Widget build(BuildContext context) {
@@ -118,17 +122,27 @@ class SportsBookView extends StatelessWidget {
                           'NCAAB'
                         ].map<DropdownMenuItem<String>>(
                           (String value) {
+                            int length;
+                            gameNumberList.forEach(
+                              (key, newValue) =>
+                                  key == value ? length = newValue : null,
+                            );
                             return DropdownMenuItem<String>(
                               value: value,
                               child: value == gameName
                                   ? Center(
                                       child: Text(
-                                        '$value (${games.length} Games)',
+                                        '$value ($length Games)',
                                         style: Styles.defaultBoldCream,
                                       ),
                                     )
                                   : Center(
-                                      child: Text(value),
+                                      child: Text(
+                                        '$value ($length Games)',
+                                        style: GoogleFonts.nunito(
+                                          color: Palette.cream,
+                                        ),
+                                      ),
                                     ),
                             );
                           },
@@ -192,8 +206,13 @@ class SportsBookView extends StatelessWidget {
           Builder(
             builder: (context) {
               if (games.isEmpty) {
-                return const Center(
-                  child: Text('No Games Found!'),
+                return Center(
+                  child: Text(
+                    'No Games Found!',
+                    style: GoogleFonts.nunito(
+                      color: Palette.cream,
+                    ),
+                  ),
                 );
               } else {
                 return ListView.builder(

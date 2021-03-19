@@ -6,15 +6,17 @@ class GenericCard extends StatelessWidget {
     Key key,
     @required this.widgets,
     this.crossAxisAlignment = CrossAxisAlignment.center,
+    this.padding = const EdgeInsets.symmetric(horizontal: 12.5, vertical: 12.0),
   }) : super(key: key);
 
   final List<Widget> widgets;
   final CrossAxisAlignment crossAxisAlignment;
+  final EdgeInsetsGeometry padding;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 10),
+      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
       child: Container(
         width: 390,
         decoration: BoxDecoration(
@@ -32,8 +34,7 @@ class GenericCard extends StatelessWidget {
           child: ClipRRect(
             borderRadius: BorderRadius.circular(12),
             child: Container(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
+              padding: padding,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: crossAxisAlignment,

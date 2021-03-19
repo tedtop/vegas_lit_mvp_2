@@ -30,12 +30,34 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
   Stream<SportsbookState> _mapSportsbookOpenToState(
       SportsbookOpen event) async* {
     yield (SportsbookInitial());
+    final list = <String>['NFL', 'NBA', 'MLB', 'NHL', 'NCAAF', 'NCAAB'];
+
+    final gameNumberMap = <String, int>{};
+
+    await Future.wait(
+      list
+          .map(
+            (e) async => await _sportsfeedRepository
+                .fetchGameListByGame(
+              gameName: e,
+            )
+                .then(
+              (value) {
+                gameNumberMap[e] = value.length;
+              },
+            ),
+          )
+          .toList(),
+    );
+
     final games = await _sportsfeedRepository.fetchGameListByGame(
-        gameName: event.gameName);
+      gameName: event.gameName,
+    );
 
     yield SportsbookOpened(
       games: games,
       gameName: event.gameName,
+      gameNumbers: gameNumberMap,
     );
   }
 }
