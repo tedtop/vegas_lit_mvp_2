@@ -27,7 +27,10 @@ class BetSlipCard extends StatefulWidget {
       key: key,
       builder: (context) {
         return BlocProvider<BetSlipCardCubit>(
-          create: (_) => BetSlipCardCubit()..openBetSlipCard(),
+          create: (_) => BetSlipCardCubit()
+            ..openBetSlipCard(
+              betType: betType,
+            ),
           child: BlocProvider.value(
             value: betButtonCubit,
             child: BetSlipCard._(),
@@ -106,40 +109,72 @@ class _BetSlipCardViewState extends State<BetSlipCardView> {
       padding: const EdgeInsets.fromLTRB(12.5, 12, 12.5, 0),
       crossAxisAlignment: CrossAxisAlignment.start,
       widgets: [
-        RichText(
-          text: TextSpan(
-            style: Styles.defaultBoldCream,
-            children: [
-              TextSpan(
-                text: betButtonState.game.teams.away.mascot.toUpperCase(),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Expanded(
+              child: Center(
+                child: Text(
+                  betButtonState.game.teams.away.mascot.toUpperCase(),
+                  // maxLines: 1,
+                  textAlign: TextAlign.center,
+                  style: Styles.defaultSizeBoldCream,
+                ),
               ),
-              const TextSpan(text: '  @  '),
-              TextSpan(
-                text: betButtonState.game.teams.home.mascot.toUpperCase(),
-                style: Styles.greenColor,
+            ),
+            Flexible(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 22.0),
+                child: Text(
+                  '@',
+                  style: Styles.defaultSizeBoldCream,
+                ),
               ),
-            ],
-          ),
+            ),
+            Expanded(
+              child: Center(
+                child: Text(
+                  betButtonState.game.teams.home.mascot.toUpperCase(),
+                  // maxLines: 1,
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.nunito(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Palette.green,
+                  ),
+                ),
+              ),
+            )
+          ],
         ),
         Row(
-          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             AutoSizeText(
               '${betButtonState.game.teams.home.mascot.toUpperCase()} TO WIN',
               maxLines: 1,
               style: GoogleFonts.nunito(
-                fontSize: 18,
-                fontWeight: FontWeight.w700,
+                fontSize: 16,
                 color: Palette.cream,
+                fontWeight: FontWeight.w400,
               ),
             ),
-            const SizedBox(
-              width: 20,
+            AutoSizeText(
+              whichBetSystem(betType: betButtonState.betType),
+              maxLines: 1,
+              style: GoogleFonts.nunito(
+                fontSize: 16,
+                color: Palette.cream,
+                fontWeight: FontWeight.w400,
+              ),
             ),
             AutoSizeText(
               betButtonState.text,
               maxLines: 1,
-              style: Styles.defaultCream,
+              style: GoogleFonts.nunito(
+                fontSize: 16,
+                color: Palette.cream,
+              ),
             ),
           ],
         ),
@@ -209,7 +244,7 @@ class _BetSlipCardViewState extends State<BetSlipCardView> {
                                                   toWinAmount = (100 /
                                                           int.parse(
                                                               betButtonState
-                                                                  .text) *
+                                                                  .mainOdds) *
                                                           int.parse(text))
                                                       .toInt();
                                                 },
@@ -402,5 +437,21 @@ class _BetSlipCardViewState extends State<BetSlipCardView> {
         ),
       ],
     );
+  }
+
+  String whichBetSystem({@required Bet betType}) {
+    if (betType == Bet.ml) {
+      return 'MONEYLINE';
+    }
+    {
+      if (betType == Bet.pts) {
+        return 'POINTS';
+      }
+      if (betType == Bet.tot) {
+        return 'TOTAL';
+      } else {
+        return 'Error';
+      }
+    }
   }
 }

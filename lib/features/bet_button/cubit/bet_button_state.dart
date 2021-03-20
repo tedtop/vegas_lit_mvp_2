@@ -7,6 +7,7 @@ class BetButtonState extends Equatable {
     this.text,
     this.game,
     this.uniqueId,
+    this.mainOdds,
     this.status = BetButtonStatus.loading,
     this.betType,
   });
@@ -17,37 +18,44 @@ class BetButtonState extends Equatable {
       {@required String text,
       @required Game game,
       @required String uniqueId,
+      @required String mainOdds,
       @required Bet betType})
       : this._(
             status: BetButtonStatus.clicked,
             text: text,
             game: game,
             uniqueId: uniqueId,
+            mainOdds: mainOdds,
             betType: betType);
 
   const BetButtonState.unclicked(
       {@required String text,
       @required Game game,
       @required String uniqueId,
+      @required String mainOdds,
       @required Bet betType})
       : this._(
             status: BetButtonStatus.unclicked,
             text: text,
             game: game,
             uniqueId: uniqueId,
+            mainOdds: mainOdds,
             betType: betType);
 
   const BetButtonState.done(
       {@required String text,
       @required Game game,
+      @required String mainOdds,
       @required String uniqueId,
       @required Bet betType})
       : this._(
-            status: BetButtonStatus.done,
-            text: text,
-            game: game,
-            uniqueId: uniqueId,
-            betType: betType);
+          status: BetButtonStatus.done,
+          text: text,
+          game: game,
+          uniqueId: uniqueId,
+          mainOdds: mainOdds,
+          betType: betType,
+        );
 
   // const BetButtonState.error() : this._(status: BetButtonStatus.error);
 
@@ -56,7 +64,8 @@ class BetButtonState extends Equatable {
   final Game game;
   final String uniqueId;
   final Bet betType;
+  final String mainOdds;
 
   @override
-  List<Object> get props => [status, text, game, uniqueId, betType];
+  List<Object> get props => [status, text, game, uniqueId, betType, mainOdds];
 }

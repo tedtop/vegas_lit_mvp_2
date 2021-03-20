@@ -17,11 +17,17 @@ class BetButtonCubit extends Cubit<BetButtonState> {
     @required String text,
     @required Game game,
     @required Bet betType,
+    @required String mainOdds,
   }) {
     final uniqueId = Uuid().v1();
     emit(
       BetButtonState.unclicked(
-          text: text, game: game, uniqueId: uniqueId, betType: betType),
+        text: text,
+        game: game,
+        uniqueId: uniqueId,
+        betType: betType,
+        mainOdds: mainOdds,
+      ),
     );
   }
 
@@ -31,6 +37,7 @@ class BetButtonCubit extends Cubit<BetButtonState> {
           text: state.text,
           game: state.game,
           uniqueId: state.uniqueId,
+          mainOdds: state.mainOdds,
           betType: state.betType),
     );
   }
@@ -39,6 +46,7 @@ class BetButtonCubit extends Cubit<BetButtonState> {
     emit(
       BetButtonState.unclicked(
           text: state.text,
+          mainOdds: state.mainOdds,
           game: state.game,
           uniqueId: state.uniqueId,
           betType: state.betType),
@@ -50,6 +58,7 @@ class BetButtonCubit extends Cubit<BetButtonState> {
       BetButtonState.done(
           text: state.text,
           game: state.game,
+          mainOdds: state.mainOdds,
           uniqueId: state.uniqueId,
           betType: state.betType),
     );

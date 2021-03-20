@@ -6,11 +6,16 @@ class BetSlipCardState extends Equatable {
   const BetSlipCardState._({
     this.status = BetSlipCardStatus.loading,
     this.betAmount,
+    this.betType,
   });
 
   const BetSlipCardState.loading() : this._();
 
-  const BetSlipCardState.opened() : this._(status: BetSlipCardStatus.opened);
+  const BetSlipCardState.opened({@required Bet betType})
+      : this._(
+          status: BetSlipCardStatus.opened,
+          betType: betType,
+        );
 
   const BetSlipCardState.confirmed({@required String betAmount})
       : this._(
@@ -20,7 +25,8 @@ class BetSlipCardState extends Equatable {
 
   final BetSlipCardStatus status;
   final String betAmount;
+  final Bet betType;
 
   @override
-  List<Object> get props => [status, betAmount];
+  List<Object> get props => [status, betAmount, betType];
 }

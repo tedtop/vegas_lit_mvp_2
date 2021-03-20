@@ -68,7 +68,7 @@ class Styles {
 
   static final smallSizeColorCream = GoogleFonts.nunito(
     color: Palette.cream,
-    fontSize: 12,
+    fontSize: 14,
   );
 
   static final moreSmallSizeColorCream = GoogleFonts.nunito(
@@ -148,7 +148,7 @@ class Styles {
 
   static final smallCream2 = GoogleFonts.nunito(
     color: Palette.cream,
-    fontSize: 11,
+    fontSize: 13,
   );
 
   static final smallRed2 = GoogleFonts.nunito(

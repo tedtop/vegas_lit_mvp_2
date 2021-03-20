@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:vegas_lit/config/palette.dart';
 
 class Interstitial extends StatelessWidget {
   const Interstitial._({Key key}) : super(key: key);
@@ -18,12 +20,22 @@ class Interstitial extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text('Interstitial Ad'),
+            Text(
+              'Interstitial Ad',
+              style: GoogleFonts.nunito(
+                color: Palette.cream,
+              ),
+            ),
             const SizedBox(
               height: 20,
             ),
             OutlinedButton(
-              child: const Text('Continue'),
+              child: Text(
+                'Continue',
+                style: GoogleFonts.nunito(
+                  color: Palette.cream,
+                ),
+              ),
               onPressed: () {
                 Navigator.pop(context);
               },

@@ -17,6 +17,7 @@ class BetButton extends StatelessWidget {
     @required String text,
     @required Game game,
     @required Bet betType,
+    @required String mainOdds,
   }) {
     return Builder(
       builder: (context) {
@@ -25,6 +26,7 @@ class BetButton extends StatelessWidget {
             ..openBetButton(
               text: text,
               game: game,
+              mainOdds: mainOdds,
               betType: betType,
             ),
           child: const BetButton._(),
@@ -66,6 +68,7 @@ class BetButtonUnclicked extends StatelessWidget {
         width: 160,
         padding: const EdgeInsets.symmetric(horizontal: 4),
         child: RaisedButton(
+          materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
           elevation: 0,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(6),
@@ -105,6 +108,7 @@ class BetButtonClicked extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 4),
         child: RaisedButton(
           elevation: 4,
+          materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(6),
           ),

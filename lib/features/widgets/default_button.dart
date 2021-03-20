@@ -27,6 +27,7 @@ class DefaultButton extends StatelessWidget {
           vertical: 20.0,
         ),
         child: RaisedButton(
+          materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
           elevation: elevation,
           padding: const EdgeInsets.symmetric(
             vertical: 10,
