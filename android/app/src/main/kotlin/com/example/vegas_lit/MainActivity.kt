@@ -1,4 +1,4 @@
-package com.example.vegas_lit
+package com.vegasLit.sportsbook
 
 import io.flutter.embedding.android.FlutterActivity
 
